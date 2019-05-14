@@ -107,13 +107,29 @@ h4 {
   margin-top: 0.7rem;
   color: #394f7c;
 }
+
 p {
   font-size: calc(0.5vw + 0.5vh + 0.5vmin);
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 48em) {
   .bar {
     flex-direction: column;
+  }
+
+  .bar > div:after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    border-bottom: 1px solid rgb(255, 140, 0);
+  }
+
+  .bar > div:last-child::after {
+    border-bottom: none;
+  }
+  .bar:last-child {
+    border-bottom: none;
   }
 
   p {
