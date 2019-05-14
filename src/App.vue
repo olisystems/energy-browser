@@ -2,18 +2,21 @@
   <div id="app">
     <Header/>
     <Topbar/>
+    <Registration/>
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
 import Topbar from "./components/Topbar.vue";
+import Registration from "./components/Registration.vue";
 
 export default {
   name: "app",
   components: {
     Header,
-    Topbar
+    Topbar,
+    Registration
   }
 };
 </script>
