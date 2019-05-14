@@ -2,67 +2,70 @@
   <div class="registration">
     <div class="registration-body">
       <div class="pro-registration">
-        <div class="producer-heading">
-          <h4>Registered Producers</h4>
-        </div>
-
-        <div class="table box">
-          <v-table :data="producers">
-            <thead slot="head">
-              <v-th sortKey="returnValues[0]">ETH Address</v-th>
-              <th>Owner</th>
-              <v-th sortKey="returnValues[2]">Device Type</v-th>
-              <th>Peak Power (+) [W]</th>
-              <th>Coordinates [Lat-Long]</th>
-              <th>Voltage Level [v]</th>
-              <v-th sortKey="returnValues[8]">Location</v-th>
-              <th>Install Date</th>
-            </thead>
-            <tbody slot="body" slot-scope="{displayData}">
-              <tr v-for="row in displayData" :key="row.returnValues[0]">
-                <td>{{row.returnValues[0]}}</td>
-                <td>{{row.returnValues[1]}}</td>
-                <td>{{row.returnValues[2]}}</td>
-                <td>{{row.returnValues[3]}}</td>
-                <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
-                <td>{{row.returnValues[7]}}</td>
-                <td>{{row.returnValues[8]}}</td>
-                <td>{{row.returnValues[9]}}</td>
-              </tr>
-            </tbody>
-          </v-table>
+        <div class="wrapper">
+          <div class="producer-heading">
+            <h4>Registered Producers</h4>
+          </div>
+          <div class="table">
+            <v-table :data="producers">
+              <thead slot="head">
+                <v-th sortKey="returnValues[0]">ETH Address</v-th>
+                <th>Owner</th>
+                <v-th sortKey="returnValues[2]">Device Type</v-th>
+                <th>Peak Power (+) [W]</th>
+                <th>Coordinates [Lat-Long]</th>
+                <th>Voltage Level [v]</th>
+                <v-th sortKey="returnValues[8]">Location</v-th>
+                <th>Install Date</th>
+              </thead>
+              <tbody slot="body" slot-scope="{displayData}">
+                <tr v-for="row in displayData" :key="row.returnValues[0]">
+                  <td>{{row.returnValues[0]}}</td>
+                  <td>{{row.returnValues[1]}}</td>
+                  <td>{{row.returnValues[2]}}</td>
+                  <td>{{row.returnValues[3]}}</td>
+                  <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
+                  <td>{{row.returnValues[7]}}</td>
+                  <td>{{row.returnValues[8]}}</td>
+                  <td>{{row.returnValues[9]}}</td>
+                </tr>
+              </tbody>
+            </v-table>
+          </div>
         </div>
       </div>
 
       <div class="cons-registration">
-        <div class="consumer-heading">
-          <h4>Registered Consumers</h4>
-        </div>
-        <div class="table box">
-          <v-table :data="consumers">
-            <thead slot="head">
-              <v-th sortKey="returnValues[0]">ETH Address</v-th>
-              <th>Owner</th>
-              <v-th sortKey="returnValues[2]">Device Type</v-th>
-              <th>Peak Power (-) [W]</th>
-              <th>Coordinates [Lat-Long]</th>
-              <th>Voltage Level [v]</th>
-              <v-th sortKey="returnValues[8]">Location</v-th>
-              <th>Install Date</th>
-            </thead>
-            <tbody slot="body" slot-scope="{displayData}">
-              <tr v-for="row in displayData" :key="row.returnValues[0]">
-                <td>{{row.returnValues[0]}}</td>
-                <td>{{row.returnValues[1]}}</td>
-                <td>{{row.returnValues[2]}}</td>
-                <td>{{row.returnValues[3]}}</td>
-                <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
-                <td>{{row.returnValues[7]}}</td>
-                <td>{{row.returnValues[8]}}</td>
-                <td>{{row.returnValues[9]}}</td>
-              </tr>
-            </tbody>
-          </v-table>
+        <div class="wrapper">
+          <div class="consumer-heading">
+            <h4>Registered Consumers</h4>
+          </div>
+          <div class="table box">
+            <v-table :data="consumers">
+              <thead slot="head">
+                <v-th sortKey="returnValues[0]">ETH Address</v-th>
+                <th>Owner</th>
+                <v-th sortKey="returnValues[2]">Device Type</v-th>
+                <th>Peak Power (-) [W]</th>
+                <th>Coordinates [Lat-Long]</th>
+                <th>Voltage Level [v]</th>
+                <v-th sortKey="returnValues[8]">Location</v-th>
+                <th>Install Date</th>
+              </thead>
+              <tbody slot="body" slot-scope="{displayData}">
+                <tr v-for="row in displayData" :key="row.returnValues[0]">
+                  <td>{{row.returnValues[0]}}</td>
+                  <td>{{row.returnValues[1]}}</td>
+                  <td>{{row.returnValues[2]}}</td>
+                  <td>{{row.returnValues[3]}}</td>
+                  <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
+                  <td>{{row.returnValues[7]}}</td>
+                  <td>{{row.returnValues[8]}}</td>
+                  <td>{{row.returnValues[9]}}</td>
+                </tr>
+              </tbody>
+            </v-table>
+          </div>
         </div>
       </div>
     </div>
@@ -152,18 +155,28 @@ export default {
   padding: 20px;
 }
 
+.wrapper {
+  border: 1px solid #dee2e6;
+  background: white;
+  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); */
+  padding-top: 2px;
+  border-radius: 2px;
+}
+
 .producer-heading {
-  background-color: #cdf1c3;
-  margin-bottom: 0;
+  /* background-color: #cdf1c3; */
+  margin-bottom: 1rem;
   padding: 2px;
   text-align: left;
+  border-bottom: 2px solid #e1dfe2;
 }
 
 .consumer-heading {
-  background-color: #ccb9da;
-  margin-bottom: 0;
+  /* background-color: #ccb9da; */
+  margin-bottom: 1rem;
   padding: 2px;
   text-align: left;
+  border-bottom: 2px solid #e1dfe2;
 }
 
 h4 {
@@ -181,7 +194,7 @@ tbody {
 }
 
 th {
-  background-color: #c8c5ca;
+  background-color: #e1dfe2;
   padding: 0.2rem;
   font-size: 0.8rem;
 }
@@ -208,12 +221,6 @@ td {
 
 tbody > tr:last-child > td {
   border-bottom: none;
-}
-
-.box {
-  background: white;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-  padding-top: 2px;
 }
 
 @media only screen and (max-width: 48em) {
