@@ -40,6 +40,7 @@ export default {
   padding: 0;
   list-style: none;
   overflow: hidden;
+  text-align: left;
 }
 
 .header li a {
