@@ -38,4 +38,10 @@ export default {
 body {
   margin: 0;
 }
+
+.table-wrapper {
+  border: #dee2e6 1.3px solid;
+  margin: 0.5rem;
+  border-radius: 2px;
+}
 </style>
