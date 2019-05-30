@@ -38,7 +38,9 @@ export default {
 body {
   margin: 0;
 }
-
+.modebar {
+  display: none !important;
+}
 .table-wrapper {
   border: #dee2e6 1.3px solid;
   margin: 0.5rem;
