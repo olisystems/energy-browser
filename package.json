@@ -7,10 +7,6 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
-  "dependencies": {
-    "core-js": "^2.6.5",
-    "vue": "^2.6.10"
-  },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
@@ -26,7 +22,7 @@
     "express": "^4.16.4",
     "jquery": "^3.4.1",
     "leaflet": "^1.5.1",
-    "plotly.js-dist": "^1.47.4",
+    "plotly.js-dist": "^1.48.0",
     "vue-template-compiler": "^2.5.21",
     "vuejs-smart-table": "0.0.5",
     "web3": "^1.0.0-beta.55"
