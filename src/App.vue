@@ -3,6 +3,7 @@
     <Header/>
     <Topbar/>
     <Registration/>
+    <TransactionHistory/>
   </div>
 </template>
 
@@ -10,13 +11,15 @@
 import Header from "./components/Header.vue";
 import Topbar from "./components/Topbar.vue";
 import Registration from "./components/Registration.vue";
+import TransactionHistory from "./components/TransactionHistory.vue";
 
 export default {
   name: "app",
   components: {
     Header,
     Topbar,
-    Registration
+    Registration,
+    TransactionHistory
   }
 };
 </script>
