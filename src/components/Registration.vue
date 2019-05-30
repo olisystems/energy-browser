@@ -7,30 +7,32 @@
             <h4>Registered Producers</h4>
           </div>
           <div class="table">
-            <v-table :data="producers">
-              <thead slot="head">
-                <v-th sortKey="returnValues[0]">ETH Address</v-th>
-                <th>Owner</th>
-                <v-th sortKey="returnValues[2]">Device Type</v-th>
-                <th>Peak Power (+) [W]</th>
-                <th>Coordinates [Lat-Long]</th>
-                <th>Voltage Level [v]</th>
-                <v-th sortKey="returnValues[8]">Location</v-th>
-                <th>Install Date</th>
-              </thead>
-              <tbody slot="body" slot-scope="{displayData}">
-                <tr v-for="row in displayData" :key="row.returnValues[0]">
-                  <td>{{row.returnValues[0]}}</td>
-                  <td>{{row.returnValues[1]}}</td>
-                  <td>{{row.returnValues[2]}}</td>
-                  <td>{{row.returnValues[3]}}</td>
-                  <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
-                  <td>{{row.returnValues[7]}}</td>
-                  <td>{{row.returnValues[8]}}</td>
-                  <td>{{row.returnValues[9]}}</td>
-                </tr>
-              </tbody>
-            </v-table>
+            <div class="table-wrapper">
+              <v-table :data="producers">
+                <thead slot="head">
+                  <v-th sortKey="returnValues[0]">ETH Address</v-th>
+                  <th>Owner</th>
+                  <v-th sortKey="returnValues[2]">Device Type</v-th>
+                  <th>Peak Power (+) [W]</th>
+                  <th>Coordinates [Lat-Long]</th>
+                  <th>Voltage Level [v]</th>
+                  <v-th sortKey="returnValues[8]">Location</v-th>
+                  <th>Install Date</th>
+                </thead>
+                <tbody slot="body" slot-scope="{displayData}">
+                  <tr v-for="row in displayData" :key="row.returnValues[0]">
+                    <td>{{row.returnValues[0]}}</td>
+                    <td>{{row.returnValues[1]}}</td>
+                    <td>{{row.returnValues[2]}}</td>
+                    <td>{{row.returnValues[3]}}</td>
+                    <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
+                    <td>{{row.returnValues[7]}}</td>
+                    <td>{{row.returnValues[8]}}</td>
+                    <td>{{row.returnValues[9]}}</td>
+                  </tr>
+                </tbody>
+              </v-table>
+            </div>
           </div>
         </div>
       </div>
@@ -40,31 +42,33 @@
           <div class="consumer-heading">
             <h4>Registered Consumers</h4>
           </div>
-          <div class="table box">
-            <v-table :data="consumers">
-              <thead slot="head">
-                <v-th sortKey="returnValues[0]">ETH Address</v-th>
-                <th>Owner</th>
-                <v-th sortKey="returnValues[2]">Device Type</v-th>
-                <th>Peak Power (-) [W]</th>
-                <th>Coordinates [Lat-Long]</th>
-                <th>Voltage Level [v]</th>
-                <v-th sortKey="returnValues[8]">Location</v-th>
-                <th>Install Date</th>
-              </thead>
-              <tbody slot="body" slot-scope="{displayData}">
-                <tr v-for="row in displayData" :key="row.returnValues[0]">
-                  <td>{{row.returnValues[0]}}</td>
-                  <td>{{row.returnValues[1]}}</td>
-                  <td>{{row.returnValues[2]}}</td>
-                  <td>{{row.returnValues[3]}}</td>
-                  <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
-                  <td>{{row.returnValues[7]}}</td>
-                  <td>{{row.returnValues[8]}}</td>
-                  <td>{{row.returnValues[9]}}</td>
-                </tr>
-              </tbody>
-            </v-table>
+          <div class="table">
+            <div class="table-wrapper">
+              <v-table :data="consumers">
+                <thead slot="head">
+                  <v-th sortKey="returnValues[0]">ETH Address</v-th>
+                  <th>Owner</th>
+                  <v-th sortKey="returnValues[2]">Device Type</v-th>
+                  <th>Peak Power (-) [W]</th>
+                  <th>Coordinates [Lat-Long]</th>
+                  <th>Voltage Level [v]</th>
+                  <v-th sortKey="returnValues[8]">Location</v-th>
+                  <th>Install Date</th>
+                </thead>
+                <tbody slot="body" slot-scope="{displayData}">
+                  <tr v-for="row in displayData" :key="row.returnValues[0]">
+                    <td>{{row.returnValues[0]}}</td>
+                    <td>{{row.returnValues[1]}}</td>
+                    <td>{{row.returnValues[2]}}</td>
+                    <td>{{row.returnValues[3]}}</td>
+                    <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
+                    <td>{{row.returnValues[7]}}</td>
+                    <td>{{row.returnValues[8]}}</td>
+                    <td>{{row.returnValues[9]}}</td>
+                  </tr>
+                </tbody>
+              </v-table>
+            </div>
           </div>
         </div>
       </div>
@@ -101,7 +105,6 @@ export default {
               this.producers.push(element);
             });
           }
-          console.log(this.producers);
         }
       );
     },
@@ -120,17 +123,16 @@ export default {
               this.consumers.push(element);
             });
           }
-          console.log(this.consumers);
         }
       );
     },
-    callFunc() {
+    callFunction() {
       this.getProRegistration();
       this.getConsRegistration();
     }
   },
   created() {
-    this.callFunc();
+    this.callFunction();
   }
 };
 </script>
@@ -138,8 +140,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .registration {
-  /* background-color: rgb(221, 235, 240); */
   background-color: #f3f3f3;
+  /* background-color: #f7f7f7; */
+  /* background-color: rgba(238, 245, 249, 0.72); */
 }
 
 .registration-body {
@@ -152,41 +155,36 @@ export default {
 .cons-registration {
   width: 47%;
   flex-direction: column;
-  padding: 20px;
+  padding: 1.5rem;
 }
 
 .wrapper {
   border: 1px solid #dee2e6;
-  background: white;
+  background: rgb(255, 255, 255);
   /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); */
-  padding-top: 2px;
   border-radius: 2px;
 }
 
 .producer-heading {
   /* background-color: #cdf1c3; */
-  margin-bottom: 1rem;
-  padding: 2px;
   text-align: left;
-  border-bottom: 2px solid #e1dfe2;
+  border-bottom: 1.5px solid #e1dfe2;
 }
 
 .consumer-heading {
   /* background-color: #ccb9da; */
-  margin-bottom: 1rem;
-  padding: 2px;
   text-align: left;
-  border-bottom: 2px solid #e1dfe2;
+  border-bottom: 1.5px solid #e1dfe2;
 }
 
 h4 {
-  margin-left: 20px;
+  margin-left: 1.5rem;
 }
 
 .table table {
   table-layout: fixed;
   width: 100%;
-  padding: 10px;
+  padding: 0.5rem;
 }
 
 tbody {
