@@ -68,7 +68,7 @@ export default {
           this.latestBlock = blockNumber;
           $(".block-loader").hide();
         });
-      }, 3000);
+      }, 60000);
     },
     getTransactions() {
       setInterval(() => {
@@ -76,7 +76,7 @@ export default {
           this.transactions = count;
           $(".tx-loader").hide();
         });
-      }, 3000);
+      }, 60000);
     },
     getGasPrice() {
       setInterval(() => {
@@ -84,7 +84,7 @@ export default {
           this.gas = (price / 1000000).toFixed(2);
           $(".gas-loader").hide();
         });
-      }, 3000);
+      }, 60000);
     },
     callFunc() {
       this.getProducers();
