@@ -4,7 +4,7 @@
       <div class="real-time-production">
         <div class="production">
           <div class="wrapper">
-            <div class="header">
+            <div class="table-header">
               <h4>Real Time Energy Production</h4>
             </div>
             <div class="table">
@@ -36,7 +36,7 @@
 
       <div class="graph">
         <div class="wrapper">
-          <div class="header">
+          <div class="table-header">
             <h4>Energy Production & Consumption per Block</h4>
           </div>
           <div class="plot-wrapper">
@@ -53,7 +53,7 @@
       <div class="real-time-consumption">
         <div class="consumption">
           <div class="wrapper">
-            <div class="header">
+            <div class="table-header">
               <h4>Real Time Energy Consumption</h4>
             </div>
             <div class="table">
@@ -139,7 +139,6 @@ export default {
     getRealTimeEnergy() {
       setInterval(async () => {
         const block = await web3.eth.getBlock("latest", true);
-        console.log(block.timestamp);
         let production = 0;
         let consumption = 0;
 
@@ -302,27 +301,8 @@ export default {
   padding: 1rem;
 }
 
-.wrapper {
-  border: 1px solid #dee2e6;
-  background: rgb(255, 255, 255);
-  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); */
-  border-radius: 2px;
-}
-
-.header {
+.table-header {
   margin-bottom: 0.5rem;
-  text-align: left;
-  border-bottom: 2px solid #e1dfe2;
-}
-
-h4 {
-  margin-left: 1.5rem;
-}
-
-.table table {
-  table-layout: fixed;
-  width: 100%;
-  padding: 1rem;
 }
 
 .table {
@@ -337,35 +317,10 @@ tbody {
 
 th {
   background-color: #e1dfe2;
-  padding: 0.2rem;
   font-size: 0.8rem;
   position: sticky;
   z-index: 5;
   top: 0;
-}
-
-td,
-th {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 0.5rem;
-  font-size: 0.8rem;
-}
-
-/* th:hover,
-td:hover {
-  overflow-x: visible;
-  height: auto;
-  white-space: normal;
-} */
-
-td {
-  border-bottom: 1px solid #cccccc;
-}
-
-tbody > tr:last-child > td {
-  border-bottom: none;
 }
 
 h5 {
