@@ -41,7 +41,7 @@
           </div>
           <div class="plot-wrapper">
             <div id="plot">
-              <div class="loader loader-plot">
+              <div class="loader-plot">
                 <h5>Loading...</h5>
                 <img src="../assets/img/loader.svg" alt="spinner by loading.io">
               </div>
@@ -265,8 +265,8 @@ export default {
           pad: 10
         }
       };
-      $(".loader").hide();
       Plotly.newPlot("plot", data, layout, { responsive: true });
+      $(".plot-loader").hide();
     },
     callFunction() {
       this.watchRealTimeProduction();
@@ -326,7 +326,7 @@ h4 {
 }
 
 .table {
-  height: 400px;
+  height: 300px;
   overflow-y: auto;
 }
 
@@ -373,11 +373,11 @@ h5 {
 }
 
 .loader {
-  margin-top: 6rem;
+  margin-top: 3rem;
 }
 
 .loader-plot {
-  margin-top: 10rem;
+  margin-top: 7rem;
 }
 
 img {
@@ -391,13 +391,13 @@ img {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  min-height: 385px;
+  min-height: 285px;
 }
 
 #plot {
   width: 100%;
   padding: 0.5rem;
-  min-height: 350px;
+  min-height: 250px;
 }
 
 @media only screen and (max-width: 1000px) {
