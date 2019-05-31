@@ -293,10 +293,13 @@ export default {
 }
 
 .real-time-production,
-.real-time-consumption,
+.real-time-consumption {
+  width: 25%;
+  padding: 1rem;
+}
 .graph {
-  width: 33%;
-  padding: 1.5rem;
+  width: 45%;
+  padding: 1rem;
 }
 
 .wrapper {
@@ -407,6 +410,15 @@ img {
   .real-time-consumption,
   .graph {
     width: 100%;
+  }
+  th:nth-child(1) {
+    width: 10rem;
+  }
+  th:nth-child(2) {
+    width: 8rem;
+  }
+  th:nth-child(3) {
+    width: 5rem;
   }
 }
 </style>
