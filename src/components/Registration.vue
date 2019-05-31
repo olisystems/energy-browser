@@ -1,7 +1,7 @@
 <template>
-  <div class="registration">
-    <div class="registration-body">
-      <div class="pro-registration">
+  <div class="main">
+    <div class="container">
+      <div class="col-1">
         <div class="wrapper">
           <div class="table-header">
             <h4>Registered Producers</h4>
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="cons-registration">
+      <div class="col-2">
         <div class="wrapper">
           <div class="table-header">
             <h4>Registered Consumers</h4>
@@ -139,36 +139,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.registration {
+.main {
   background-color: #f3f3f3;
   /* background-color: #f7f7f7; */
   /* background-color: rgba(238, 245, 249, 0.72); */
 }
 
-.registration-body {
-  display: flex;
-  justify-content: space-between;
-  margin: 0.5rem 2.5rem;
-}
-
-.pro-registration,
-.cons-registration {
+.col-1,
+.col-2 {
   width: 50%;
   flex-direction: column;
   padding: 1rem;
 }
 
 @media only screen and (max-width: 48em) {
-  .registration-body {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .pro-registration,
-  .cons-registration {
+  .col-1,
+  .col-2 {
     width: 100%;
   }
-
   th:nth-child(4),
   td:nth-child(4),
   th:nth-child(6),

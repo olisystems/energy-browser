@@ -1,7 +1,7 @@
 <template>
-  <div class="live-transactions">
-    <div class="live-tx-body">
-      <div class="real-time-production">
+  <div class="main">
+    <div class="container">
+      <div class="col-1">
         <div class="production">
           <div class="wrapper">
             <div class="table-header">
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="graph">
+      <div class="col-2">
         <div class="wrapper">
           <div class="table-header">
             <h4>Energy Production & Consumption per Block</h4>
@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <div class="real-time-consumption">
+      <div class="col-3">
         <div class="consumption">
           <div class="wrapper">
             <div class="table-header">
@@ -282,21 +282,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.live-transactions {
+.main {
   background-color: #f7f7f7;
 }
-.live-tx-body {
-  display: flex;
-  justify-content: space-between;
-  margin: 0.5rem 2.5rem;
-}
 
-.real-time-production,
-.real-time-consumption {
+.col-1,
+.col-3 {
   width: 25%;
   padding: 1rem;
 }
-.graph {
+.col-2 {
   width: 45%;
   padding: 1rem;
 }
@@ -356,16 +351,12 @@ img {
 }
 
 @media only screen and (max-width: 1000px) {
-  .live-tx-body {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .real-time-production,
-  .real-time-consumption,
-  .graph {
+  .col-1,
+  .col-2,
+  .col-3 {
     width: 100%;
   }
+
   th:nth-child(1) {
     width: 10rem;
   }
