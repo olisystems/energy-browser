@@ -26,7 +26,7 @@
               </div>
 
               <div class="loader">
-                <h5>Loading data from latest block...</h5>
+                <h5>Loading...</h5>
                 <img src="../assets/img/loader.svg" alt="spinner by loading.io">
               </div>
             </div>
@@ -40,7 +40,12 @@
             <h4>Energy Production & Consumption per Block</h4>
           </div>
           <div class="plot-wrapper">
-            <div id="plot"></div>
+            <div id="plot">
+              <div class="loader loader-plot">
+                <h5>Loading...</h5>
+                <img src="../assets/img/loader.svg" alt="spinner by loading.io">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -70,7 +75,7 @@
                 </v-table>
               </div>
               <div class="loader">
-                <h5>Loading data from latest block...</h5>
+                <h5>Loading...</h5>
                 <img src="../assets/img/loader.svg" alt="spinner by loading.io">
               </div>
             </div>
@@ -170,7 +175,6 @@ export default {
           consumption: consumption,
           time: block.timestamp
         });
-        console.log(this.productionLiveData);
         this.plotLiveData();
       }, 60000);
     },
@@ -261,7 +265,7 @@ export default {
           pad: 10
         }
       };
-
+      $(".loader").hide();
       Plotly.newPlot("plot", data, layout, { responsive: true });
     },
     callFunction() {
@@ -367,6 +371,10 @@ h5 {
 
 .loader {
   margin-top: 6rem;
+}
+
+.loader-plot {
+  margin-top: 10rem;
 }
 
 img {
