@@ -46,6 +46,12 @@ h4 {
   margin-left: 1.5rem;
 }
 
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 2rem;
+}
+
 /* hide plotly toolbar */
 .modebar {
   display: none !important;
@@ -109,5 +115,12 @@ td {
 
 tbody > tr:last-child > td {
   border-bottom: none;
+}
+
+@media only screen and (max-width: 48em) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>
