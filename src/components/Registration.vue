@@ -3,7 +3,7 @@
     <div class="registration-body">
       <div class="pro-registration">
         <div class="wrapper">
-          <div class="producer-heading">
+          <div class="table-header">
             <h4>Registered Producers</h4>
           </div>
           <div class="table">
@@ -39,7 +39,7 @@
 
       <div class="cons-registration">
         <div class="wrapper">
-          <div class="consumer-heading">
+          <div class="table-header">
             <h4>Registered Consumers</h4>
           </div>
           <div class="table">
@@ -156,69 +156,6 @@ export default {
   width: 50%;
   flex-direction: column;
   padding: 1rem;
-}
-
-.wrapper {
-  border: 1px solid #dee2e6;
-  background: rgb(255, 255, 255);
-  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); */
-  border-radius: 2px;
-}
-
-.producer-heading {
-  /* background-color: #cdf1c3; */
-  text-align: left;
-  border-bottom: 1.5px solid #e1dfe2;
-}
-
-.consumer-heading {
-  /* background-color: #ccb9da; */
-  text-align: left;
-  border-bottom: 1.5px solid #e1dfe2;
-}
-
-h4 {
-  margin-left: 1.5rem;
-}
-
-.table table {
-  table-layout: fixed;
-  width: 100%;
-  padding: 0.5rem;
-}
-
-tbody {
-  text-align: center;
-}
-
-th {
-  background-color: #e1dfe2;
-  padding: 0.2rem;
-  font-size: 0.8rem;
-}
-
-td,
-th {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 0.5rem;
-  font-size: 0.8rem;
-}
-
-/* th:hover,
-td:hover {
-  overflow-x: visible;
-  height: auto;
-  white-space: normal;
-} */
-
-td {
-  border-bottom: 1px solid #cccccc;
-}
-
-tbody > tr:last-child > td {
-  border-bottom: none;
 }
 
 @media only screen and (max-width: 48em) {
