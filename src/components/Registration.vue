@@ -153,9 +153,9 @@ export default {
 
 .pro-registration,
 .cons-registration {
-  width: 47%;
+  width: 50%;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: 1rem;
 }
 
 .wrapper {
