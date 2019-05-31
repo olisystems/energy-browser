@@ -96,7 +96,7 @@ import Plotly from "plotly.js-dist";
 import { timeout } from "q";
 
 export default {
-  name: "TransactionHistory",
+  name: "RealTimeEnergy",
   data() {
     return {
       production: [],

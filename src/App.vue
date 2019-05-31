@@ -3,7 +3,7 @@
     <Header/>
     <Topbar/>
     <Registration/>
-    <TransactionHistory/>
+    <RealTimeEnergy/>
   </div>
 </template>
 
@@ -11,7 +11,7 @@
 import Header from "./components/Header.vue";
 import Topbar from "./components/Topbar.vue";
 import Registration from "./components/Registration.vue";
-import TransactionHistory from "./components/TransactionHistory.vue";
+import RealTimeEnergy from "./components/RealTimeEnergy.vue";
 
 export default {
   name: "app",
@@ -19,7 +19,7 @@ export default {
     Header,
     Topbar,
     Registration,
-    TransactionHistory
+    RealTimeEnergy
   }
 };
 </script>
