@@ -132,11 +132,37 @@ export default {
 };
 </script>
 <style scoped>
+.main {
+  background-color: #f7f7f7;
+}
+
 .col-1,
 .col-2 {
   width: 50%;
   flex-direction: column;
   padding: 1rem;
+}
+
+.table-header {
+  margin-bottom: 0.5rem;
+}
+
+.table {
+  height: 250px;
+  overflow-y: auto;
+}
+
+tbody {
+  text-align: center;
+  height: 100px;
+}
+
+th {
+  background-color: #e1dfe2;
+  font-size: 0.8rem;
+  position: sticky;
+  z-index: 5;
+  top: 0;
 }
 
 @media only screen and (max-width: 1000px) {
