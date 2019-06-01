@@ -7,7 +7,7 @@
             <h4>Producer's Transaction History</h4>
           </div>
           <div class="account-header">
-            <h4>Account Address</h4>
+            <h4>Account Address: {{producerAddress}}</h4>
           </div>
           <div class="table">
             <div class="table-wrapper">
@@ -36,11 +36,11 @@
       <div class="col-2">
         <div class="wrapper">
           <div class="table-header">
-            <h4>Producer's Transaction History</h4>
+            <h4>Consumer's Transaction History</h4>
           </div>
 
           <div class="account-header">
-            <h4>Account Address</h4>
+            <h4>Account Address: {{consumerAddress}}</h4>
           </div>
           <div class="table">
             <div class="table-wrapper">
@@ -67,6 +67,46 @@
         </div>
       </div>
     </div>
+    <!-- list of producers and consumers -->
+    <div class="container">
+      <div class="col-1">
+        <div class="wrapper">
+          <div class="table-header">
+            <h4>List of Registered Producers</h4>
+          </div>
+
+          <div class="producer-list">
+            <ol>
+              <li
+                v-on:click="getProducerHistory"
+                v-for="(item, index) in producers"
+                v-bind:key="index"
+              >{{item}}</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3">map</div>
+
+      <div class="col-2">
+        <div class="wrapper">
+          <div class="table-header">
+            <h4>List of Registered Consumers</h4>
+          </div>
+          <div class="consumer-list">
+            <ol>
+              <li
+                v-on:click="getConsumerHistory"
+                v-for="(item, index) in consumers"
+                v-bind:key="index"
+              >{{item}}</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container"></div>
   </div>
 </template>
 <script>
@@ -80,20 +120,25 @@ export default {
   name: "TransactionHistory",
   data() {
     return {
+      producers: [],
+      consumers: [],
       producer: [],
       consumer: [],
-      account: "0x062c52E81f8ce863BE079CB88cbbe877799f694A"
+      producerAddress: "",
+      consumerAddress: ""
     };
   },
   methods: {
     getProducerHistory() {
+      this.producer = [];
+      this.producerAddress = event.target.innerHTML;
       productionContract
         .getPastEvents("ProTransactionEvent", {
-          fromBlock: 24959
+          fromBlock: 0
         })
         .then(events => {
           events.forEach(event => {
-            if (event.returnValues[0] === this.account) {
+            if ((event.oliAddr = this.producerAddress)) {
               this.producer.push({
                 time: timeConverter(event.returnValues[1]),
                 power: event.returnValues[2],
@@ -104,15 +149,23 @@ export default {
             }
           });
         });
+      // removing the background color for ul-selected items
+      document.querySelectorAll(".producer-list > ol>li").forEach(list => {
+        list.classList.remove("active");
+      });
+      // add background to selected account
+      event.target.classList.add("active");
     },
     getConsumerHistory() {
+      this.consumer = [];
+      this.consumerAddress = event.target.innerHTML;
       consumptionContract
         .getPastEvents("ConsTransactionEvent", {
-          fromBlock: 24959
+          fromBlock: "latest"
         })
         .then(events => {
           events.forEach(event => {
-            if (event.returnValues[0] === this.account) {
+            if ((event.oliAddr = this.consumerAddress)) {
               this.consumer.push({
                 time: timeConverter(event.returnValues[1]),
                 power: event.returnValues[2],
@@ -123,11 +176,45 @@ export default {
             }
           });
         });
+      // removing the background color for ul-selected items
+      document.querySelectorAll(".consumer-list > ol>li").forEach(list => {
+        list.classList.remove("active");
+      });
+      // add background to selected account
+      event.target.classList.add("active");
+    },
+    // producer accounts list
+    getProducerList() {
+      productionContract.methods
+        .getProAccntsList()
+        .call()
+        .then(list => {
+          // remove first 0x00 account
+          list.shift();
+          // push each item to array
+          list.forEach(item => {
+            this.producers.push(item);
+          });
+        });
+    },
+    // producer accounts list
+    getConsumerList() {
+      consumptionContract.methods
+        .getConsAccntsList()
+        .call()
+        .then(list => {
+          // remove first 0x00 account
+          list.shift();
+          // push each item to array
+          list.forEach(item => {
+            this.consumers.push(item);
+          });
+        });
     }
   },
   created() {
-    this.getProducerHistory();
-    this.getConsumerHistory();
+    this.getProducerList();
+    this.getConsumerList();
   }
 };
 </script>
@@ -141,6 +228,10 @@ export default {
   width: 50%;
   flex-direction: column;
   padding: 1rem;
+}
+
+h4 {
+  text-align: left;
 }
 
 .table-header {
@@ -163,6 +254,49 @@ th {
   position: sticky;
   z-index: 5;
   top: 0;
+}
+
+/* list style */
+
+ol > li {
+  list-style-position: inside;
+  padding: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: -25px;
+  margin-right: 15px;
+  text-align: left;
+}
+
+ol > li:after {
+  content: "";
+  display: block;
+  width: 85%;
+  padding-top: 0.5em;
+  border-bottom: 1px solid rgb(206, 204, 204);
+}
+
+ol > li:last-child:after {
+  border-bottom: none;
+}
+
+ol > li:hover {
+  background: #bbbbbb;
+}
+
+li.highlight {
+  background-color: #cccc;
+  /* background-color: #8cd98c; */
+}
+
+.overflow-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.active {
+  background-color: #278b19;
 }
 
 @media only screen and (max-width: 1000px) {
