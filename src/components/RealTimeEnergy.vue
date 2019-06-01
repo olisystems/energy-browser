@@ -351,6 +351,11 @@ img {
 }
 
 @media only screen and (max-width: 1000px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .col-1,
   .col-2,
   .col-3 {
