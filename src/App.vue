@@ -46,6 +46,10 @@ h4 {
   margin-left: 1.5rem;
 }
 
+h5 {
+  color: #bbbbbb;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
