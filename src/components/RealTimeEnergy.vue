@@ -318,10 +318,6 @@ th {
   top: 0;
 }
 
-h5 {
-  color: #b6b2b2;
-}
-
 .loader {
   margin-top: 3rem;
 }
