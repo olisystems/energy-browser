@@ -30,6 +30,9 @@
                 </tbody>
               </v-table>
             </div>
+            <div class="pro-placeholder">
+              <h5>select an account to view the history</h5>
+            </div>
           </div>
         </div>
       </div>
@@ -63,13 +66,16 @@
                 </tbody>
               </v-table>
             </div>
+            <div class="cons-placeholder">
+              <h5>select an account to view the history</h5>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- list of producers and consumers -->
     <div class="container">
-      <div class="col-1">
+      <div class="col-1 pro-list">
         <div class="wrapper">
           <div class="table-header">
             <h4>List of Registered Producers</h4>
@@ -78,7 +84,7 @@
           <div class="producer-list">
             <ol>
               <li
-                v-on:click="getProducerHistory"
+                v-on:click="getCurrentPro"
                 v-for="(item, index) in producers"
                 v-bind:key="index"
               >{{item}}</li>
@@ -87,9 +93,11 @@
         </div>
       </div>
 
-      <div class="col-3">map</div>
+      <div class="col-3">
+        <div id="map"></div>
+      </div>
 
-      <div class="col-2">
+      <div class="col-2 cons-list">
         <div class="wrapper">
           <div class="table-header">
             <h4>List of Registered Consumers</h4>
@@ -111,11 +119,16 @@
 </template>
 <script>
 const $ = require("jquery");
+
 import { productionContract } from "../assets/js/contracts.js";
 import { consumptionContract } from "../assets/js/contracts.js";
 import web3 from "../assets/js/contracts.js";
 import { log } from "util";
 import { timeConverter } from "../assets/js/format-time";
+//import map from "../assets/js/map.js";
+import L from "leaflet";
+import { futimesSync } from "fs";
+
 export default {
   name: "TransactionHistory",
   data() {
@@ -124,8 +137,18 @@ export default {
       consumers: [],
       producer: [],
       consumer: [],
+      map: null,
       producerAddress: "",
-      consumerAddress: ""
+      consumerAddress: "",
+      ethAddr: [],
+      proLoc: [],
+      proLocObject: {},
+      proLocEntries: [],
+      currentProCord: [],
+      proPopup: "",
+      currentProPopup: [],
+      currentProMarker: {},
+      currentProAddress: ""
     };
   },
   methods: {
@@ -134,7 +157,7 @@ export default {
       this.producerAddress = event.target.innerHTML;
       productionContract
         .getPastEvents("ProTransactionEvent", {
-          fromBlock: 0
+          fromBlock: "latest"
         })
         .then(events => {
           events.forEach(event => {
@@ -146,15 +169,16 @@ export default {
                 blockHash: event.returnValues[4],
                 gasPrice: event.returnValues[5]
               });
+              $(".pro-placeholder").hide();
             }
           });
         });
       // removing the background color for ul-selected items
       document.querySelectorAll(".producer-list > ol>li").forEach(list => {
-        list.classList.remove("active");
+        list.classList.remove("active-producer");
       });
       // add background to selected account
-      event.target.classList.add("active");
+      event.target.classList.add("active-producer");
     },
     getConsumerHistory() {
       this.consumer = [];
@@ -173,15 +197,16 @@ export default {
                 blockHash: event.returnValues[4],
                 gasPrice: event.returnValues[5]
               });
+              $(".cons-placeholder").hide();
             }
           });
         });
       // removing the background color for ul-selected items
       document.querySelectorAll(".consumer-list > ol>li").forEach(list => {
-        list.classList.remove("active");
+        list.classList.remove("active-consumer");
       });
       // add background to selected account
-      event.target.classList.add("active");
+      event.target.classList.add("active-consumer");
     },
     // producer accounts list
     getProducerList() {
@@ -199,6 +224,10 @@ export default {
     },
     // producer accounts list
     getConsumerList() {
+      const popupOptions = {
+        maxWidth: "500",
+        className: "currentPro-popup" // classname for another popup
+      };
       consumptionContract.methods
         .getConsAccntsList()
         .call()
@@ -210,11 +239,235 @@ export default {
             this.consumers.push(item);
           });
         });
+    },
+    // spatial distribution map
+    getCurrentProMarker() {
+      this.currentProAddress = event.target.innerHTML;
+      let popupOptions = {
+        maxWidth: "500",
+        className: "currentPro-popup" // classname for another popup
+      };
+
+      productionContract
+        .getPastEvents("ProducerRegs", {
+          fromBlock: 0,
+          toBlock: "latest"
+        })
+        .then(results => {
+          results.forEach(result => {
+            this.proLoc.push(
+              result.returnValues.latitude / 10000 +
+                ", " +
+                result.returnValues.longitude / 10000 +
+                ", " +
+                result.returnValues.owner
+            );
+
+            // push addresses
+            this.ethAddr.push(result.returnValues.pvAddr);
+
+            // bind key values
+            this.ethAddr.forEach(
+              (key, i) => (this.proLocObject[key] = this.proLoc[i])
+            );
+          });
+
+          // storing entries of single object into list of items
+          for (let i = 0; i < Object.keys(this.proLocObject).length; i++) {
+            this.proLocEntries.push(Object.entries(this.proLocObject)[i]);
+          }
+
+          for (let i = 0; i < this.proLocEntries.length; i++) {
+            if (this.currentProAddress === this.proLocEntries[i][0]) {
+              this.currentProCord = this.proLocObject[this.currentProAddress];
+              this.currentProCord = this.currentProCord.split(",");
+              let currentProLat = this.currentProCord[0].trim();
+              let currentProLon = this.currentProCord[1].trim();
+
+              this.currentProPopup =
+                "Eth address: " +
+                this.currentProAddress.slice(0, 7) +
+                "..." +
+                "<br>" +
+                "Producer: " +
+                this.currentProCord[2] +
+                "<br>" +
+                "Location: " +
+                this.currentProCord[0] +
+                ", " +
+                this.currentProCord[1];
+
+              let currentProIcon = L.icon({
+                iconUrl: "../assets/img/producer.png",
+                iconSize: [30, 40]
+              });
+
+              if (this.currentProMarker != undefined) {
+                this.map.removeLayer(this.currentProMarker);
+              }
+
+              this.currentProMarker = L.marker([
+                currentProLat,
+                currentProLon
+              ]).addTo(this.map);
+              this.currentProMarker
+                .bindPopup(this.currentProPopup, popupOptions)
+                .openPopup();
+            }
+          }
+        });
+    },
+    addMarkers() {
+      // define popup options
+      const popupOptions = {
+        maxWidth: "500",
+        className: "currentPro-popup"
+      };
+      // current producer icon
+      const currentProIcon = L.icon({
+        iconUrl: "./producer.png",
+        iconSize: [30, 40]
+      });
+      // get event data
+      productionContract
+        .getPastEvents("ProducerRegs", {
+          fromBlock: 0,
+          toBlock: "latest"
+        })
+        .then(results => {
+          results.forEach(result => {
+            const markers = L.marker([
+              result.returnValues.latitude / 10000,
+              result.returnValues.longitude / 10000
+            ]).addTo(this.map);
+
+            // define popup contents
+            this.proPopup =
+              "Eth address: " +
+              result.returnValues.pvAddr.slice(0, 7) +
+              "..." +
+              "<br>" +
+              "Producer: " +
+              result.returnValues.owner +
+              "<br>" +
+              "Location: " +
+              result.returnValues.latitude / 10000 +
+              ", " +
+              result.returnValues.longitude / 10000;
+            // bind popup
+            markers.bindPopup(this.proPopup, popupOptions);
+            markers.on("mouseover", function() {
+              this.openPopup();
+            });
+            markers.on("mouseout", function() {
+              this.closePopup();
+            });
+          });
+        });
+    },
+
+    initMap() {
+      // home marker icon
+      var home = L.icon({
+        iconUrl: "../assets/img/home.png",
+        iconSize: [30, 40]
+      });
+
+      // create tile layers
+      const openStreet = L.tileLayer(
+          "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          {
+            attribution:
+              "&copy; " +
+              '<a href="http://openstreetmap.org">OpenStreetMap</a>' +
+              " Contributors",
+            maxZoom: 10
+          }
+        ),
+        OpenStreetMap_BlackAndWhite = L.tileLayer(
+          "http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",
+          {
+            maxZoom: 18,
+            attribution:
+              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }
+        ),
+        OpenStreetMap_DE = L.tileLayer(
+          "https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png",
+          {
+            maxZoom: 18,
+            attribution:
+              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }
+        ),
+        OpenTopoMap = L.tileLayer(
+          "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+          {
+            maxZoom: 17,
+            attribution:
+              'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+          }
+        ),
+        Esri_WorldImagery = L.tileLayer(
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+          {
+            attribution:
+              "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+          }
+        ),
+        CartoDB_DarkMatter = L.tileLayer(
+          "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png",
+          {
+            attribution:
+              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+            subdomains: "abcd",
+            maxZoom: 19
+          }
+        );
+
+      // create base layer object
+      const baseMaps = {
+        "<span style='color: gray'>Open Street</span>": openStreet,
+        Grayscale: OpenStreetMap_BlackAndWhite,
+        "Open Street DE": OpenStreetMap_DE,
+        "Open Topo": OpenTopoMap,
+        "ESRI Imagery": Esri_WorldImagery,
+        "CartoDB Dark": CartoDB_DarkMatter
+      };
+
+      this.map = L.map("map", {
+        center: [48.77538056, 9.25277778],
+        zoom: 14,
+        layers: openStreet
+      });
+      // add layers control
+      L.control.layers(baseMaps).addTo(this.map);
+      // add home marker
+      const homeMarker = L.marker([48.77538056, 9.16277778]).addTo(this.map);
+      // bind popup to home marker
+      homeMarker.bindPopup("OLI Systems GmbH");
+      homeMarker.on("mouseover", function() {
+        this.openPopup();
+      });
+      homeMarker.on("mouseout", function() {
+        this.closePopup();
+      });
+    },
+    getCurrentPro() {
+      this.getCurrentProMarker();
+      this.getProducerHistory();
     }
   },
+
   created() {
     this.getProducerList();
     this.getConsumerList();
+    this.addMarkers();
+  },
+  mounted() {
+    this.initMap();
+
+    // ************************************
   }
 };
 </script>
@@ -224,10 +477,33 @@ export default {
 }
 
 .col-1,
-.col-2 {
+.col-2,
+.col-3 {
   width: 50%;
   flex-direction: column;
   padding: 1rem;
+}
+
+.pro-list,
+.cons-list {
+  width: 25%;
+}
+
+.col-3 {
+  width: 100%;
+}
+
+#map {
+  width: 100%;
+  height: 370px;
+  border: 1px solid #ff9800;
+}
+
+.producer-list,
+.consumer-list {
+  height: 300px;
+  overflow-y: auto;
+  font-size: 0.8rem;
 }
 
 h4 {
@@ -263,9 +539,11 @@ ol > li {
   padding: 1em;
   font-weight: bold;
   cursor: pointer;
-  margin-left: -25px;
-  margin-right: 15px;
+  margin-left: -30px;
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 ol > li:after {
@@ -295,8 +573,17 @@ li.highlight {
   text-overflow: ellipsis;
 }
 
-.active {
-  background-color: #278b19;
+.active-producer {
+  background-color: #9be99b;
+}
+
+.active-consumer {
+  background-color: #ecbe78;
+}
+
+.cons-placeholder,
+.pro-placeholder {
+  margin-top: 3rem;
 }
 
 @media only screen and (max-width: 1000px) {
