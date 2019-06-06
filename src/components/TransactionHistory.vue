@@ -7,7 +7,10 @@
             <h4>Producer's Transaction History</h4>
           </div>
           <div class="account-header">
-            <h4>Account Address: {{producerAddress}}</h4>
+            <h4>
+              Account Address:
+              <span class="producer-address">{{producerAddress}}</span>
+            </h4>
           </div>
           <div class="table">
             <div class="table-wrapper">
@@ -43,7 +46,10 @@
           </div>
 
           <div class="account-header">
-            <h4>Account Address: {{consumerAddress}}</h4>
+            <h4>
+              Account Address:
+              <span class="consumer-address">{{consumerAddress}}</span>
+            </h4>
           </div>
           <div class="table">
             <div class="table-wrapper">
@@ -105,7 +111,7 @@
           <div class="consumer-list">
             <ol>
               <li
-                v-on:click="getConsumerHistory"
+                v-on:click="getCurrentCons"
                 v-for="(item, index) in consumers"
                 v-bind:key="index"
               >{{item}}</li>
@@ -125,9 +131,7 @@ import { consumptionContract } from "../assets/js/contracts.js";
 import web3 from "../assets/js/contracts.js";
 import { log } from "util";
 import { timeConverter } from "../assets/js/format-time";
-//import map from "../assets/js/map.js";
 import L from "leaflet";
-import { futimesSync } from "fs";
 
 export default {
   name: "TransactionHistory",
@@ -140,15 +144,24 @@ export default {
       map: null,
       producerAddress: "",
       consumerAddress: "",
-      ethAddr: [],
+      proEthAddress: [],
+      consEthAddress: [],
       proLoc: [],
+      consLoc: [],
       proLocObject: {},
+      consLocObject: {},
       proLocEntries: [],
+      consLocEntries: [],
       currentProCord: [],
+      currentConsCord: [],
       proPopup: "",
+      consPopup: "",
       currentProPopup: [],
+      currentConsPopup: [],
       currentProMarker: {},
-      currentProAddress: ""
+      currentConsMarker: {},
+      currentProAddress: "",
+      currentConsAddress: ""
     };
   },
   methods: {
@@ -264,10 +277,10 @@ export default {
             );
 
             // push addresses
-            this.ethAddr.push(result.returnValues.pvAddr);
+            this.proEthAddress.push(result.returnValues.pvAddr);
 
             // bind key values
-            this.ethAddr.forEach(
+            this.proEthAddress.forEach(
               (key, i) => (this.proLocObject[key] = this.proLoc[i])
             );
           });
@@ -317,7 +330,85 @@ export default {
           }
         });
     },
-    addMarkers() {
+    getCurrentConsMarker() {
+      this.currentConsAddress = event.target.innerHTML;
+      let popupOptions = {
+        maxWidth: "500",
+        className: "currentCons-popup" // classname for another popup
+      };
+
+      consumptionContract
+        .getPastEvents("ConsumerRegs", {
+          fromBlock: 0,
+          toBlock: "latest"
+        })
+        .then(results => {
+          results.forEach(result => {
+            this.consLoc.push(
+              result.returnValues.latitude / 10000 +
+                ", " +
+                result.returnValues.longitude / 10000 +
+                ", " +
+                result.returnValues.owner
+            );
+
+            // push addresses
+            this.consEthAddress.push(result.returnValues.pvAddr);
+
+            // bind key values
+            this.consEthAddress.forEach(
+              (key, i) => (this.consLocObject[key] = this.consLoc[i])
+            );
+          });
+
+          // storing entries of single object into list of items
+          for (let i = 0; i < Object.keys(this.consLocObject).length; i++) {
+            this.consLocEntries.push(Object.entries(this.consLocObject)[i]);
+          }
+
+          for (let i = 0; i < this.consLocEntries.length; i++) {
+            if (this.currentConsAddress === this.consLocEntries[i][0]) {
+              this.currentConsCord = this.consLocObject[
+                this.currentConsAddress
+              ];
+              this.currentConsCord = this.currentConsCord.split(",");
+              let currentConsLat = this.currentConsCord[0].trim();
+              let currentConsLon = this.currentConsCord[1].trim();
+
+              this.currentConsPopup =
+                "Eth address: " +
+                this.currentConsAddress.slice(0, 7) +
+                "..." +
+                "<br>" +
+                "Producer: " +
+                this.currentConsCord[2] +
+                "<br>" +
+                "Location: " +
+                this.currentConsCord[0] +
+                ", " +
+                this.currentConsCord[1];
+
+              let currentConsIcon = L.icon({
+                iconUrl: "../assets/img/consumer.png",
+                iconSize: [30, 40]
+              });
+
+              if (this.currentConsMarker != undefined) {
+                this.map.removeLayer(this.currentConsMarker);
+              }
+
+              this.currentConsMarker = L.marker(
+                [currentConsLat, currentConsLon],
+                { icon: currentConsIcon }
+              ).addTo(this.map);
+              this.currentConsMarker
+                .bindPopup(this.currentConsPopup, popupOptions)
+                .openPopup();
+            }
+          }
+        });
+    },
+    addProMarkers() {
       // define popup options
       const popupOptions = {
         maxWidth: "500",
@@ -325,7 +416,7 @@ export default {
       };
       // current producer icon
       const currentProIcon = L.icon({
-        iconUrl: "./producer.png",
+        iconUrl: "../assets/img/producer.png",
         iconSize: [30, 40]
       });
       // get event data
@@ -356,6 +447,54 @@ export default {
               result.returnValues.longitude / 10000;
             // bind popup
             markers.bindPopup(this.proPopup, popupOptions);
+            markers.on("mouseover", function() {
+              this.openPopup();
+            });
+            markers.on("mouseout", function() {
+              this.closePopup();
+            });
+          });
+        });
+    },
+    addConsMarkers() {
+      // define popup options
+      const popupOptions = {
+        maxWidth: "500",
+        className: "currentCons-popup"
+      };
+      // current producer icon
+      const currentProIcon = L.icon({
+        iconUrl: "../assets/img/consumer.png",
+        iconSize: [30, 40]
+      });
+      // get event data
+      consumptionContract
+        .getPastEvents("ConsumerRegs", {
+          fromBlock: 0,
+          toBlock: "latest"
+        })
+        .then(results => {
+          results.forEach(result => {
+            const markers = L.marker([
+              result.returnValues.latitude / 10000,
+              result.returnValues.longitude / 10000
+            ]).addTo(this.map);
+
+            // define popup contents
+            this.consPopup =
+              "Eth address: " +
+              result.returnValues.pvAddr.slice(0, 7) +
+              "..." +
+              "<br>" +
+              "Producer: " +
+              result.returnValues.owner +
+              "<br>" +
+              "Location: " +
+              result.returnValues.latitude / 10000 +
+              ", " +
+              result.returnValues.longitude / 10000;
+            // bind popup
+            markers.bindPopup(this.consPopup, popupOptions);
             markers.on("mouseover", function() {
               this.openPopup();
             });
@@ -436,8 +575,8 @@ export default {
       };
 
       this.map = L.map("map", {
-        center: [48.77538056, 9.25277778],
-        zoom: 14,
+        center: [48.78, 9.5],
+        zoom: 10,
         layers: openStreet
       });
       // add layers control
@@ -456,13 +595,18 @@ export default {
     getCurrentPro() {
       this.getCurrentProMarker();
       this.getProducerHistory();
+    },
+    getCurrentCons() {
+      this.getCurrentConsMarker();
+      this.getConsumerHistory();
     }
   },
 
   created() {
     this.getProducerList();
     this.getConsumerList();
-    this.addMarkers();
+    this.addProMarkers();
+    this.addConsMarkers();
   },
   mounted() {
     this.initMap();
@@ -584,6 +728,14 @@ li.highlight {
 .cons-placeholder,
 .pro-placeholder {
   margin-top: 3rem;
+}
+
+.producer-address {
+  color: #00b33c;
+}
+
+.consumer-address {
+  color: #e68a00;
 }
 
 @media only screen and (max-width: 1000px) {
