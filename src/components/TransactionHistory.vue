@@ -120,7 +120,108 @@
         </div>
       </div>
     </div>
-    <div class="container"></div>
+    <div class="container">
+      <div class="col-1">
+        <div class="wrapper">
+          <div class="table-header">
+            <h4>Producer's Registration Details</h4>
+          </div>
+          <div class="account-header pro-account">
+            <h4 class="total-header">
+              Total Production [kWh]:
+              <span class="producer-balance">{{producerBalance}}</span>
+            </h4>
+          </div>
+          <div class="details">
+            <div class="pro-placeholder placeholder">
+              <h5>select an account to see the details</h5>
+            </div>
+            <table class="details-table pro-details-table">
+              <tbody>
+                <tr>
+                  <th class="property-name">Owner:</th>
+                  <td class="property-value">{{producerDetails.owner}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Device Type:</th>
+                  <td class="property-value">{{producerDetails.device}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Peak Power (+) [W]:</th>
+                  <td class="property-value">{{producerDetails.peakPower}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Location Type:</th>
+                  <td class="property-value">{{producerDetails.location}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Latitude:</th>
+                  <td class="property-value">{{producerDetails.latitude}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Longitude:</th>
+                  <td class="property-value">{{producerDetails.longitude}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Install Date:</th>
+                  <td class="property-value">{{producerDetails.date}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="wrapper">
+          <div class="table-header">
+            <h4>Consumer's Registration Details</h4>
+          </div>
+          <div class="account-header cons-account">
+            <h4 class="total-header">
+              Total Consumption [kWh]:
+              <span class="consumer-balance">{{consumerBalance}}</span>
+            </h4>
+          </div>
+          <div class="details">
+            <div class="cons-placeholder placeholder">
+              <h5>select an account to view the history</h5>
+            </div>
+            <table class="details-table cons-details-table">
+              <tbody>
+                <tr>
+                  <th class="property-name">Owner:</th>
+                  <td class="property-value">{{consumerDetails.owner}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Device Type:</th>
+                  <td class="property-value">{{consumerDetails.device}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Peak Power (+) [W]:</th>
+                  <td class="property-value">{{consumerDetails.peakPower}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Location Type:</th>
+                  <td class="property-value">{{consumerDetails.location}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Latitude:</th>
+                  <td class="property-value">{{consumerDetails.latitude}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Longitude:</th>
+                  <td class="property-value">{{consumerDetails.longitude}}</td>
+                </tr>
+                <tr>
+                  <th class="property-name">Install Date:</th>
+                  <td class="property-value">{{consumerDetails.date}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -161,7 +262,11 @@ export default {
       currentProMarker: {},
       currentConsMarker: {},
       currentProAddress: "",
-      currentConsAddress: ""
+      currentConsAddress: "",
+      producerBalance: "",
+      consumerBalance: "",
+      producerDetails: {},
+      consumerDetails: {}
     };
   },
   methods: {
@@ -215,7 +320,7 @@ export default {
           });
         });
       // removing the background color for ul-selected items
-      document.querySelectorAll(".consumer-list > ol>li").forEach(list => {
+      document.querySelectorAll(".consumer-list > ol > li").forEach(list => {
         list.classList.remove("active-consumer");
       });
       // add background to selected account
@@ -592,13 +697,75 @@ export default {
         this.closePopup();
       });
     },
+
+    getProducerBalance() {
+      // total amount of energy produced by individual producer
+      productionContract.methods
+        .getProBalance(this.producerAddress)
+        .call()
+        .then(balance => {
+          this.producerBalance = balance;
+        });
+    },
+
+    getConsumerBalance() {
+      // total amount of energy produced by individual producer
+      consumptionContract.methods
+        .getConsBalance(this.consumerAddress)
+        .call()
+        .then(balance => {
+          this.consumerBalance = balance;
+        });
+    },
+
+    getProducerDetails() {
+      $(".pro-account").show();
+      $(".pro-details-table").show("slow");
+      productionContract.methods
+        .getProAccntDetails(this.producerAddress)
+        .call()
+        .then(details => {
+          this.producerDetails = {
+            owner: details[0],
+            device: details[1],
+            peakPower: details[2],
+            location: details[3],
+            latitude: details[4] / 1000,
+            longitude: details[5] / 1000,
+            date: details[6]
+          };
+        });
+    },
+
+    getConsumerDetails() {
+      $(".cons-account").show();
+      $(".cons-details-table").show("slow");
+      consumptionContract.methods
+        .getConsAccntDetails(this.consumerAddress)
+        .call()
+        .then(details => {
+          this.consumerDetails = {
+            owner: details[0],
+            device: details[1],
+            peakPower: details[2],
+            location: details[3],
+            latitude: details[4] / 1000,
+            longitude: details[5] / 1000,
+            date: details[6]
+          };
+        });
+    },
     getCurrentPro() {
       this.getCurrentProMarker();
       this.getProducerHistory();
+      this.getProducerBalance();
+      this.getProducerDetails();
     },
     getCurrentCons() {
       this.getCurrentConsMarker();
       this.getConsumerHistory();
+      this.getConsumerBalance();
+      this.getConsumerDetails();
     }
   },
 
@@ -730,12 +897,63 @@ li.highlight {
   margin-top: 3rem;
 }
 
-.producer-address {
+.producer-address,
+.producer-balance {
   color: #00b33c;
 }
 
-.consumer-address {
+.consumer-address,
+.consumer-balance {
   color: #e68a00;
+}
+
+.details {
+  padding: 1rem;
+  height: 275px;
+}
+
+.placeholder {
+  margin-top: 6rem;
+}
+table {
+  margin: auto;
+  padding: 0.5rem;
+}
+
+.details-table {
+  border: #d8d3d3 1px solid;
+  border-radius: 2px;
+  display: none;
+}
+
+.property-name {
+  background: #f2f0f3;
+  font-size: 0.8rem;
+  text-align: left;
+  width: 20%;
+  position: relative;
+  border: #d8d3d3 1px solid;
+  border-radius: 2px;
+}
+
+.property-value {
+  color: #394f7c;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.pro-account,
+.cons-account {
+  display: none;
+}
+
+.total-header {
+  margin-bottom: 0;
+}
+
+.producer-balance,
+.consumer-balance {
+  font-size: 1.5rem;
 }
 
 @media only screen and (max-width: 1000px) {
