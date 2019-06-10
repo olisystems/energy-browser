@@ -133,7 +133,7 @@
             </h4>
           </div>
           <div class="details">
-            <div class="pro-placeholder placeholder">
+            <div class="placeholder pro-details-placeholder">
               <h5>select an account to see the details</h5>
             </div>
             <table class="details-table pro-details-table">
@@ -183,7 +183,7 @@
             </h4>
           </div>
           <div class="details">
-            <div class="cons-placeholder placeholder">
+            <div class="placeholder cons-details-placeholder">
               <h5>select an account to view the history</h5>
             </div>
             <table class="details-table cons-details-table">
@@ -273,24 +273,29 @@ export default {
     getProducerHistory() {
       this.producer = [];
       this.producerAddress = event.target.innerHTML;
-      productionContract
-        .getPastEvents("ProTransactionEvent", {
-          fromBlock: "latest"
-        })
-        .then(events => {
-          events.forEach(event => {
-            if ((event.oliAddr = this.producerAddress)) {
-              this.producer.push({
-                time: timeConverter(event.returnValues[1]),
-                power: event.returnValues[2],
-                blockNumber: event.returnValues[3],
-                blockHash: event.returnValues[4],
-                gasPrice: event.returnValues[5]
-              });
-              $(".pro-placeholder").hide();
-            }
+      let currentBlock = "";
+      web3.eth.getBlockNumber().then(blockNumber => {
+        currentBlock = blockNumber;
+        productionContract
+          .getPastEvents("ProTransactionEvent", {
+            fromBlock: currentBlock - 50,
+            toBlock: "latest"
+          })
+          .then(events => {
+            events.forEach(event => {
+              if (this.producerAddress === event.returnValues[0]) {
+                this.producer.push({
+                  time: timeConverter(event.returnValues[1]),
+                  power: event.returnValues[2],
+                  blockNumber: event.returnValues[3],
+                  blockHash: event.returnValues[4],
+                  gasPrice: event.returnValues[5]
+                });
+                $(".pro-placeholder").hide();
+              }
+            });
           });
-        });
+      });
       // removing the background color for ul-selected items
       document.querySelectorAll(".producer-list > ol>li").forEach(list => {
         list.classList.remove("active-producer");
@@ -301,24 +306,30 @@ export default {
     getConsumerHistory() {
       this.consumer = [];
       this.consumerAddress = event.target.innerHTML;
-      consumptionContract
-        .getPastEvents("ConsTransactionEvent", {
-          fromBlock: "latest"
-        })
-        .then(events => {
-          events.forEach(event => {
-            if ((event.oliAddr = this.consumerAddress)) {
-              this.consumer.push({
-                time: timeConverter(event.returnValues[1]),
-                power: event.returnValues[2],
-                blockNumber: event.returnValues[3],
-                blockHash: event.returnValues[4],
-                gasPrice: event.returnValues[5]
-              });
-              $(".cons-placeholder").hide();
-            }
+      let currentBlock = "";
+      web3.eth.getBlockNumber().then(blockNumber => {
+        currentBlock = blockNumber;
+        consumptionContract
+          .getPastEvents("ConsTransactionEvent", {
+            fromBlock: currentBlock - 50,
+            toBlock: "latest"
+          })
+          .then(events => {
+            events.forEach(event => {
+              if (this.consumerAddress === event.returnValues[0]) {
+                console.log(typeof event.returnValues[0]);
+                this.consumer.push({
+                  time: timeConverter(event.returnValues[1]),
+                  power: event.returnValues[2],
+                  blockNumber: event.returnValues[3],
+                  blockHash: event.returnValues[4],
+                  gasPrice: event.returnValues[5]
+                });
+                $(".cons-placeholder").hide();
+              }
+            });
           });
-        });
+      });
       // removing the background color for ul-selected items
       document.querySelectorAll(".consumer-list > ol > li").forEach(list => {
         list.classList.remove("active-consumer");
@@ -735,6 +746,7 @@ export default {
             date: details[6]
           };
         });
+      $(".pro-details-placeholder").hide();
     },
 
     getConsumerDetails() {
@@ -754,6 +766,7 @@ export default {
             date: details[6]
           };
         });
+      $(".cons-details-placeholder").hide();
     },
     getCurrentPro() {
       this.getCurrentProMarker();
