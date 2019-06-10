@@ -92,9 +92,11 @@ tbody {
 }
 
 th {
-  background-color: #e1dfe2;
   padding: 0.2rem;
   font-size: 0.8rem;
+  background: #f2f0f3;
+  border: #d8d3d3 1px solid;
+  border-radius: 2px;
 }
 
 td,

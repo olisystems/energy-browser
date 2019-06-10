@@ -849,7 +849,9 @@ tbody {
 }
 
 th {
-  background-color: #e1dfe2;
+  background: #f2f0f3;
+  border: #d8d3d3 1px solid;
+  border-radius: 2px;
   font-size: 0.8rem;
   position: sticky;
   z-index: 5;
