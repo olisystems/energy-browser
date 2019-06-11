@@ -283,7 +283,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .main {
-  background-color: #f7f7f7;
+  background-color: #f3f3f3;
 }
 
 .col-1,
