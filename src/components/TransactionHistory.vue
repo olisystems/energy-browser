@@ -691,8 +691,8 @@ export default {
       };
 
       this.map = L.map("map", {
-        center: [48.78, 9.5],
-        zoom: 10,
+        center: [48.6, 9.9],
+        zoom: 9,
         layers: openStreet
       });
       // add layers control
@@ -797,7 +797,7 @@ export default {
 </script>
 <style scoped>
 .main {
-  background-color: #f7f7f7;
+  background-color: #f3f3f3;
 }
 
 .col-1,
@@ -818,8 +818,10 @@ export default {
 }
 
 #map {
-  width: 100%;
-  height: 370px;
+  position: center;
+  width: 100% !important;
+  height: 100%;
+  margin: auto;
   border: 1px solid #ff9800;
 }
 
