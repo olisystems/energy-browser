@@ -141,45 +141,56 @@ export default {
         const block = await web3.eth.getBlock("latest", true);
         let production = 0;
         let consumption = 0;
+        if (block.transactions.length > 0) {
+          block.transactions.forEach(transaction => {
+            let functionHash = transaction.input.slice(2, 10);
+            // get energy production
+            if (functionHash === "f1f1ecb7") {
+              production += web3.utils.toDecimal(
+                "0x" +
+                  transaction.input.slice(
+                    transaction.input.length - 6,
+                    transaction.input.length
+                  )
+              );
+              // get energy consumption
+            } else if (functionHash === "9926188f") {
+              consumption += web3.utils.toDecimal(
+                "0x" +
+                  transaction.input.slice(
+                    transaction.input.length - 6,
+                    transaction.input.length
+                  )
+              );
+            }
+          });
 
-        block.transactions.forEach(transaction => {
-          let functionHash = transaction.input.slice(2, 10);
-          // get energy production
-          if (functionHash === "f1f1ecb7") {
-            production += web3.utils.toDecimal(
-              "0x" +
-                transaction.input.slice(
-                  transaction.input.length - 6,
-                  transaction.input.length
-                )
-            );
-            // get energy consumption
-          } else if (functionHash === "9926188f") {
-            consumption += web3.utils.toDecimal(
-              "0x" +
-                transaction.input.slice(
-                  transaction.input.length - 6,
-                  transaction.input.length
-                )
-            );
+          // push energy production values
+          if (production != 0) {
+            this.productionLiveData.push({
+              production: production,
+              time: block.timestamp
+            });
           }
-        });
-        // push energy production values
-        this.productionLiveData.push({
-          production: production,
-          time: block.timestamp
-        });
-        // push energy consumption values
-        this.consumptionLiveData.push({
-          consumption: consumption,
-          time: block.timestamp
-        });
-        this.plotLiveData();
-      }, 60000);
+
+          // push energy consumption values
+          if (consumption != 0) {
+            this.consumptionLiveData.push({
+              consumption: consumption,
+              time: block.timestamp
+            });
+          }
+
+          this.plotLiveData();
+        }
+      }, 5000);
     },
     plotLiveData() {
       if (this.productionLiveData.length > 10) {
         this.productionLiveData = this.productionLiveData.slice(-10);
+      }
+
+      if (this.consumptionLiveData.length > 10) {
         this.consumptionLiveData = this.consumptionLiveData.slice(-10);
       }
       // temp arrays to hold time and energy values
@@ -187,20 +198,15 @@ export default {
       let productionValue = [];
       let consumptionTime = [];
       let consumptionValue = [];
-      this.productionLiveData.forEach(obj => {
-        productionTime.push(timeConverter(obj.time));
-      });
 
       this.productionLiveData.forEach(obj => {
         productionValue.push(obj.production);
-      });
-
-      this.consumptionLiveData.forEach(obj => {
-        consumptionTime.push(timeConverter(obj.time));
+        productionTime.push(timeConverter(obj.time));
       });
 
       this.consumptionLiveData.forEach(obj => {
         consumptionValue.push(obj.consumption);
+        consumptionTime.push(timeConverter(obj.time));
       });
 
       let proData = {
@@ -271,7 +277,6 @@ export default {
       this.watchRealTimeProduction();
       this.watchRealTimeConsumption();
       this.getRealTimeEnergy();
-      //this.plotLiveData();
     }
   },
   created() {
