@@ -25,7 +25,7 @@
     "plotly.js-dist": "^1.48.0",
     "vue-template-compiler": "^2.5.21",
     "vuejs-smart-table": "0.0.5",
-    "web3": "^1.0.0-beta.55"
+    "web3": "^1.0.0-beta.37"
   },
   "eslintConfig": {
     "root": true,
@@ -49,5 +49,6 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "dependencies": {}
 }
