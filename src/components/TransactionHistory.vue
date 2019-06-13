@@ -80,7 +80,7 @@
       </div>
     </div>
     <!-- list of producers and consumers -->
-    <div class="container">
+    <div class="container container-center">
       <div class="col-1 pro-list">
         <div class="wrapper">
           <div class="table-header">
@@ -317,7 +317,6 @@ export default {
           .then(events => {
             events.forEach(event => {
               if (this.consumerAddress === event.returnValues[0]) {
-                console.log(typeof event.returnValues[0]);
                 this.consumer.push({
                   time: timeConverter(event.returnValues[1]),
                   power: event.returnValues[2],
@@ -974,9 +973,18 @@ table {
 }
 
 @media only screen and (max-width: 1000px) {
+  .container-center {
+    flex-direction: column;
+    align-items: center;
+  }
   .col-1,
-  .col-2 {
+  .col-2,
+  .col-3 {
     width: 100%;
+  }
+
+  #map {
+    height: 370px;
   }
 }
 </style>
