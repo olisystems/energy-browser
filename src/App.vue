@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <Header/>
-    <Topbar/>
-    <Registration/>
-    <RealTimeEnergy/>
-    <TransactionHistory/>
+    <div class="header">
+      <a href class="logo">OLI Systems</a>
+      <input class="menu-btn" type="checkbox" id="menu-btn">
+      <label class="menu-icon" for="menu-btn">
+        <span class="navicon"></span>
+      </label>
+      <ul class="menu">
+        <li>
+          <router-link to="/">OLI Energy Browser</router-link>
+        </li>
+        <li>
+          <router-link to="/register">OLI Chain Explorer</router-link>
+        </li>
+        <li>
+          <router-link to="/login">OLI Tokenization</router-link>
+        </li>
+      </ul>
+    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import Topbar from "./components/Topbar.vue";
-import Registration from "./components/Registration.vue";
-import RealTimeEnergy from "./components/RealTimeEnergy.vue";
-import TransactionHistory from "./components/TransactionHistory.vue";
+import Browser from "./components/Browser.vue";
 
 export default {
   name: "app",
   components: {
-    Header,
-    Topbar,
-    Registration,
-    RealTimeEnergy,
-    TransactionHistory
+    Browser
   }
 };
 </script>
@@ -42,137 +48,138 @@ body {
   margin: 0;
 }
 
-h4 {
-  margin-left: 1.5rem;
-}
-
-h5 {
-  color: #bbbbbb;
-}
-
-.container {
-  display: flex;
-  justify-content: space-between;
-  margin: 0.5rem 2rem;
-}
-
-/* hide plotly toolbar */
-.modebar {
-  display: none !important;
-}
-
-/* wrapper for div main contents */
-.wrapper {
-  border: 1px solid #dee2e6;
-  background: rgb(255, 255, 255);
-  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); */
-  border-radius: 2px;
-}
-
-.table-header {
-  /* background-color: #cdf1c3; */
-  text-align: left;
-  border-bottom: 1.5px solid #e1dfe2;
-}
-
-.table-wrapper {
-  border: #dee2e6 1px solid;
-  margin: 0.5rem;
-  border-radius: 2px;
-}
-
-.table table {
-  table-layout: fixed;
+.header {
+  background-color: #154360;
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.2rem 0;
 }
 
-tbody {
-  text-align: center;
-}
-
-th {
-  padding: 0.2rem;
-  font-size: 0.8rem;
-  background: #f2f0f3;
-  border: #d8d3d3 1px solid;
-  border-radius: 2px;
-}
-
-td,
-th {
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  text-align: left;
+}
+
+.header li a {
+  display: block;
   padding: 0.5rem;
-  font-size: 0.8rem;
+  text-decoration: none;
 }
 
-/* th:hover,
-td:hover {
-  overflow-x: visible;
-  height: auto;
-  white-space: normal;
-} */
-
-td {
-  border-bottom: 1px solid #cccccc;
-}
-
-tbody > tr:last-child > td {
-  border-bottom: none;
-}
-
-/*current producer popop style*/
-.currentPro-popup .leaflet-popup-content-wrapper {
-  background: #00b33c;
+a {
   color: white;
-  font-size: 12px;
-  line-height: 24px;
-  border-radius: 0px;
+  font-weight: normal;
 }
 
-.currentPro-popup .leaflet-popup-tip-container {
-  width: 50px;
-  height: 15px;
+.header li a:hover,
+.header .menu-btn:hover,
+.logo:hover {
+  color: orange;
+  transition: 0.3s;
 }
 
-.currentPro-popup .leaflet-popup-tip {
-  background: #00b33c;
-  border: white;
-  box-shadow: none;
+.header .logo {
+  float: left;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 15px 20px;
+  text-decoration: none;
+}
+/* menu */
+.header .menu {
+  clear: both;
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
 }
 
-.my-div-icon,
-.leaflet-div-icon {
-  color: #00b33c;
-  background: #00b33c;
+/* menu icon */
+
+.header .menu-icon {
+  cursor: pointer;
+  /* display: inline-block; */
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
 }
 
-/*current consumer popop style*/
-.currentCons-popup .leaflet-popup-content-wrapper {
-  background: #e68a00;
-  color: white;
-  font-size: 12px;
-  line-height: 24px;
-  border-radius: 0px;
+.header .menu-icon .navicon {
+  background: white;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background 0.2s ease-out;
+  width: 22px;
 }
 
-.currentCons-popup .leaflet-popup-tip-container {
-  width: 50px;
-  height: 15px;
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+  background: white;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all 0.2s ease-out;
+  width: 100%;
 }
 
-.currentCons-popup .leaflet-popup-tip {
-  background: #e68a00;
-  border: white;
-  box-shadow: none;
+.header .menu-icon .navicon:before {
+  top: 5px;
 }
 
-@media only screen and (max-width: 48em) {
-  .container {
-    flex-direction: column;
-    align-items: center;
+.header .menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.header .menu-btn {
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+  max-height: 240px;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
+
+div.header > ul {
+  padding-left: 15px;
+}
+
+@media (min-width: 48em) {
+  .header li {
+    float: left;
+    margin-left: 0.3rem;
+  }
+  .header li a {
+    padding: 20px 5px;
+  }
+  .header .menu {
+    clear: none;
+    float: right;
+    max-height: none;
+    padding-right: 10px;
+  }
+  .header .menu-icon {
+    display: none;
   }
 }
 </style>
