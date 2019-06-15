@@ -7,13 +7,13 @@
         <span class="navicon"></span>
       </label>
       <ul class="menu">
-        <li>
+        <li exact tag="li">
           <router-link to="/">OLI Energy Browser</router-link>
         </li>
-        <li>
+        <li exact tag="li">
           <router-link to="/explorer">OLI Chain Explorer</router-link>
         </li>
-        <li>
+        <li exact tag="li">
           <router-link to="/tokenization">OLI Tokenization</router-link>
         </li>
       </ul>
@@ -67,8 +67,12 @@ body {
 }
 
 a {
-  color: white;
+  color: rgb(172, 169, 169);
   font-weight: normal;
+}
+
+.logo {
+  color: white;
 }
 
 .header li a:hover,
@@ -179,5 +183,12 @@ div.header > ul {
   .header .menu-icon {
     display: none;
   }
+}
+
+.router-link-exact-active {
+  /* background: rgb(241, 237, 237);
+  border-radius: 1px;
+  color: #394f7c; */
+  color: white;
 }
 </style>
