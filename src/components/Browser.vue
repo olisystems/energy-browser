@@ -21,7 +21,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style>
 #browser {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
