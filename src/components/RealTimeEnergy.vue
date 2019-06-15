@@ -91,9 +91,8 @@ const $ = require("jquery");
 import { productionContract } from "../assets/js/contracts.js";
 import { consumptionContract } from "../assets/js/contracts.js";
 import web3 from "../assets/js/contracts.js";
-import { timeConverter } from "../assets/js/format-time.js";
+import { timeConverter } from "../assets/js/time-format.js";
 import Plotly from "plotly.js-dist";
-import { timeout } from "q";
 
 export default {
   name: "RealTimeEnergy",
