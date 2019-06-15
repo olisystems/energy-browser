@@ -231,7 +231,7 @@ import { productionContract } from "../assets/js/contracts.js";
 import { consumptionContract } from "../assets/js/contracts.js";
 import web3 from "../assets/js/contracts.js";
 import { log } from "util";
-import { timeConverter } from "../assets/js/format-time";
+import { timeConverter } from "../assets/js/time-format";
 import L from "leaflet";
 
 export default {
