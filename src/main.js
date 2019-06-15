@@ -14,7 +14,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(SmartTable)
 Vue.use(VueRouter)
-const router = new VueRouter({ routes });
+const router = new VueRouter({ mode: 'history', routes });
 
 Vue.config.productionTip = false
 
