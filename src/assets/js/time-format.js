@@ -34,7 +34,20 @@ async function currentTime() {
     let formattedTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     return formattedTime;
 }
+
+// setting up current time
+// unix time conversion
+function formatTime(UNIX_timestamp) {
+    let newDate = new Date(UNIX_timestamp * 1000);
+    let year = newDate.getFullYear();
+    let month = (("0" + (newDate.getMonth() + 1)).slice(-2));
+    let date = ("0" + newDate.getDate()).slice(-2);
+
+    let parsingTime = year + '-' + month + '-' + date;
+    return parsingTime;
+}
 export {
     timeConverter,
-    currentTime
+    currentTime,
+    formatTime
 };
