@@ -126,48 +126,50 @@
           <div class="table-header">
             <h4>Producer's Registration Details</h4>
           </div>
-          <div class="account-header pro-account">
-            <h4 class="total-header">
-              Total Production [kWh]:
-              <span class="producer-balance">{{producerBalance}}</span>
-            </h4>
-          </div>
-          <div class="details">
-            <div class="placeholder pro-details-placeholder">
-              <h5>select an account to see the details</h5>
+          <div class="details-wrapper">
+            <div class="account-header pro-account">
+              <h4 class="total-header">
+                Total Production [kWh]:
+                <span class="producer-balance">{{producerBalance}}</span>
+              </h4>
             </div>
-            <table class="details-table pro-details-table">
-              <tbody>
-                <tr>
-                  <th class="property-name">Owner:</th>
-                  <td class="property-value">{{producerDetails.owner}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Device Type:</th>
-                  <td class="property-value">{{producerDetails.device}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Peak Power (+) [W]:</th>
-                  <td class="property-value">{{producerDetails.peakPower}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Location Type:</th>
-                  <td class="property-value">{{producerDetails.location}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Latitude:</th>
-                  <td class="property-value">{{producerDetails.latitude}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Longitude:</th>
-                  <td class="property-value">{{producerDetails.longitude}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Install Date:</th>
-                  <td class="property-value">{{producerDetails.date}}</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="details">
+              <div class="placeholder pro-details-placeholder">
+                <h5>select an account to see the details</h5>
+              </div>
+              <table class="details-table pro-details-table">
+                <tbody>
+                  <tr>
+                    <th class="property-name">Owner:</th>
+                    <td class="property-value">{{producerDetails.owner}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Device Type:</th>
+                    <td class="property-value">{{producerDetails.device}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Peak Power (+) [W]:</th>
+                    <td class="property-value">{{producerDetails.peakPower}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Location Type:</th>
+                    <td class="property-value">{{producerDetails.location}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Latitude:</th>
+                    <td class="property-value">{{producerDetails.latitude}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Longitude:</th>
+                    <td class="property-value">{{producerDetails.longitude}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Install Date:</th>
+                    <td class="property-value">{{producerDetails.date}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -176,48 +178,50 @@
           <div class="table-header">
             <h4>Consumer's Registration Details</h4>
           </div>
-          <div class="account-header cons-account">
-            <h4 class="total-header">
-              Total Consumption [kWh]:
-              <span class="consumer-balance">{{consumerBalance}}</span>
-            </h4>
-          </div>
-          <div class="details">
-            <div class="placeholder cons-details-placeholder">
-              <h5>select an account to view the history</h5>
+          <div class="details-wrapper">
+            <div class="account-header cons-account">
+              <h4 class="total-header">
+                Total Consumption [kWh]:
+                <span class="consumer-balance">{{consumerBalance}}</span>
+              </h4>
             </div>
-            <table class="details-table cons-details-table">
-              <tbody>
-                <tr>
-                  <th class="property-name">Owner:</th>
-                  <td class="property-value">{{consumerDetails.owner}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Device Type:</th>
-                  <td class="property-value">{{consumerDetails.device}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Peak Power (+) [W]:</th>
-                  <td class="property-value">{{consumerDetails.peakPower}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Location Type:</th>
-                  <td class="property-value">{{consumerDetails.location}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Latitude:</th>
-                  <td class="property-value">{{consumerDetails.latitude}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Longitude:</th>
-                  <td class="property-value">{{consumerDetails.longitude}}</td>
-                </tr>
-                <tr>
-                  <th class="property-name">Install Date:</th>
-                  <td class="property-value">{{consumerDetails.date}}</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="details">
+              <div class="placeholder cons-details-placeholder">
+                <h5>select an account to view the history</h5>
+              </div>
+              <table class="details-table cons-details-table">
+                <tbody>
+                  <tr>
+                    <th class="property-name">Owner:</th>
+                    <td class="property-value">{{consumerDetails.owner}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Device Type:</th>
+                    <td class="property-value">{{consumerDetails.device}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Peak Power (+) [W]:</th>
+                    <td class="property-value">{{consumerDetails.peakPower}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Location Type:</th>
+                    <td class="property-value">{{consumerDetails.location}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Latitude:</th>
+                    <td class="property-value">{{consumerDetails.latitude}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Longitude:</th>
+                    <td class="property-value">{{consumerDetails.longitude}}</td>
+                  </tr>
+                  <tr>
+                    <th class="property-name">Install Date:</th>
+                    <td class="property-value">{{consumerDetails.date}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -923,6 +927,10 @@ li.highlight {
   color: #e68a00;
 }
 
+.details-wrapper {
+  height: 335px;
+}
+
 .details {
   padding: 1rem;
   height: 275px;
@@ -961,6 +969,7 @@ table {
 .pro-account,
 .cons-account {
   display: none;
+  height: 25px;
 }
 
 .total-header {
@@ -969,7 +978,7 @@ table {
 
 .producer-balance,
 .consumer-balance {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 @media only screen and (max-width: 1000px) {
