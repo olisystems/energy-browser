@@ -11,10 +11,10 @@
           <router-link to="/">OLI Energy Browser</router-link>
         </li>
         <li>
-          <router-link to="/register">OLI Chain Explorer</router-link>
+          <router-link to="/explorer">OLI Chain Explorer</router-link>
         </li>
         <li>
-          <router-link to="/login">OLI Tokenization</router-link>
+          <router-link to="/tokenization">OLI Tokenization</router-link>
         </li>
       </ul>
     </div>
@@ -23,14 +23,7 @@
 </template>
 
 <script>
-import Browser from "./components/Browser.vue";
-
-export default {
-  name: "app",
-  components: {
-    Browser
-  }
-};
+export default {};
 </script>
 
 <style>
@@ -45,6 +38,11 @@ export default {
 }
 
 body {
+  font-family: "Open Sans", sans-serif;
+  color: #333;
+  background-color: #f3f3f3;
+  width: 100%;
+  height: 100%;
   margin: 0;
 }
 
