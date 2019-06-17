@@ -252,8 +252,8 @@ export default {
   data() {
     return {
       accounts: [],
-      address: "0xbeF39705BC53cBDf1d9ee09B191692400C6C9148",
-      //0xF47C2D11A218ee29059F5C6c0B3524B8f30e1FFb
+      address: "0x7e40435836789009EfC24b1CA56549D61D13A42f",
+      //0x5FD85d691148149972b207630D049a410211D85a
       lastAddress: "",
       accountTitle: "",
       hashes: [],
@@ -385,11 +385,11 @@ export default {
          * var block = await web3.eth.getBlock(i, true);
          */
         let block = await web3.eth.getBlock(i, true);
-
         //console.log(block);
         block.transactions.forEach(tx => {
           //console.log(tx.to);
           // filter out transactions for a specific smart contract
+
           if (tx.to === contractAddress) {
             this.hashes.push(tx);
             this.transactionObjects.push({
