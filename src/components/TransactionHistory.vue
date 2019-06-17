@@ -877,6 +877,12 @@ ol > li {
   white-space: nowrap;
 }
 
+ol > li:hover {
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
 ol > li:after {
   content: "";
   display: block;

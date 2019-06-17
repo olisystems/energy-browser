@@ -102,12 +102,12 @@ th {
   font-size: 0.8rem;
 }
 
-/* th:hover,
+th:hover,
 td:hover {
-  overflow-x: visible;
-  height: auto;
+  overflow: visible;
   white-space: normal;
-} */
+  word-wrap: break-word;
+}
 
 td {
   border-bottom: 1px solid #cccccc;
