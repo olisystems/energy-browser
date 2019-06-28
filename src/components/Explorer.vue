@@ -252,8 +252,8 @@ export default {
   data() {
     return {
       accounts: [],
-      address: "0x7e40435836789009EfC24b1CA56549D61D13A42f",
-      //0x5FD85d691148149972b207630D049a410211D85a
+      address: "0xFC872C53Cb327310cCC1E625135666a943Ce3111",
+      //0xcfeE40704ee75f55886bF883cb37c8353aC31f7f
       lastAddress: "",
       accountTitle: "",
       hashes: [],
@@ -387,7 +387,6 @@ export default {
         let block = await web3.eth.getBlock(i, true);
         //console.log(block);
         block.transactions.forEach(tx => {
-          //console.log(tx.to);
           // filter out transactions for a specific smart contract
 
           if (tx.to === contractAddress) {
@@ -540,7 +539,7 @@ export default {
         case "f1f1ecb7":
           this.functionName = "Energy Production";
           break;
-        case "203aec33":
+        case "9926188f":
           this.functionName = "Energy Consumption";
           break;
         default:
