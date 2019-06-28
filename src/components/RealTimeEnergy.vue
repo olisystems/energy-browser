@@ -182,7 +182,7 @@ export default {
 
           this.plotLiveData();
         }
-      }, 60000);
+      }, 5000);
     },
     plotLiveData() {
       if (this.productionLiveData.length > 10) {
