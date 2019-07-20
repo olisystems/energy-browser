@@ -10,25 +10,25 @@
             <div class="table-wrapper">
               <v-table :data="producers">
                 <thead slot="head">
-                  <v-th sortKey="returnValues[0]">ETH Address</v-th>
+                  <v-th v-tooltip="'Ethereum Address'" sortKey="returnValues[0]">ETH Address</v-th>
                   <th>Owner</th>
-                  <v-th sortKey="returnValues[2]">Device Type</v-th>
-                  <th>Peak Power (+) [W]</th>
-                  <th>Coordinates [Lat-Long]</th>
-                  <th>Voltage Level [v]</th>
-                  <v-th sortKey="returnValues[8]">Location</v-th>
+                  <v-th v-tooltip="'Device Type'" sortKey="returnValues[2]">Device Type</v-th>
+                  <th v-tooltip="'Peak Power (+) [W]'">Peak Power (+) [W]</th>
+                  <th v-tooltip="'Coordinates [Lat-Long]'">Coordinates [Lat-Long]</th>
+                  <th v-tooltip="'Voltage Level [v]'">Voltage Level [v]</th>
+                  <v-th v-tooltip="'Location'" sortKey="returnValues[8]">Location</v-th>
                   <th>Install Date</th>
                 </thead>
                 <tbody slot="body" slot-scope="{displayData}">
                   <tr v-for="row in displayData" :key="row.returnValues[0]">
-                    <td>{{row.returnValues[0]}}</td>
+                    <td v-tooltip="row.returnValues[0]">{{row.returnValues[0]}}</td>
                     <td>{{row.returnValues[1]}}</td>
                     <td>{{row.returnValues[2]}}</td>
                     <td>{{row.returnValues[3]}}</td>
                     <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
                     <td>{{row.returnValues[7]}}</td>
                     <td>{{row.returnValues[8]}}</td>
-                    <td>{{row.returnValues[9]}}</td>
+                    <td v-tooltip="row.returnValues[9]">{{row.returnValues[9]}}</td>
                   </tr>
                 </tbody>
               </v-table>
@@ -46,25 +46,25 @@
             <div class="table-wrapper">
               <v-table :data="consumers">
                 <thead slot="head">
-                  <v-th sortKey="returnValues[0]">ETH Address</v-th>
+                  <v-th v-tooltip="'Ethereum Address'" sortKey="returnValues[0]">ETH Address</v-th>
                   <th>Owner</th>
-                  <v-th sortKey="returnValues[2]">Device Type</v-th>
-                  <th>Peak Power (-) [W]</th>
-                  <th>Coordinates [Lat-Long]</th>
-                  <th>Voltage Level [v]</th>
-                  <v-th sortKey="returnValues[8]">Location</v-th>
+                  <v-th v-tooltip="'Device Type'" sortKey="returnValues[2]">Device Type</v-th>
+                  <th v-tooltip="'Peak Power (-) [W]'">Peak Power (+) [W]</th>
+                  <th v-tooltip="'Coordinates [Lat-Long]'">Coordinates [Lat-Long]</th>
+                  <th v-tooltip="'Voltage Level [v]'">Voltage Level [v]</th>
+                  <v-th v-tooltip="'Location'" sortKey="returnValues[8]">Location</v-th>
                   <th>Install Date</th>
                 </thead>
                 <tbody slot="body" slot-scope="{displayData}">
                   <tr v-for="row in displayData" :key="row.returnValues[0]">
-                    <td>{{row.returnValues[0]}}</td>
+                    <td v-tooltip="row.returnValues[0]">{{row.returnValues[0]}}</td>
                     <td>{{row.returnValues[1]}}</td>
                     <td>{{row.returnValues[2]}}</td>
                     <td>{{row.returnValues[3]}}</td>
                     <td>{{row.returnValues[5] /10000}} {{row.returnValues[6] / 10000}}</td>
                     <td>{{row.returnValues[7]}}</td>
                     <td>{{row.returnValues[8]}}</td>
-                    <td>{{row.returnValues[9]}}</td>
+                    <td v-tooltip="row.returnValues[9]">{{row.returnValues[9]}}</td>
                   </tr>
                 </tbody>
               </v-table>

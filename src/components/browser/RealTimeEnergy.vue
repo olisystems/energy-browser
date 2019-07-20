@@ -11,14 +11,14 @@
               <div class="table-wrapper">
                 <v-table :data="production">
                   <thead slot="head">
-                    <th>ETH Address</th>
+                    <th v-tooltip="'Ethereum Address'">ETH Address</th>
                     <th>Time</th>
-                    <th>Power [W]</th>
+                    <th v-tooltip="'Power [W]'">Power [W]</th>
                   </thead>
                   <tbody slot="body" slot-scope="{displayData}">
                     <tr v-for="(row, index) in displayData" :key="index">
-                      <td>{{row.address}}</td>
-                      <td>{{row.time}}</td>
+                      <td v-tooltip="row.address">{{row.address}}</td>
+                      <td v-tooltip="row.time">{{row.time}}</td>
                       <td>{{row.power}}</td>
                     </tr>
                   </tbody>
@@ -60,15 +60,15 @@
               <div class="table-wrapper">
                 <v-table :data="consumption">
                   <thead slot="head">
-                    <th>ETH Address</th>
+                    <th v-tooltip="'Ethereum Address'">ETH Address</th>
                     <th>Time</th>
-                    <th>Power [W]</th>
+                    <th v-tooltip="'Power [W]'">Power [W]</th>
                   </thead>
 
                   <tbody slot="body" slot-scope="{displayData}">
                     <tr v-for="(row, index) in displayData" :key="index">
-                      <td>{{row.address}}</td>
-                      <td>{{row.time}}</td>
+                      <td v-tooltip="row.address">{{row.address}}</td>
+                      <td v-tooltip="row.time">{{row.time}}</td>
                       <td>{{row.power}}</td>
                     </tr>
                   </tbody>

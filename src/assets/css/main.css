@@ -45,12 +45,6 @@ td, th {
     font-size: 0.8rem;
 }
 
-th:hover, td:hover {
-    overflow: visible;
-    white-space: normal;
-    word-wrap: break-word;
-}
-
 td {
     border-bottom: 1px solid #cccccc;
 }
@@ -77,12 +71,6 @@ ol>li {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-ol>li:hover {
-    overflow: visible;
-    white-space: normal;
-    word-wrap: break-word;
 }
 
 ol>li:after {

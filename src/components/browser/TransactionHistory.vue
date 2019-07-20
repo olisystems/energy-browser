@@ -24,10 +24,10 @@
                 </thead>
                 <tbody slot="body" slot-scope="{displayData}">
                   <tr v-for="(row, index) in displayData" :key="index">
-                    <td>{{row.time}}</td>
+                    <td v-tooltip="row.time">{{row.time}}</td>
                     <td>{{row.power}}</td>
                     <td>{{row.blockNumber}}</td>
-                    <td>{{row.blockHash}}</td>
+                    <td v-tooltip="row.blockHash">{{row.blockHash}}</td>
                     <!-- <td>{{row.gasPrice}}</td> -->
                   </tr>
                 </tbody>
@@ -63,10 +63,10 @@
                 </thead>
                 <tbody slot="body" slot-scope="{displayData}">
                   <tr v-for="(row, index) in displayData" :key="index">
-                    <td>{{row.time}}</td>
+                    <td v-tooltip="row.time">{{row.time}}</td>
                     <td>{{row.power}}</td>
                     <td>{{row.blockNumber}}</td>
-                    <td>{{row.blockHash}}</td>
+                    <td v-tooltip="row.blockHash">{{row.blockHash}}</td>
                     <!-- <td>{{row.gasPrice}}</td> -->
                   </tr>
                 </tbody>
@@ -90,6 +90,7 @@
           <div class="producer-list">
             <ol>
               <li
+                v-tooltip="item"
                 v-on:click="getCurrentPro"
                 v-for="(item, index) in producers"
                 v-bind:key="index"
@@ -111,6 +112,7 @@
           <div class="consumer-list">
             <ol>
               <li
+                v-tooltip="item"
                 v-on:click="getCurrentCons"
                 v-for="(item, index) in consumers"
                 v-bind:key="index"
