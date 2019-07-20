@@ -327,41 +327,16 @@ h4 {
 }
 
 .list-body {
-  height: 250px;
+  height: 270px;
   overflow-y: auto;
 }
 
 ol > li {
   width: 90%;
-  list-style-position: inside;
+
   font-size: 0.8rem;
   padding: 1rem;
-  font-weight: bold;
-  cursor: pointer;
   margin-left: -25px;
-  transition: font-size 0.3s ease, background-color 0.3s ease;
-}
-
-ol > li:after {
-  content: "";
-  display: block;
-  width: 90%;
-  padding-top: 0.5em;
-  border-bottom: 1px solid rgb(206, 204, 204);
-}
-
-ol > li:last-child:after {
-  border-bottom: none;
-}
-
-ol > li:hover {
-  background: #bbbbbb;
-}
-
-li {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .active-dso {

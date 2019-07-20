@@ -863,47 +863,6 @@ th {
   top: 0;
 }
 
-/* list style */
-
-ol > li {
-  list-style-position: inside;
-  padding: 1em;
-  font-weight: bold;
-  cursor: pointer;
-  margin-left: -30px;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-ol > li:hover {
-  overflow: visible;
-  white-space: normal;
-  word-wrap: break-word;
-}
-
-ol > li:after {
-  content: "";
-  display: block;
-  width: 85%;
-  padding-top: 0.5em;
-  border-bottom: 1px solid rgb(206, 204, 204);
-}
-
-ol > li:last-child:after {
-  border-bottom: none;
-}
-
-ol > li:hover {
-  background: #bbbbbb;
-}
-
-li.highlight {
-  background-color: #cccc;
-  /* background-color: #8cd98c; */
-}
-
 .overflow-text {
   overflow: hidden;
   white-space: nowrap;

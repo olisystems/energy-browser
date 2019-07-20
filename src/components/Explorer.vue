@@ -873,15 +873,6 @@ p {
   border: none;
 }
 
-td {
-  border-bottom: 1px solid #cccccc;
-  text-align: left;
-}
-
-tbody > tr:last-child > td {
-  border-bottom: none;
-}
-
 .head-box {
   padding: 10px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
@@ -940,43 +931,6 @@ button:focus {
   outline: none;
 }
 
-ol {
-  margin: 0 0 0;
-  padding: 0;
-  counter-reset: item;
-  cursor: pointer;
-}
-
-ol > li {
-  padding: 1em;
-  list-style-type: none;
-  counter-increment: item;
-  transition: background-color 0.3s ease;
-  text-indent: -1em;
-  border-bottom: 1px solid #ccc;
-}
-
-li:last-child {
-  border: none;
-}
-
-ol > li:hover {
-  background: #f6f6f6;
-}
-
-ol > li:before {
-  display: inline-block;
-  width: 1.5em;
-  padding-right: 0.5em;
-  content: counter(item) ".";
-  text-align: right;
-  font-weight: bold;
-}
-
-.active {
-  background-color: #e4e3e3;
-  padding: 1em;
-}
 
 @media (max-width: 950px) {
   h2 {

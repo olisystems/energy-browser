@@ -1,3 +1,113 @@
+/* wrapper for div main contents */
+
+.wrapper {
+    border: 1px solid #dee2e6;
+    background: rgb(255, 255, 255);
+    /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); */
+    border-radius: 2px;
+}
+
+.table-header {
+    /* background-color: #cdf1c3; */
+    text-align: left;
+    border-bottom: 1.5px solid #e1dfe2;
+}
+
+.table-wrapper {
+    border: #dee2e6 1px solid;
+    margin: 0.5rem;
+    border-radius: 2px;
+}
+
+.table table {
+    table-layout: fixed;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+tbody {
+    text-align: center;
+}
+
+th {
+    padding: 0.2rem;
+    font-size: 0.8rem;
+    background: #f2f0f3;
+    border: #d8d3d3 1px solid;
+    border-radius: 2px;
+}
+
+td, th {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+}
+
+th:hover, td:hover {
+    overflow: visible;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+td {
+    border-bottom: 1px solid #cccccc;
+}
+
+tbody>tr:last-child>td {
+    border-bottom: none;
+}
+
+/* hide plotly toolbar */
+
+.modebar {
+    display: none !important;
+}
+
+/* list style */
+
+ol>li {
+    list-style-position: inside;
+    padding: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: -30px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+ol>li:hover {
+    overflow: visible;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+ol>li:after {
+    content: "";
+    display: block;
+    width: 85%;
+    padding-top: 0.5em;
+    border-bottom: 1px solid rgb(206, 204, 204);
+}
+
+ol>li:last-child:after {
+    border-bottom: none;
+}
+
+ol>li:hover {
+    background: #bbbbbb;
+}
+
+li.highlight {
+    background-color: #cccc;
+    /* background-color: #8cd98c; */
+}
+
+/* smart pagination */
+
 .smart-pagination {
     margin-bottom: 0;
 }
