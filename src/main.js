@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import SmartTable from 'vuejs-smart-table'
+import VTooltip from 'v-tooltip'
 import VueRouter from 'vue-router'
 import routes from './routes';
 
@@ -13,7 +14,11 @@ library.add(faFacebook, faTwitter, faGithub)
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(SmartTable)
+Vue.use(VTooltip)
 Vue.use(VueRouter)
+
+import 'v-tooltip/dist/v-tooltip.css'
+
 const router = new VueRouter({ mode: 'history', routes });
 
 Vue.config.productionTip = false
