@@ -78,9 +78,9 @@
 
 <script>
 const $ = require("jquery");
-import { productionContract } from "../assets/js/contracts.js";
-import { consumptionContract } from "../assets/js/contracts.js";
-import web3 from "../assets/js/contracts.js";
+import { productionContract } from "../../assets/js/contracts.js";
+import { consumptionContract } from "../../assets/js/contracts.js";
+import web3 from "../../assets/js/contracts.js";
 export default {
   name: "Registration",
   data() {
@@ -152,7 +152,7 @@ export default {
   padding: 1rem;
 }
 
-.table{
+.table {
   height: 300px;
   overflow-y: auto;
 }

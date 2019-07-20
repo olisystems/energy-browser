@@ -1,7 +1,7 @@
-import Browser from './components/Browser.vue';
-import Explorer from './components/Explorer.vue';
-import Tokenization from './components/Tokenization.vue';
-import AssetLogging from './components/AssetLogging.vue';
+import Browser from './components/browser/Browser.vue';
+import Explorer from './components/explorer/Explorer.vue';
+import Tokenization from './components/tokenization/Tokenization.vue';
+import AssetLogging from './components/logging/AssetLogging.vue';
 
 const routes = [
     { path: '/', component: Browser },

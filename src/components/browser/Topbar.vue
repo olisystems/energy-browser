@@ -3,12 +3,12 @@
     <div class="bar">
       <div>
         <p>Total Producer</p>
-        <img src="../assets/img/loader.svg" alt="spinner by loading.io" class="pro-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="pro-loader">
         <h4>{{producers}}</h4>
       </div>
       <div>
         <p>Total Consumer</p>
-        <img src="../assets/img/loader.svg" alt="spinner by loading.io" class="cons-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="cons-loader">
         <h4>{{consumers}}</h4>
       </div>
       <div>
@@ -17,17 +17,17 @@
       </div>
       <div>
         <p>Latest Block Number</p>
-        <img src="../assets/img/loader.svg" alt="spinner by loading.io" class="block-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="block-loader">
         <h4>{{latestBlock}}</h4>
       </div>
       <div>
         <p>Transactions in Latest Block</p>
-        <img src="../assets/img/loader.svg" alt="spinner by loading.io" class="tx-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="tx-loader">
         <h4>{{transactions}}</h4>
       </div>
       <div>
         <p>Gas Used [mgas]</p>
-        <img src="../assets/img/loader.svg" alt="spinner by loading.io" class="gas-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="gas-loader">
         <h4>{{gas}}</h4>
       </div>
     </div>
@@ -36,9 +36,9 @@
 
 <script>
 const $ = require("jquery");
-import { productionContract } from "../assets/js/contracts.js";
-import { consumptionContract } from "../assets/js/contracts.js";
-import web3 from "../assets/js/contracts.js";
+import { productionContract } from "../../assets/js/contracts.js";
+import { consumptionContract } from "../../assets/js/contracts.js";
+import web3 from "../../assets/js/contracts.js";
 import { setInterval } from "timers";
 export default {
   name: "Topbar",

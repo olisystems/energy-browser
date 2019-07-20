@@ -179,9 +179,9 @@
 
 <script>
 const $ = require("jquery");
-import web3 from "../assets/js/contracts.js";
-import { timeConverter } from "../assets/js/time-format.js";
-import { AssetLoggingContract } from "../assets/js/contracts.js";
+import web3 from "../../assets/js/contracts.js";
+import { timeConverter } from "../../assets/js/time-format.js";
+import { AssetLoggingContract } from "../../assets/js/contracts.js";
 export default {
   name: "ValueEvents",
   data() {

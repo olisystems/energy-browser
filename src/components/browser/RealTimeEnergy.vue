@@ -27,7 +27,7 @@
 
               <div class="loader">
                 <h5>Loading...</h5>
-                <img src="../assets/img/loader.svg" alt="spinner by loading.io">
+                <img src="../../assets/img/loader.svg" alt="spinner by loading.io" />
               </div>
             </div>
           </div>
@@ -43,7 +43,7 @@
             <div id="plot">
               <div class="loader-plot">
                 <h5>Loading...</h5>
-                <img src="../assets/img/loader.svg" alt="spinner by loading.io">
+                <img src="../../assets/img/loader.svg" alt="spinner by loading.io" />
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
               </div>
               <div class="loader">
                 <h5>Loading...</h5>
-                <img src="../assets/img/loader.svg" alt="spinner by loading.io">
+                <img src="../../assets/img/loader.svg" alt="spinner by loading.io" />
               </div>
             </div>
           </div>
@@ -88,10 +88,10 @@
 
 <script>
 const $ = require("jquery");
-import { productionContract } from "../assets/js/contracts.js";
-import { consumptionContract } from "../assets/js/contracts.js";
-import web3 from "../assets/js/contracts.js";
-import { timeConverter } from "../assets/js/time-format.js";
+import { productionContract } from "../../assets/js/contracts.js";
+import { consumptionContract } from "../../assets/js/contracts.js";
+import web3 from "../../assets/js/contracts.js";
+import { timeConverter } from "../../assets/js/time-format.js";
 import Plotly from "plotly.js-dist";
 
 export default {

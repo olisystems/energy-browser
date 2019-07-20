@@ -28,7 +28,7 @@
         </form>
       </div>
       <div class="model wrapper">
-        <img src="../assets/img/model.png" alt />
+        <img src="../../assets/img/model.png" alt />
       </div>
     </div>
     <div class="registration-details">
@@ -73,7 +73,7 @@
           <div class="header">
             <h4>List of Registered DSO</h4>
           </div>
-          <div class="list-body">
+          <div class="list-body header">
             <ol>
               <li v-for="(dso, index) in dsos" v-bind:key="index" v-on:click="getDsoWallet">{{dso}}</li>
             </ol>
@@ -117,9 +117,9 @@
 
 <script>
 const $ = require("jquery");
-import web3 from "../assets/js/contracts.js";
-import { timeConverter } from "../assets/js/time-format.js";
-import { AssetLoggingContract } from "../assets/js/contracts.js";
+import web3 from "../../assets/js/contracts.js";
+import { timeConverter } from "../../assets/js/time-format.js";
+import { AssetLoggingContract } from "../../assets/js/contracts.js";
 import { log } from "util";
 export default {
   name: "Registry",

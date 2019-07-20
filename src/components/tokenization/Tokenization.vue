@@ -114,8 +114,8 @@
 </template>
 
 <script>
-import web3 from "../assets/js/contracts.js";
-import { oliCoinContract } from "../assets/js/contracts.js";
+import web3 from "../../assets/js/contracts.js";
+import { oliCoinContract } from "../../assets/js/contracts.js";
 const $ = require("jquery");
 import { log } from "util";
 export default {

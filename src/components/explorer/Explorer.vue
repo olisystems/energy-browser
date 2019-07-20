@@ -235,7 +235,7 @@
 const $ = require("jquery");
 const moment = require("moment");
 import Plotly from "plotly.js-dist";
-import web3 from "../assets/js/contracts.js";
+import web3 from "../../assets/js/contracts.js";
 // setting up the provider
 // const Web3 = require("web3");
 // //const web3 = new Web3("ws://85.214.224.112:8547");
@@ -245,7 +245,7 @@ import {
   timeConverter,
   currentTime,
   formatTime
-} from "../assets/js/time-format.js";
+} from "../../assets/js/time-format.js";
 
 export default {
   name: "Explorer",
@@ -930,7 +930,6 @@ span {
 button:focus {
   outline: none;
 }
-
 
 @media (max-width: 950px) {
   h2 {

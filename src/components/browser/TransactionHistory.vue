@@ -231,11 +231,11 @@
 <script>
 const $ = require("jquery");
 
-import { productionContract } from "../assets/js/contracts.js";
-import { consumptionContract } from "../assets/js/contracts.js";
-import web3 from "../assets/js/contracts.js";
+import { productionContract } from "../../assets/js/contracts.js";
+import { consumptionContract } from "../../assets/js/contracts.js";
+import web3 from "../../assets/js/contracts.js";
 import { log } from "util";
-import { timeConverter } from "../assets/js/time-format";
+import { timeConverter } from "../../assets/js/time-format";
 import L from "leaflet";
 
 export default {
@@ -430,7 +430,7 @@ export default {
                 this.currentProCord[1];
 
               let currentProIcon = L.icon({
-                iconUrl: "../assets/img/producer.png",
+                iconUrl: "../../assets/img/producer.png",
                 iconSize: [30, 40]
               });
 
@@ -508,7 +508,7 @@ export default {
                 this.currentConsCord[1];
 
               let currentConsIcon = L.icon({
-                iconUrl: "../assets/img/consumer.png",
+                iconUrl: "../../assets/img/consumer.png",
                 iconSize: [30, 40]
               });
 
@@ -535,7 +535,7 @@ export default {
       };
       // current producer icon
       const currentProIcon = L.icon({
-        iconUrl: "../assets/img/producer.png",
+        iconUrl: "../../assets/img/producer.png",
         iconSize: [30, 40]
       });
       // get event data
@@ -583,7 +583,7 @@ export default {
       };
       // current producer icon
       const currentProIcon = L.icon({
-        iconUrl: "../assets/img/consumer.png",
+        iconUrl: "../../assets/img/consumer.png",
         iconSize: [30, 40]
       });
       // get event data
@@ -627,7 +627,7 @@ export default {
     initMap() {
       // home marker icon
       var home = L.icon({
-        iconUrl: "../assets/img/home.png",
+        iconUrl: "../../assets/img/home.png",
         iconSize: [30, 40]
       });
 
