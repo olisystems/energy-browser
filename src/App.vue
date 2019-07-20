@@ -2,7 +2,7 @@
   <div id="app">
     <div class="header">
       <a href class="logo">OLI Systems</a>
-      <input class="menu-btn" type="checkbox" id="menu-btn">
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
       <label class="menu-icon" for="menu-btn">
         <span class="navicon"></span>
       </label>
@@ -16,9 +16,12 @@
         <li exact tag="li">
           <router-link to="/tokenization">OLI Tokenization</router-link>
         </li>
+        <li exact tag="li">
+          <router-link to="/logging">Asset Logging</router-link>
+        </li>
       </ul>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
