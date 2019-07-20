@@ -2,18 +2,18 @@
   <div id="explorer">
     <div class="search-container">
       <form class="search-bar" @submit.prevent="getAccounts">
-        <input type="text" placeholder="Search for hashes" required v-model="address">
-        <input type="submit" value="Search" class="btn">
+        <input type="text" placeholder="Search for hashes" required v-model="address" />
+        <input type="submit" value="Search" class="btn" />
       </form>
 
       <div class="date-picker">
         <div>
           <span>Start Date</span>
-          <input type="date" v-model="startdate" :max="maxDate" v-on:input="checkStartDate">
+          <input type="date" v-model="startdate" :max="maxDate" v-on:input="checkStartDate" />
         </div>
         <div>
           <span>End Date</span>
-          <input type="date" v-model="enddate" disabled>
+          <input type="date" v-model="enddate" disabled />
         </div>
       </div>
     </div>
@@ -252,8 +252,8 @@ export default {
   data() {
     return {
       accounts: [],
-      address: "0xFC872C53Cb327310cCC1E625135666a943Ce3111",
-      //0xcfeE40704ee75f55886bF883cb37c8353aC31f7f
+      address: "0x55C845F7af2865d6fd5bec396668C068ba59F629",
+      //0x8C54Cb21d36F77c57773d86E95792f2a54c29b65
       lastAddress: "",
       accountTitle: "",
       hashes: [],
@@ -388,7 +388,6 @@ export default {
         //console.log(block);
         block.transactions.forEach(tx => {
           // filter out transactions for a specific smart contract
-
           if (tx.to === contractAddress) {
             this.hashes.push(tx);
             this.transactionObjects.push({
