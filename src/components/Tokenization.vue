@@ -122,6 +122,7 @@ export default {
   name: "Tokenization",
   data() {
     return {
+      ethAccounts: [],
       producers: [],
       totalProducers: "",
       totalEnergy: "",
@@ -141,6 +142,13 @@ export default {
     };
   },
   methods: {
+    getEthAccounts() {
+      web3.eth.getAccounts().then(accounts => {
+        accounts.forEach(account => {
+          this.ethAccounts.push(account);
+        });
+      });
+    },
     getProducers() {
       this.totalProducers = "";
       this.totalEnergy = "";
@@ -148,7 +156,7 @@ export default {
       this.producers = [];
       oliCoinContract.methods
         .getProducerAccountsList()
-        .call((error, result) => {
+        .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
             result.shift();
             result.forEach(producer => {
@@ -203,7 +211,7 @@ export default {
       this.producerEnergyBalance = "";
       oliCoinContract.methods
         .getProducerEnergyBalance(event.target.innerHTML)
-        .call((error, result) => {
+        .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
             this.producerEnergyBalance = result;
           } else {
@@ -215,7 +223,7 @@ export default {
       this.producerTokenBalance = "";
       oliCoinContract.methods
         .balanceOf(event.target.innerHTML)
-        .call((error, result) => {
+        .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
             this.producerTokenBalance = result / 1000;
           } else {
@@ -227,7 +235,7 @@ export default {
       this.producer = [];
       oliCoinContract.methods
         .getProducerAccountDetails(event.target.innerHTML)
-        .call((error, result) => {
+        .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
             this.producer = result;
           } else {
@@ -246,6 +254,7 @@ export default {
 
   // set default function on page load
   created() {
+    this.getEthAccounts();
     this.getProducers();
   }
 };
