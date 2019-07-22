@@ -895,7 +895,7 @@ p {
 
 .hash-list-div,
 .account-list {
-  max-height: 458px;
+  max-height: 460px;
   overflow-y: auto;
   text-align: left;
 }

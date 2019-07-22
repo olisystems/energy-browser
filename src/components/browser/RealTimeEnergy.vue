@@ -300,30 +300,6 @@ export default {
   padding: 1rem;
 }
 
-.table-header {
-  margin-bottom: 0.5rem;
-}
-
-.table {
-  height: 300px;
-  overflow-y: auto;
-}
-
-tbody {
-  text-align: center;
-  height: 100px;
-}
-
-th {
-  background: #f2f0f3;
-  border: #d8d3d3 1px solid;
-  border-radius: 2px;
-  font-size: 0.8rem;
-  position: sticky;
-  z-index: 5;
-  top: 0;
-}
-
 .loader {
   margin-top: 3rem;
 }

@@ -34,7 +34,7 @@
     <div class="registration-details">
       <div class="wrapper">
         <div class="table-header">
-          <h4>Inverter Output Value Events</h4>
+          <h4>Registered Assets</h4>
         </div>
         <div class="table">
           <div class="table-wrapper" v-if="assets.length > 0">
@@ -246,6 +246,7 @@ export default {
   border: 1px solid #dee2e6;
   border-radius: 2px;
   margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(51, 51, 51, 0.1);
 }
 
 fieldset {
@@ -327,7 +328,7 @@ h4 {
 }
 
 .list-body {
-  height: 270px;
+  height: 300px;
   overflow-y: auto;
 }
 

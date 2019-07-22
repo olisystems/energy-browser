@@ -152,11 +152,6 @@ export default {
   padding: 1rem;
 }
 
-.table {
-  height: 300px;
-  overflow-y: auto;
-}
-
 @media only screen and (max-width: 48em) {
   .col-1,
   .col-2 {

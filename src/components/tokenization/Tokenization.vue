@@ -369,6 +369,8 @@ h5 {
 
 .producer-list {
   text-align: left;
+  height: 445px;
+  overflow-y: auto;
 }
 
 .production-details,
@@ -406,7 +408,7 @@ li.highlight {
   display: flex;
   margin: auto;
   justify-content: space-between;
-  height: 268px;
+  height: 270px;
 }
 .details-headings,
 .details-values {

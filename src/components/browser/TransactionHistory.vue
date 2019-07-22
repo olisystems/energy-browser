@@ -828,6 +828,7 @@ export default {
   height: 100%;
   margin: auto;
   border: 1px solid #ff9800;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 
 .producer-list,
