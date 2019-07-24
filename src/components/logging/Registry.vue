@@ -49,7 +49,7 @@
                 <th v-tooltip="'Voltage Level [V]'">Voltage Level [V]</th>
               </thead>
 
-              <tbody slot="body" slot-scope="{displayData}">
+              <transition-group name="list" tag="tbody" slot="body" slot-scope="{displayData}">
                 <tr v-for="(row, index) in displayData" :key="index">
                   <td v-tooltip="row.assetPubkey">{{row.assetOwner}}</td>
                   <td v-tooltip="row.ownerPubkey">{{row.ownerName}}</td>
@@ -59,7 +59,7 @@
                   <td>{{row.peakPower}}</td>
                   <td>{{row.voltageLevel}}</td>
                 </tr>
-              </tbody>
+              </transition-group>
             </v-table>
           </div>
           <div v-else>
@@ -101,13 +101,13 @@
                   <th>Time</th>
                 </thead>
 
-                <tbody slot="body" slot-scope="{displayData}">
+                <transition-group name="list" tag="tbody" slot="body" slot-scope="{displayData}">
                   <tr v-for="(row, index) in displayData" :key="index">
                     <td v-tooltip="row.asset">{{row.assetName}}</td>
                     <td v-tooltip="row.values">{{row.values}}</td>
                     <td v-tooltip="row.time">{{row.time}}</td>
                   </tr>
-                </tbody>
+                </transition-group>
               </v-table>
             </div>
             <div v-else>

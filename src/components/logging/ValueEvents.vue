@@ -6,8 +6,8 @@
           <div class="event-header power-event-header">
             <span>Power Values</span>
           </div>
-          <ul class="event-list">
-            <li v-for="(power, index) in inverterPowers" :key="index">
+          <transition-group name="list" tag="ul" class="event-list">
+            <li v-for="(power) in inverterPowers" :key="power.time">
               <div class="values-wrapper">
                 <div v-tooltip="power.inverter">
                   <span>PV:</span>
@@ -23,7 +23,7 @@
                 </div>
               </div>
             </li>
-          </ul>
+          </transition-group>
         </div>
 
         <div v-else>
@@ -36,8 +36,9 @@
           <div class="event-header output-event-header">
             <span>Output Levels</span>
           </div>
-          <ul class="event-list">
-            <li v-for="(output, index) in inverterOutputs" :key="index">
+
+          <transition-group name="list" tag="ul" class="event-list">
+            <li v-for="(output) in inverterOutputs" :key="output.time">
               <div class="values-wrapper">
                 <div v-tooltip="output.inverter">
                   <span>PV:</span>
@@ -53,7 +54,7 @@
                 </div>
               </div>
             </li>
-          </ul>
+          </transition-group>
         </div>
 
         <div v-else>
@@ -66,8 +67,8 @@
           <div class="event-header dso-event-header">
             <span>DSO Set Values</span>
           </div>
-          <ul class="event-list">
-            <li v-for="(value, index) in dsoSetValues" :key="index">
+          <transition-group name="list" tag="ul" class="event-list">
+            <li v-for="(value) in dsoSetValues" :key="value.time">
               <div class="values-wrapper">
                 <div v-tooltip="value.dso">
                   <span>DSO:</span>
@@ -87,7 +88,7 @@
                 </div>
               </div>
             </li>
-          </ul>
+          </transition-group>
         </div>
 
         <div v-else>
@@ -110,13 +111,13 @@
                 <th>Power [W]</th>
               </thead>
 
-              <tbody slot="body" slot-scope="{displayData}">
-                <tr v-for="(row, index) in displayData" :key="index">
+              <transition-group name="test" tag="tbody" slot="body" slot-scope="{displayData}">
+                <tr v-for="(row) in displayData" :key="row.time">
                   <td v-tooltip="row.inverter">{{row.assetOwner}}</td>
                   <td v-tooltip="row.time">{{row.time}}</td>
                   <td>{{row.value}}</td>
                 </tr>
-              </tbody>
+              </transition-group>
             </v-table>
           </div>
           <div v-else>
@@ -139,14 +140,14 @@
                 <th>Power [W]</th>
               </thead>
 
-              <tbody slot="body" slot-scope="{displayData}">
-                <tr v-for="(row, index) in displayData" :key="index">
+              <transition-group name="test" tag="tbody" slot="body" slot-scope="{displayData}">
+                <tr v-for="(row) in displayData" :key="row.time">
                   <td v-tooltip="row.dso">{{row.dsoName}}</td>
                   <td v-tooltip="row.asset">{{row.assetOwner}}</td>
                   <td v-tooltip="row.time">{{row.time}}</td>
                   <td>{{row.value}}</td>
                 </tr>
-              </tbody>
+              </transition-group>
             </v-table>
           </div>
           <div v-else>
@@ -168,13 +169,13 @@
                 <th>Power [W]</th>
               </thead>
 
-              <tbody slot="body" slot-scope="{displayData}">
-                <tr v-for="(row, index) in displayData" :key="index">
+              <transition-group name="test" tag="tbody" slot="body" slot-scope="{displayData}">
+                <tr v-for="(row) in displayData" :key="row.time">
                   <td v-tooltip="row.inverter">{{row.assetOwner}}</td>
                   <td v-tooltip="row.time">{{row.time}}</td>
                   <td>{{row.value}}</td>
                 </tr>
-              </tbody>
+              </transition-group>
             </v-table>
           </div>
           <div v-else>
@@ -284,6 +285,56 @@ export default {
 </script>
 
 <style scoped>
+.event-list {
+  position: relative;
+}
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s ease-in-out;
+}
+
+.list-leave-active {
+  position: absolute;
+}
+.list-enter /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(30px);
+  background-color: rgb(9, 194, 132);
+}
+
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+  background-color: rgb(240, 142, 30);
+}
+
+.list-move {
+  transition: transform 1s;
+}
+
+/*
+tables transition 
+*/
+
+.test-enter-active,
+.test-leave-active {
+  transition: all 1s ease-in-out;
+}
+
+.test-enter /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+  background-color: rgb(9, 194, 132);
+}
+
+.test-move {
+  transition: transform 1s;
+}
+
 .top-bar {
   display: flex;
   flex-direction: column;
