@@ -26,6 +26,7 @@ export default {
 #asset-logging {
   width: 80%;
   margin: 0 auto;
+  background: rgb(241, 237, 237);
 }
 </style>
 

@@ -3,12 +3,15 @@
     <div class="top-bar-container">
       <div class="inverter-power-wrapper">
         <div class="inverter-power" v-if="inverterPowers.length > 0">
+          <div class="event-header power-event-header">
+            <span>Power Values</span>
+          </div>
           <ul class="event-list">
             <li v-for="(power, index) in inverterPowers" :key="index">
               <div class="values-wrapper">
                 <div v-tooltip="power.inverter">
-                  <span>Inverter:</span>
-                  <p>{{power.inverter}}</p>
+                  <span>PV:</span>
+                  <p>{{power.assetOwner}}</p>
                 </div>
                 <div>
                   <span>Power:</span>
@@ -30,12 +33,15 @@
 
       <div class="inverter-output-wrapper">
         <div class="inverter-output" v-if="inverterOutputs.length > 0">
+          <div class="event-header output-event-header">
+            <span>Output Levels</span>
+          </div>
           <ul class="event-list">
             <li v-for="(output, index) in inverterOutputs" :key="index">
               <div class="values-wrapper">
                 <div v-tooltip="output.inverter">
-                  <span>Inverter:</span>
-                  <p>{{output.inverter}}</p>
+                  <span>PV:</span>
+                  <p>{{output.assetOwner}}</p>
                 </div>
                 <div>
                   <span>Output:</span>
@@ -57,16 +63,19 @@
 
       <div class="dso-wrapper">
         <div class="dso-values" v-if="dsoSetValues.length > 0">
+          <div class="event-header dso-event-header">
+            <span>DSO Set Values</span>
+          </div>
           <ul class="event-list">
             <li v-for="(value, index) in dsoSetValues" :key="index">
               <div class="values-wrapper">
                 <div v-tooltip="value.dso">
                   <span>DSO:</span>
-                  <p>{{value.dso}}</p>
+                  <p>{{value.dsoName}}</p>
                 </div>
                 <div v-tooltip="value.asset">
                   <span>Asset:</span>
-                  <p>{{value.asset}}</p>
+                  <p>{{value.assetOwner}}</p>
                 </div>
                 <div>
                   <span>Power:</span>
@@ -90,20 +99,20 @@
     <div class="value-tables-wrapper">
       <div class="wrapper power-table">
         <div class="table-header">
-          <h4>Inverter Power Value Events</h4>
+          <h4>PV Power Value Events</h4>
         </div>
         <div class="table">
           <div class="table-wrapper" v-if="allInverterPowers.length > 0">
             <v-table :data="allInverterPowers">
               <thead slot="head">
-                <th>Inverter</th>
+                <th>Asset</th>
                 <th>Time</th>
                 <th>Power [W]</th>
               </thead>
 
               <tbody slot="body" slot-scope="{displayData}">
                 <tr v-for="(row, index) in displayData" :key="index">
-                  <td v-tooltip="row.inverter">{{row.inverter}}</td>
+                  <td v-tooltip="row.inverter">{{row.assetOwner}}</td>
                   <td v-tooltip="row.time">{{row.time}}</td>
                   <td>{{row.value}}</td>
                 </tr>
@@ -132,8 +141,8 @@
 
               <tbody slot="body" slot-scope="{displayData}">
                 <tr v-for="(row, index) in displayData" :key="index">
-                  <td v-tooltip="row.dso">{{row.dso}}</td>
-                  <td v-tooltip="row.asset">{{row.asset}}</td>
+                  <td v-tooltip="row.dso">{{row.dsoName}}</td>
+                  <td v-tooltip="row.asset">{{row.assetOwner}}</td>
                   <td v-tooltip="row.time">{{row.time}}</td>
                   <td>{{row.value}}</td>
                 </tr>
@@ -148,20 +157,20 @@
 
       <div class="wrapper output-table">
         <div class="table-header">
-          <h4>Inverter Output Value Events</h4>
+          <h4>PV Output Value Events</h4>
         </div>
         <div class="table">
           <div class="table-wrapper" v-if="allInverterOutputs.length > 0">
             <v-table :data="allInverterOutputs">
               <thead slot="head">
-                <th>Inverter</th>
+                <th>Asset</th>
                 <th>Time</th>
                 <th>Power [W]</th>
               </thead>
 
               <tbody slot="body" slot-scope="{displayData}">
                 <tr v-for="(row, index) in displayData" :key="index">
-                  <td v-tooltip="row.inverter">{{row.inverter}}</td>
+                  <td v-tooltip="row.inverter">{{row.assetOwner}}</td>
                   <td v-tooltip="row.time">{{row.time}}</td>
                   <td>{{row.value}}</td>
                 </tr>
@@ -201,7 +210,7 @@ export default {
           fromBlock: 0
         })
         .on("data", event => {
-          console.log(event.returnValues.response);
+          //console.log(event.returnValues.response);
         })
         .on("error", console.error);
     },
@@ -212,7 +221,9 @@ export default {
         })
         .on("data", event => {
           let dsoValueObj = {};
+          dsoValueObj.dsoName = event.returnValues.dsoName;
           dsoValueObj.dso = event.returnValues.dso;
+          dsoValueObj.assetOwner = event.returnValues.assetOwner;
           dsoValueObj.asset = event.returnValues.asset;
           dsoValueObj.value = event.returnValues.value.toNumber();
           dsoValueObj.time = timeConverter(event.returnValues.time.toNumber());
@@ -231,6 +242,7 @@ export default {
         })
         .on("data", event => {
           let powerObject = {};
+          powerObject.assetOwner = event.returnValues.assetOwner;
           powerObject.inverter = event.returnValues.inverter;
           powerObject.value = event.returnValues.currentPower.toNumber();
           powerObject.time = timeConverter(event.returnValues.time.toNumber());
@@ -249,6 +261,7 @@ export default {
         })
         .on("data", event => {
           let outputObject = {};
+          outputObject.assetOwner = event.returnValues.assetOwner;
           outputObject.inverter = event.returnValues.inverter;
           outputObject.value = event.returnValues.outputLevel.toNumber();
           outputObject.time = timeConverter(event.returnValues.time.toNumber());
@@ -276,34 +289,73 @@ export default {
   flex-direction: column;
 }
 
-.top-bar-container {
-  background: rgb(250, 251, 251);
-}
 .dso-values,
 .inverter-power,
 .inverter-output {
   margin: 0.5rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .event-list {
   padding: 0;
-  margin: 0;
+
   display: flex;
   list-style: none;
   justify-content: center;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.event-header {
+  font-size: 0.7rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  box-sizing: border-box;
+  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); */
+
+  box-shadow: 0 10px 30px rgba(51, 51, 51, 0.1);
+}
+
+.event-header > span {
+  align-self: center;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.power-event-header {
+  border: 1px solid #aed8a3;
+  border-radius: 2px;
+  background: #cdf1c3;
+}
+
+.output-event-header {
+  border: 1px solid #9ecfdb;
+  border-radius: 2px;
+  background: #c0dbe2;
+}
+.dso-event-header {
+  border: 1px solid #bb9fcf;
+  border-radius: 2px;
+  background: #ccb9da;
 }
 
 li {
   overflow: hidden;
   margin: 0.5rem;
+  background: #fffefe;
+  border: #d0d3d4 1px solid;
+  border-radius: 2px;
   box-shadow: 0 10px 30px rgba(51, 51, 51, 0.1);
+  align-self: center;
 }
 
 .values-wrapper {
   padding: 0.5rem;
-  background: #fffefe;
-  border: #d0d3d4 1px solid;
-  border-radius: 2px;
+
   text-align: left;
   align-items: center;
 }
@@ -339,7 +391,6 @@ p {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  background-color: #f8f9fa !important;
 }
 
 .power-table,

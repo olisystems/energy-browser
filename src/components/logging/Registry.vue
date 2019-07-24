@@ -4,8 +4,8 @@
       <div class="dsos-value">
         <form @submit.prevent="setDsoValue">
           <fieldset>
-            <legend>Set DSO Power Value</legend>
-            <label for="dsos-value">Power:</label>
+            <legend>Set Output Limit</legend>
+            <label for="dsos-value">Output Limit [%]:</label>
             <input type="number" min="1" max="100" required id="dsos-value" v-model="dsoInput" />
 
             <br />
@@ -13,7 +13,7 @@
             <label for="owner-id">DSO ID:</label>
             <select v-model="dsoPubkey" id="owner-id">
               <option disabled value>Please select one</option>
-              <option v-for="(dso, index) in dsos" :key="index">{{dso}}</option>
+              <option v-for="(dso, index) in dsos" :key="index">{{dso.pubKey}}</option>
             </select>
 
             <label for="asset-id">Asset ID:</label>
@@ -44,19 +44,19 @@
                 <th>Owner</th>
                 <th>DSO</th>
                 <th>Type</th>
-                <th>Install Date</th>
-                <th>Location</th>
-                <th>Voltage Level</th>
+                <th v-tooltip="'Registration Time'">Registration Time</th>
+                <th v-tooltip="'Peak Power [W]'">Peak Power [W]</th>
+                <th v-tooltip="'Voltage Level [V]'">Voltage Level [V]</th>
               </thead>
 
               <tbody slot="body" slot-scope="{displayData}">
                 <tr v-for="(row, index) in displayData" :key="index">
-                  <td v-tooltip="row.assetPubkey">{{row.assetPubkey}}</td>
-                  <td v-tooltip="row.ownerPubkey">{{row.ownerPubkey}}</td>
-                  <td v-tooltip="row.dsoPubkey">{{row.dsoPubkey}}</td>
+                  <td v-tooltip="row.assetPubkey">{{row.assetOwner}}</td>
+                  <td v-tooltip="row.ownerPubkey">{{row.ownerName}}</td>
+                  <td v-tooltip="row.dsoPubkey">{{row.dsoName}}</td>
                   <td>{{row.assetType}}</td>
-                  <td v-tooltip="row.installDate">{{row.installDate}}</td>
-                  <td>{{row.location}}</td>
+                  <td v-tooltip="row.registrationTime">{{row.registrationTime}}</td>
+                  <td>{{row.peakPower}}</td>
                   <td>{{row.voltageLevel}}</td>
                 </tr>
               </tbody>
@@ -75,7 +75,12 @@
           </div>
           <div class="list-body header">
             <ol>
-              <li v-for="(dso, index) in dsos" v-bind:key="index" v-on:click="getDsoWallet">{{dso}}</li>
+              <li
+                v-tooltip="dso.pubKey"
+                v-for="(dso, index) in dsos"
+                v-bind:key="index"
+                v-on:click="getDsoWallet"
+              >{{dso.dsoName}}</li>
             </ol>
           </div>
         </div>
@@ -85,20 +90,20 @@
 
         <div class="wrapper wallet">
           <div class="table-header">
-            <h4>DSO Wallet</h4>
+            <h4>DSO Transaction History</h4>
           </div>
           <div class="table">
             <div class="table-wrapper" v-if="dsoWallet.length > 0">
               <v-table :data="dsoWallet">
                 <thead slot="head">
                   <th>Asset</th>
-                  <th>Value</th>
+                  <th>Output Limit [%]</th>
                   <th>Time</th>
                 </thead>
 
                 <tbody slot="body" slot-scope="{displayData}">
                   <tr v-for="(row, index) in displayData" :key="index">
-                    <td v-tooltip="row.asset">{{row.asset}}</td>
+                    <td v-tooltip="row.asset">{{row.assetName}}</td>
                     <td v-tooltip="row.values">{{row.values}}</td>
                     <td v-tooltip="row.time">{{row.time}}</td>
                   </tr>
@@ -125,6 +130,7 @@ export default {
   name: "Registry",
   data() {
     return {
+      owners: [],
       dsos: [],
       assets: [],
       assetList: [],
@@ -144,7 +150,15 @@ export default {
         })
         .on("data", event => {
           if (event.returnValues.adminType === 2) {
-            this.dsos.unshift(event.returnValues.pubkey);
+            this.dsos.unshift({
+              dsoName: event.returnValues.name,
+              pubKey: event.returnValues.pubkey
+            });
+          } else {
+            this.owners.unshift({
+              ownerName: event.returnValues.name,
+              pubKey: event.returnValues.pubkey
+            });
           }
         })
         .on("error", console.error);
@@ -157,17 +171,35 @@ export default {
           fromBlock: 0
         })
         .on("data", event => {
+          // get owner and dso name
+          let ownerName;
+          let dsoName;
+
+          this.owners.forEach(owner => {
+            if (owner.pubKey === event.returnValues.ownerPubkey) {
+              ownerName = owner.ownerName;
+            }
+          });
+
+          this.dsos.forEach(dso => {
+            if (dso.pubKey === event.returnValues.dsoPubkey) {
+              dsoName = dso.dsoName;
+            }
+          });
+
           let assetObject = {};
+          assetObject.assetOwner = event.returnValues.assetOwner;
           assetObject.assetPubkey = event.returnValues.assetPubkey;
           assetObject.assetType = event.returnValues.assetType;
+          assetObject.dsoName = dsoName;
+          assetObject.ownerName = ownerName;
           assetObject.dsoPubkey = event.returnValues.dsoPubkey;
-          assetObject.installDate = event.returnValues.installDate;
-          assetObject.location = event.returnValues.location;
           assetObject.ownerPubkey = event.returnValues.ownerPubkey;
           assetObject.registrationTime = timeConverter(
             event.returnValues.registrationTime.toNumber()
           );
           assetObject.voltageLevel = event.returnValues.voltageLevel;
+          assetObject.peakPower = event.returnValues.peakPower;
           this.assets.unshift(assetObject);
 
           // unshift asset to list
@@ -197,9 +229,10 @@ export default {
           events.forEach(event => {
             if (this.dsoAddress === event.returnValues[0]) {
               this.dsoWallet.unshift({
-                asset: event.returnValues[1],
-                values: event.returnValues[2].toNumber(),
-                time: timeConverter(event.returnValues[3])
+                assetName: event.returnValues.assetOwner,
+                asset: event.returnValues.asset,
+                values: event.returnValues.value.toNumber(),
+                time: timeConverter(event.returnValues.time)
               });
             }
           });
@@ -225,18 +258,17 @@ export default {
 .registry {
   display: flex;
   justify-content: space-between;
-  background: #f0f1f1;
 }
 
 .dso-panel {
-  width: 35%;
+  width: 25%;
   margin: 1rem;
 }
 
 .registration-details {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 70%;
   margin: 1rem;
 }
 .dsos-value {
