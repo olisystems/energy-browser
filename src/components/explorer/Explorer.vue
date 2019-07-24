@@ -252,8 +252,8 @@ export default {
   data() {
     return {
       accounts: [],
-      address: "0x55C845F7af2865d6fd5bec396668C068ba59F629",
-      //0x8C54Cb21d36F77c57773d86E95792f2a54c29b65
+      address: "0xb73E0567A514A60E7708aCaA854dad490aE71d2c",
+      //0x5f4525AfEc913b3B4C503B9e4bBa93542d0cC3Df
       lastAddress: "",
       accountTitle: "",
       hashes: [],
