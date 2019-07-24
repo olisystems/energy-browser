@@ -1,37 +1,6 @@
 <template>
   <div class="top-bar">
     <div class="top-bar-container">
-      <div class="dso-wrapper">
-        <div class="dso-values" v-if="dsoSetValues.length > 0">
-          <ul class="event-list">
-            <li v-for="(value, index) in dsoSetValues" :key="index">
-              <div class="values-wrapper">
-                <div v-tooltip="value.dso">
-                  <span>DSO:</span>
-                  <p>{{value.dso}}</p>
-                </div>
-                <div v-tooltip="value.asset">
-                  <span>Asset:</span>
-                  <p>{{value.asset}}</p>
-                </div>
-                <div>
-                  <span>Power:</span>
-                  <p>{{value.value}}</p>
-                </div>
-                <div v-tooltip="value.time">
-                  <span>Timestamp:</span>
-                  <p>{{value.time}}</p>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <div v-else>
-          <h4 class="not-found">No event for DSO Power values</h4>
-        </div>
-      </div>
-
       <div class="inverter-power-wrapper">
         <div class="inverter-power" v-if="inverterPowers.length > 0">
           <ul class="event-list">
@@ -83,6 +52,37 @@
 
         <div v-else>
           <h4 class="not-found">No event for Inverter output values</h4>
+        </div>
+      </div>
+
+      <div class="dso-wrapper">
+        <div class="dso-values" v-if="dsoSetValues.length > 0">
+          <ul class="event-list">
+            <li v-for="(value, index) in dsoSetValues" :key="index">
+              <div class="values-wrapper">
+                <div v-tooltip="value.dso">
+                  <span>DSO:</span>
+                  <p>{{value.dso}}</p>
+                </div>
+                <div v-tooltip="value.asset">
+                  <span>Asset:</span>
+                  <p>{{value.asset}}</p>
+                </div>
+                <div>
+                  <span>Power:</span>
+                  <p>{{value.value}}</p>
+                </div>
+                <div v-tooltip="value.time">
+                  <span>Timestamp:</span>
+                  <p>{{value.time}}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div v-else>
+          <h4 class="not-found">No event for DSO Power values</h4>
         </div>
       </div>
     </div>
@@ -200,7 +200,9 @@ export default {
         .RejectSetValue({
           fromBlock: 0
         })
-        .on("data", event => {})
+        .on("data", event => {
+          console.log(event.returnValues.response);
+        })
         .on("error", console.error);
     },
     watchDsoSetValue() {
@@ -215,7 +217,7 @@ export default {
           dsoValueObj.value = event.returnValues.value.toNumber();
           dsoValueObj.time = timeConverter(event.returnValues.time.toNumber());
           this.dsoSetValues.push(dsoValueObj);
-          this.allDsoValues.push(dsoValueObj);
+          this.allDsoValues.unshift(dsoValueObj);
           if (this.dsoSetValues.length > 5) {
             this.dsoSetValues.shift();
           }
@@ -233,7 +235,7 @@ export default {
           powerObject.value = event.returnValues.currentPower.toNumber();
           powerObject.time = timeConverter(event.returnValues.time.toNumber());
           this.inverterPowers.push(powerObject);
-          this.allInverterPowers.push(powerObject);
+          this.allInverterPowers.unshift(powerObject);
           if (this.inverterPowers.length > 5) {
             this.inverterPowers.shift();
           }
@@ -251,7 +253,7 @@ export default {
           outputObject.value = event.returnValues.outputLevel.toNumber();
           outputObject.time = timeConverter(event.returnValues.time.toNumber());
           this.inverterOutputs.push(outputObject);
-          this.allInverterOutputs.push(outputObject);
+          this.allInverterOutputs.unshift(outputObject);
           if (this.inverterOutputs.length > 5) {
             this.inverterOutputs.shift();
           }

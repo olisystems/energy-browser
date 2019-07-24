@@ -144,7 +144,7 @@ export default {
         })
         .on("data", event => {
           if (event.returnValues.adminType === 2) {
-            this.dsos.push(event.returnValues.pubkey);
+            this.dsos.unshift(event.returnValues.pubkey);
           }
         })
         .on("error", console.error);
@@ -168,10 +168,10 @@ export default {
             event.returnValues.registrationTime.toNumber()
           );
           assetObject.voltageLevel = event.returnValues.voltageLevel;
-          this.assets.push(assetObject);
+          this.assets.unshift(assetObject);
 
-          // push asset to list
-          this.assetList.push(event.returnValues.assetPubkey);
+          // unshift asset to list
+          this.assetList.unshift(event.returnValues.assetPubkey);
         })
         .on("error", console.error);
     },
@@ -196,7 +196,7 @@ export default {
         events => {
           events.forEach(event => {
             if (this.dsoAddress === event.returnValues[0]) {
-              this.dsoWallet.push({
+              this.dsoWallet.unshift({
                 asset: event.returnValues[1],
                 values: event.returnValues[2].toNumber(),
                 time: timeConverter(event.returnValues[3])
