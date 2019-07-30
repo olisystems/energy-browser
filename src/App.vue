@@ -26,8 +26,6 @@
 </template>
 
 <script>
-window.ethereum.enable();
-
 export default {};
 </script>
 

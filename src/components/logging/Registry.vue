@@ -209,13 +209,43 @@ export default {
     },
 
     // set dso value method
-    setDsoValue() {
-      AssetLoggingContract.methods
+    async setDsoValue() {
+      // Modern dapp browsers...
+      if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+          // Request account access if needed
+          await ethereum.enable();
+          // Acccounts now exposed
+          AssetLoggingContract.methods
         .setDsoValue(this.assetPubkey, this.dsoInput)
         .send({ from: this.dsoPubkey, gasPrice: "1" })
         .then(receipt => {
           //console.log(receipt);
         });
+        } catch (error) {
+          // User denied account access...
+          alert("User denied account access...");
+        }
+      }
+      // Legacy dapp browsers...
+      else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+        // Acccounts always exposed
+        AssetLoggingContract.methods
+        .setDsoValue(this.assetPubkey, this.dsoInput)
+        .send({ from: this.dsoPubkey, gasPrice: "1" })
+        .then(receipt => {
+          //console.log(receipt);
+        });
+      }
+      // Non-dapp browsers...
+      else {
+        alert(
+          "Non-Ethereum browser detected. You should consider trying MetaMask!"
+        );
+      }
+      
 
       this.dsoInput = "";
       this.dsoPubkey = "";
