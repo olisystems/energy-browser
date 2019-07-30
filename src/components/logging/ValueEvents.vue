@@ -137,7 +137,7 @@
                 <th>DSO</th>
                 <th>Asset</th>
                 <th>Time</th>
-                <th>Power [W]</th>
+                <th v-tooltip="'Output Level [%]'">Output Level [%]</th>
               </thead>
 
               <transition-group name="test" tag="tbody" slot="body" slot-scope="{displayData}">
@@ -158,7 +158,7 @@
 
       <div class="wrapper output-table">
         <div class="table-header">
-          <h4>PV Output Value Events</h4>
+          <h4>PV Output Level Events</h4>
         </div>
         <div class="table">
           <div class="table-wrapper" v-if="allInverterOutputs.length > 0">
@@ -166,7 +166,7 @@
               <thead slot="head">
                 <th>Asset</th>
                 <th>Time</th>
-                <th>Power [W]</th>
+                <th v-tooltip="'Output Level [%]'">Output Level [%]</th>
               </thead>
 
               <transition-group name="test" tag="tbody" slot="body" slot-scope="{displayData}">
