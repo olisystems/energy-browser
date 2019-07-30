@@ -7,7 +7,7 @@
             <span>Power Values</span>
           </div>
           <transition-group name="list" tag="ul" class="event-list">
-            <li v-for="(power) in inverterPowers" :key="power.time">
+            <li v-for="(power) in inverterPowers" :key="power.inverterID">
               <div class="values-wrapper">
                 <div v-tooltip="power.inverter">
                   <span>PV:</span>
@@ -38,7 +38,7 @@
           </div>
 
           <transition-group name="list" tag="ul" class="event-list">
-            <li v-for="(output) in inverterOutputs" :key="output.time">
+            <li v-for="(output) in inverterOutputs" :key="output.outputID">
               <div class="values-wrapper">
                 <div v-tooltip="output.inverter">
                   <span>PV:</span>
@@ -68,7 +68,7 @@
             <span>DSO Set Values</span>
           </div>
           <transition-group name="list" tag="ul" class="event-list">
-            <li v-for="(value) in dsoSetValues" :key="value.time">
+            <li v-for="(value) in dsoSetValues" :key="value.dsoID">
               <div class="values-wrapper">
                 <div v-tooltip="value.dso">
                   <span>DSO:</span>
@@ -112,7 +112,7 @@
               </thead>
 
               <transition-group name="test" tag="tbody" slot="body" slot-scope="{displayData}">
-                <tr v-for="(row) in displayData" :key="row.time">
+                <tr v-for="(row) in displayData" :key="row.inverterID">
                   <td v-tooltip="row.inverter">{{row.assetOwner}}</td>
                   <td v-tooltip="row.time">{{row.time}}</td>
                   <td>{{row.value}}</td>
@@ -141,7 +141,7 @@
               </thead>
 
               <transition-group name="test" tag="tbody" slot="body" slot-scope="{displayData}">
-                <tr v-for="(row) in displayData" :key="row.time">
+                <tr v-for="(row) in displayData" :key="row.dsoID">
                   <td v-tooltip="row.dso">{{row.dsoName}}</td>
                   <td v-tooltip="row.asset">{{row.assetOwner}}</td>
                   <td v-tooltip="row.time">{{row.time}}</td>
@@ -170,7 +170,7 @@
               </thead>
 
               <transition-group name="test" tag="tbody" slot="body" slot-scope="{displayData}">
-                <tr v-for="(row) in displayData" :key="row.time">
+                <tr v-for="(row) in displayData" :key="row.outputID">
                   <td v-tooltip="row.inverter">{{row.assetOwner}}</td>
                   <td v-tooltip="row.time">{{row.time}}</td>
                   <td>{{row.value}}</td>
@@ -216,12 +216,15 @@ export default {
         .on("error", console.error);
     },
     watchDsoSetValue() {
+      let dsoID = 0;
       AssetLoggingContract.events
         .NewDsoValue({
           fromBlock: 0
         })
         .on("data", event => {
+          dsoID++;
           let dsoValueObj = {};
+          dsoValueObj.dsoID = dsoID;
           dsoValueObj.dsoName = event.returnValues.dsoName;
           dsoValueObj.dso = event.returnValues.dso;
           dsoValueObj.assetOwner = event.returnValues.assetOwner;
@@ -237,12 +240,15 @@ export default {
         .on("error", console.error);
     },
     watchInverterPower() {
+      let inverterID = 0;
       AssetLoggingContract.events
         .NewInverterPower({
           fromBlock: 0
         })
         .on("data", event => {
           let powerObject = {};
+          inverterID++;
+          powerObject.inverterID = inverterID;
           powerObject.assetOwner = event.returnValues.assetOwner;
           powerObject.inverter = event.returnValues.inverter;
           powerObject.value = event.returnValues.currentPower.toNumber();
@@ -256,12 +262,15 @@ export default {
         .on("error", console.error);
     },
     watchInverterOutput() {
+      let outputID = 0;
       AssetLoggingContract.events
         .NewInverterOutput({
           fromBlock: 0
         })
         .on("data", event => {
           let outputObject = {};
+          outputID++;
+          outputObject.outputID = outputID;
           outputObject.assetOwner = event.returnValues.assetOwner;
           outputObject.inverter = event.returnValues.inverter;
           outputObject.value = event.returnValues.outputLevel.toNumber();
@@ -303,7 +312,7 @@ export default {
 .list-enter /* .list-leave-active below version 2.1.8 */ {
   opacity: 0;
   transform: translateX(30px);
-  background-color: rgb(9, 194, 132);
+  background-color: #cdf1c3;
 }
 
 .list-leave-to {
@@ -328,7 +337,7 @@ tables transition
 .test-enter /* .list-leave-active below version 2.1.8 */ {
   opacity: 0;
   transform: translateY(30px);
-  background-color: rgb(9, 194, 132);
+  background-color: #cdf1c3;
 }
 
 .test-move {
