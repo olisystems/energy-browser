@@ -281,7 +281,7 @@ contract AssetLogging {
             emit RejectSetValue(msg.sender, "Inverter is not registered");
             return;
         }
-        
+
         string memory assetOwnerName = assets[msg.sender].assetOwner;
         emit NewInverterPower(assetOwnerName, msg.sender, _currentPower, now);
 
@@ -295,7 +295,7 @@ contract AssetLogging {
             emit RejectSetValue(msg.sender, "Inverter is not registered");
             return;
         }
-        
+
         string memory assetOwnerName = assets[msg.sender].assetOwner;
         emit NewInverterOutput(assetOwnerName, msg.sender, _outputLevel, now);
 

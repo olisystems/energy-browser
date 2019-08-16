@@ -1,4 +1,4 @@
-pragma solidity ^0.4.20;
+pragma solidity >=0.4.16 <0.6.0;
 
 contract EnergyConsumption {
 
@@ -43,16 +43,11 @@ contract EnergyConsumption {
 
     address[] public consAccntList;
 
-    constructor () public {
-        // position 0 flag invalid address
-        consAccntList.push(0x0);
-    }
-
     /*
     * Registration
     */
 
-    function setConsumer(string _owner, string _deviceType, uint32 _peakPowerPos, uint32 _peakPowerNeg, uint32 _latitude, uint32 _longitude, uint32 _voltageLevel, string _location, string _installDate) public {
+    function setConsumer(string memory _owner, string memory _deviceType, uint32 _peakPowerPos, uint32 _peakPowerNeg, uint32 _latitude, uint32 _longitude, uint32 _voltageLevel, string memory _location, string memory _installDate) public {
         if (!consAccntsArr(msg.sender)) {
             // mapping address to index
             accntIndexArr[msg.sender] = consAccntList.length;
@@ -63,31 +58,31 @@ contract EnergyConsumption {
     }
 
     // check if an address is already registered or not
-    function consAccntsArr(address consumerAddr) public constant returns (bool) {
-        // address 0x0 is not valid if pos 0 is not in the array
-        if (consumerAddr != 0x0 && accntIndexArr[consumerAddr] > 0) {
+    function consAccntsArr(address consumerAddr) public view returns (bool) {
+
+        if (accntIndexArr[consumerAddr] > 0) {
             return true;
         }
         return false;
     }
 
     // getting registration details
-    function getConsumer() public constant returns (address, string, string, uint32, uint32, uint32, uint32, uint32, string, string) {
+    function getConsumer() public view returns (address, string memory, string memory, uint32, uint32, uint32, uint32, uint32, string memory, string memory) {
         return (msg.sender, consumers[msg.sender].owner, consumers[msg.sender].deviceType, consumers[msg.sender].peakPowerPos, consumers[msg.sender].peakPowerNeg, consumers[msg.sender].latitude, consumers[msg.sender].longitude, consumers[msg.sender].voltageLevel, consumers[msg.sender].location, consumers[msg.sender].installDate);
     }
 
     // get registation details for individual accounts
-    function getConsAccntDetails(address _consAccntAddr) public constant returns (string, string, uint32, string, uint32, uint32, string) {
+    function getConsAccntDetails(address _consAccntAddr) public view returns (string memory, string memory, uint32, string memory, uint32, uint32, string memory) {
         return (consumers[_consAccntAddr].owner, consumers[_consAccntAddr].deviceType, consumers[_consAccntAddr].peakPowerPos, consumers[_consAccntAddr].location, consumers[_consAccntAddr].latitude, consumers[_consAccntAddr].longitude, consumers[_consAccntAddr].installDate);
     }
 
     // consumer accounts list
-    function getConsAccntsList() public constant returns (address[]) {
+    function getConsAccntsList() public view returns (address[] memory) {
         return consAccntList;
     }
 
     // count for consumer accounts
-    function countConsumers() public constant returns (uint) {
+    function countConsumers() public view returns (uint) {
         return (consAccntList.length) - 1;
     }
 
@@ -116,19 +111,19 @@ contract EnergyConsumption {
 
     }
 
-    function getEnerConsumption()public constant returns (address, uint, uint32) {
+    function getEnerConsumption() public view returns (address, uint, uint32) {
         return (msg.sender, enerConsumptions[msg.sender].enerTime, enerConsumptions[msg.sender].enerValue);
     }
 
     // getting energy consumption details for individual accounts
 
-    function getConsEnerConsumption(address _consAccntAddr) public constant returns (address, uint[], uint32[], uint[], bytes32[], uint[]) {
+    function getConsEnerConsumption(address _consAccntAddr) public view returns (address, uint[] memory, uint32[] memory, uint[] memory, bytes32[] memory, uint[] memory) {
         return (_consAccntAddr, transactions[_consAccntAddr].txTime, transactions[_consAccntAddr].txValue, transactions[_consAccntAddr].blockNumber, transactions[_consAccntAddr].blockHash, transactions[_consAccntAddr].txGasPrice);
     }
 
     // retrieving individula consumer total amount of energy consumed
 
-    function getConsBalance(address _consAccntAddr) public constant returns (uint) {
+    function getConsBalance(address _consAccntAddr) public view returns (uint) {
         return (consBalance[_consAccntAddr]);
     }
 

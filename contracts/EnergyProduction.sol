@@ -1,4 +1,4 @@
-pragma solidity ^0.4.20;
+pragma solidity >=0.4.16 <0.6.0;
 
 contract EnergyProduction {
 
@@ -43,16 +43,11 @@ contract EnergyProduction {
 
     address[] public proAccntList;
 
-    constructor () public {
-        // position 0 flag invalid address
-        proAccntList.push(0x0);
-    }
-
     /*
     * Registration
     */
 
-    function setProducer(string _owner, string _deviceType, uint32 _peakPowerPos, uint32 _peakPowerNeg, uint32 _latitude, uint32 _longitude, uint32 _voltageLevel, string _location, string _installDate) public {
+    function setProducer(string memory _owner, string memory _deviceType, uint32 _peakPowerPos, uint32 _peakPowerNeg, uint32 _latitude, uint32 _longitude, uint32 _voltageLevel, string memory _location, string memory _installDate) public {
         if (!proAccntsArr(msg.sender)) {
             // mapping address to index
             accntIndexArr[msg.sender] = proAccntList.length;
@@ -63,31 +58,31 @@ contract EnergyProduction {
     }
 
     // check if an address is already registered or not
-    function proAccntsArr(address producerAddr)public constant returns (bool) {
-        // address 0x0 is not valid if pos 0 is not in the array
-        if (producerAddr != 0x0 && accntIndexArr[producerAddr] > 0) {
+    function proAccntsArr(address producerAddr) public view returns (bool) {
+
+        if (accntIndexArr[producerAddr] > 0) {
             return true;
         }
         return false;
     }
 
     // getting registration details
-    function getProducer() public constant returns (address, string, string, uint32, uint32, uint32, uint32, uint32, string, string) {
+    function getProducer() public view returns (address, string memory, string memory, uint32, uint32, uint32, uint32, uint32, string memory, string memory) {
         return (msg.sender, producers[msg.sender].owner, producers[msg.sender].deviceType, producers[msg.sender].peakPowerPos, producers[msg.sender].peakPowerNeg, producers[msg.sender].latitude, producers[msg.sender].longitude, producers[msg.sender].voltageLevel, producers[msg.sender].location, producers[msg.sender].installDate);
     }
 
     // get registation details for individual accounts
-    function getProAccntDetails(address _proAccntAddr)public constant returns (string, string, uint32, string, uint32, uint32, string) {
+    function getProAccntDetails(address _proAccntAddr) public view returns (string memory, string memory, uint32, string memory, uint32, uint32, string memory) {
         return (producers[_proAccntAddr].owner, producers[_proAccntAddr].deviceType, producers[_proAccntAddr].peakPowerPos, producers[_proAccntAddr].location, producers[_proAccntAddr].latitude, producers[_proAccntAddr].longitude, producers[_proAccntAddr].installDate);
     }
 
     // producer accounts list
-    function getProAccntsList() public constant returns (address[]) {
+    function getProAccntsList() public view returns (address[] memory) {
         return proAccntList;
     }
 
     // count for producer accounts
-    function countProducers()public constant returns (uint) {
+    function countProducers() public view returns (uint) {
         return (proAccntList.length) - 1;
     }
 
@@ -96,7 +91,7 @@ contract EnergyProduction {
     */
 
     // getting energy time and amount
-    function setEnerProduction(uint32 _enerValue)public {
+    function setEnerProduction(uint32 _enerValue) public {
         // check if producer already exist
         if (proAccntsArr(msg.sender)) {
             enerProductions[msg.sender] = EnerProduction(now, _enerValue, block.number, blockhash(block.number - 1), tx.gasprice);
@@ -117,33 +112,33 @@ contract EnergyProduction {
 
     }
 
-    function getEnerProduction() public constant returns (address, uint, uint32) {
+    function getEnerProduction() public view returns (address, uint, uint32) {
         return (msg.sender, enerProductions[msg.sender].enerTime, enerProductions[msg.sender].enerValue);
     }
 
     // getting energy production details for individual accounts
 
-    function getProEnerProduction(address _proAccntAddr) public constant returns (address, uint[], uint32[], uint[], bytes32[], uint[]) {
+    function getProEnerProduction(address _proAccntAddr) public view returns (address, uint[] memory, uint32[] memory, uint[] memory, bytes32[] memory, uint[] memory) {
         return (_proAccntAddr, transactions[_proAccntAddr].txTime, transactions[_proAccntAddr].txValue, transactions[_proAccntAddr].blockNumber, transactions[_proAccntAddr].blockHash, transactions[_proAccntAddr].txGasPrice);
     }
 
     // retrieving individula producer total amount of energy produced
 
-    function getProBalance(address _proAccntAddr) public constant returns (uint) {
+    function getProBalance(address _proAccntAddr) public view returns (uint) {
         return (proBalance[_proAccntAddr]);
     }
 
     /* Oli Coin Stuff */
 
-    function getDeviceTypeForCoin(address addr) public constant returns (string) {
+    function getDeviceTypeForCoin(address addr) public view returns (string memory) {
         return producers[addr].deviceType;
     }
 
-    function getLocationForCoin(address addr)public constant returns (string) {
+    function getLocationForCoin(address addr) public view returns (string memory) {
         return producers[addr].location;
     }
 
-    function getEnerProductionForCoin(address addr)public constant returns (uint32[]) {
+    function getEnerProductionForCoin(address addr) public view returns (uint32[] memory) {
         return transactions[addr].txValue;
     }
 
