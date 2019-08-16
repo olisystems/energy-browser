@@ -229,12 +229,11 @@ export default {
         fromBlock: 0
       }).then(events => {
         events.forEach(event => {
-          console.log(event);
           if (this.dsoAddress === event.returnValues[0]) {
             this.dsoWallet.unshift({
               assetName: event.returnValues.assetOwner,
               asset: event.returnValues.asset,
-              values: event.returnValues.value.toNumber(),
+              values: Number(event.returnValues.value),
               time: timeConverter(event.returnValues.time)
             });
           }

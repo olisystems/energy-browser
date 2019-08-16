@@ -56,7 +56,6 @@ export default {
         .countProducers()
         .call({ from: "0x4df329c10fb40e6d89b2cf9f89f982727b96d26f" })
         .then(result => {
-          console.log(result);
           this.producers = result;
         });
       $(".pro-loader").hide();
