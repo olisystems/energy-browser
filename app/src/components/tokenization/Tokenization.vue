@@ -114,12 +114,12 @@
 </template>
 
 <script>
-import web3 from "../../assets/js/contracts.js";
-import { oliCoinContract } from "../../assets/js/contracts.js";
+import Contracts from "../../assets/js/contracts";
 const $ = require("jquery");
 import { log } from "util";
 export default {
   name: "Tokenization",
+  Contracts: null,
   data() {
     return {
       ethAccounts: [],
@@ -154,7 +154,7 @@ export default {
       this.totalEnergy = "";
       this.totalMintedCoins = "";
       this.producers = [];
-      oliCoinContract.methods
+      this.Contracts.OliCoinContract.methods
         .getProducerAccountsList()
         .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
@@ -171,7 +171,7 @@ export default {
         });
     },
     getTotalEnergy() {
-      oliCoinContract.events.TotalEnergyEvent(
+      this.Contracts.OliCoinContract.events.TotalEnergyEvent(
         {
           fromBlock: "latest",
           toBlock: "latest"
@@ -186,7 +186,7 @@ export default {
       );
     },
     getTotalMintedCoins() {
-      oliCoinContract.events.TotalMintedTokens(
+      this.Contracts.OliCoinContract.events.TotalMintedTokens(
         {
           fromBlock: "latest",
           toBlock: "latest"
@@ -209,7 +209,7 @@ export default {
     },
     getProducerEnergyBalance() {
       this.producerEnergyBalance = "";
-      oliCoinContract.methods
+      this.Contracts.OliCoinContract.methods
         .getProducerEnergyBalance(event.target.innerHTML)
         .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
@@ -221,7 +221,7 @@ export default {
     },
     getProducerTokenBalance() {
       this.producerTokenBalance = "";
-      oliCoinContract.methods
+      this.Contracts.OliCoinContract.methods
         .balanceOf(event.target.innerHTML)
         .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
@@ -233,7 +233,7 @@ export default {
     },
     getProducerInfo() {
       this.producer = [];
-      oliCoinContract.methods
+      this.Contracts.OliCoinContract.methods
         .getProducerAccountDetails(event.target.innerHTML)
         .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
@@ -253,7 +253,9 @@ export default {
   },
 
   // set default function on page load
-  created() {
+  async created() {
+    this.Contracts = new Contracts();
+    await this.Contracts.start();
     this.getEthAccounts();
     this.getProducers();
   }

@@ -189,11 +189,11 @@
 
 <script>
 const $ = require("jquery");
-import web3 from "../../assets/js/contracts.js";
+import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
-import { AssetLoggingContract } from "../../assets/js/contracts.js";
 export default {
   name: "ValueEvents",
+  Contracts: null,
   data() {
     return {
       dsoSetValues: [],
@@ -206,18 +206,18 @@ export default {
   },
   methods: {
     watchRejectValue() {
-      AssetLoggingContract.events
-        .RejectSetValue({
+      this.Contracts.AssetLoggingContract.events
+        .RejectRegistration({
           fromBlock: 0
         })
         .on("data", event => {
-          //console.log(event.returnValues.response);
+          console.log(event.returnValues.response);
         })
         .on("error", console.error);
     },
     watchDsoSetValue() {
       let dsoID = 0;
-      AssetLoggingContract.events
+      this.Contracts.AssetLoggingContract.events
         .NewDsoValue({
           fromBlock: 0
         })
@@ -229,8 +229,8 @@ export default {
           dsoValueObj.dso = event.returnValues.dso;
           dsoValueObj.assetOwner = event.returnValues.assetOwner;
           dsoValueObj.asset = event.returnValues.asset;
-          dsoValueObj.value = event.returnValues.value.toNumber();
-          dsoValueObj.time = timeConverter(event.returnValues.time.toNumber());
+          dsoValueObj.value = Number(event.returnValues.value);
+          dsoValueObj.time = timeConverter(Number(event.returnValues.time));
           this.dsoSetValues.push(dsoValueObj);
           this.allDsoValues.unshift(dsoValueObj);
           if (this.dsoSetValues.length > 5) {
@@ -241,7 +241,7 @@ export default {
     },
     watchInverterPower() {
       let inverterID = 0;
-      AssetLoggingContract.events
+      this.Contracts.AssetLoggingContract.events
         .NewInverterPower({
           fromBlock: 0
         })
@@ -251,8 +251,8 @@ export default {
           powerObject.inverterID = inverterID;
           powerObject.assetOwner = event.returnValues.assetOwner;
           powerObject.inverter = event.returnValues.inverter;
-          powerObject.value = event.returnValues.currentPower.toNumber();
-          powerObject.time = timeConverter(event.returnValues.time.toNumber());
+          powerObject.value = Number(event.returnValues.currentPower);
+          powerObject.time = timeConverter(Number(event.returnValues.time));
           this.inverterPowers.push(powerObject);
           this.allInverterPowers.unshift(powerObject);
           if (this.inverterPowers.length > 5) {
@@ -263,7 +263,7 @@ export default {
     },
     watchInverterOutput() {
       let outputID = 0;
-      AssetLoggingContract.events
+      this.Contracts.AssetLoggingContract.events
         .NewInverterOutput({
           fromBlock: 0
         })
@@ -273,8 +273,8 @@ export default {
           outputObject.outputID = outputID;
           outputObject.assetOwner = event.returnValues.assetOwner;
           outputObject.inverter = event.returnValues.inverter;
-          outputObject.value = event.returnValues.outputLevel.toNumber();
-          outputObject.time = timeConverter(event.returnValues.time.toNumber());
+          outputObject.value = Number(event.returnValues.outputLevel);
+          outputObject.time = timeConverter(Number(event.returnValues.time));
           this.inverterOutputs.push(outputObject);
           this.allInverterOutputs.unshift(outputObject);
           if (this.inverterOutputs.length > 5) {
@@ -284,7 +284,9 @@ export default {
         .on("error", console.error);
     }
   },
-  created() {
+  async created() {
+    this.Contracts = new Contracts();
+    await this.Contracts.start();
     this.watchRejectValue();
     this.watchDsoSetValue();
     this.watchInverterPower();

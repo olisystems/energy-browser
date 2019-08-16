@@ -122,12 +122,12 @@
 
 <script>
 const $ = require("jquery");
-import web3 from "../../assets/js/contracts.js";
+import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
-import { AssetLoggingContract } from "../../assets/js/contracts.js";
 import { log } from "util";
 export default {
   name: "Registry",
+  Contracts: null,
   data() {
     return {
       owners: [],
@@ -144,12 +144,12 @@ export default {
   methods: {
     // new admin registration event
     watchNewAdmin() {
-      AssetLoggingContract.events
+      this.Contracts.AssetLoggingContract.events
         .NewAdmin({
           fromBlock: 0
         })
         .on("data", event => {
-          if (event.returnValues.adminType === 2) {
+          if (event.returnValues.adminType == 2) {
             this.dsos.unshift({
               dsoName: event.returnValues.name,
               pubKey: event.returnValues.pubkey
@@ -166,7 +166,7 @@ export default {
 
     // new asset registration event
     watchNewAsset() {
-      AssetLoggingContract.events
+      this.Contracts.AssetLoggingContract.events
         .NewAsset({
           fromBlock: 0
         })
@@ -196,7 +196,7 @@ export default {
           assetObject.dsoPubkey = event.returnValues.dsoPubkey;
           assetObject.ownerPubkey = event.returnValues.ownerPubkey;
           assetObject.registrationTime = timeConverter(
-            event.returnValues.registrationTime.toNumber()
+            Number(event.returnValues.registrationTime)
           );
           assetObject.voltageLevel = event.returnValues.voltageLevel;
           assetObject.peakPower = event.returnValues.peakPower;
@@ -210,42 +210,13 @@ export default {
 
     // set dso value method
     async setDsoValue() {
-      // Modern dapp browsers...
-      if (window.ethereum) {
-        window.web3 = new Web3(ethereum);
-        try {
-          // Request account access if needed
-          await ethereum.enable();
-          // Acccounts now exposed
-          AssetLoggingContract.methods
+      // Acccounts now exposed
+      this.Contracts.AssetLoggingContract.methods
         .setDsoValue(this.assetPubkey, this.dsoInput)
         .send({ from: this.dsoPubkey, gasPrice: "1" })
         .then(receipt => {
           //console.log(receipt);
         });
-        } catch (error) {
-          // User denied account access...
-          alert("User denied account access...");
-        }
-      }
-      // Legacy dapp browsers...
-      else if (window.web3) {
-        window.web3 = new Web3(web3.currentProvider);
-        // Acccounts always exposed
-        AssetLoggingContract.methods
-        .setDsoValue(this.assetPubkey, this.dsoInput)
-        .send({ from: this.dsoPubkey, gasPrice: "1" })
-        .then(receipt => {
-          //console.log(receipt);
-        });
-      }
-      // Non-dapp browsers...
-      else {
-        alert(
-          "Non-Ethereum browser detected. You should consider trying MetaMask!"
-        );
-      }
-      
 
       this.dsoInput = "";
       this.dsoPubkey = "";
@@ -254,20 +225,21 @@ export default {
     getDsoWallet() {
       this.dsoWallet = [];
       this.dsoAddress = event.target.innerHTML;
-      AssetLoggingContract.getPastEvents("NewDsoValue", { fromBlock: 0 }).then(
-        events => {
-          events.forEach(event => {
-            if (this.dsoAddress === event.returnValues[0]) {
-              this.dsoWallet.unshift({
-                assetName: event.returnValues.assetOwner,
-                asset: event.returnValues.asset,
-                values: event.returnValues.value.toNumber(),
-                time: timeConverter(event.returnValues.time)
-              });
-            }
-          });
-        }
-      );
+      this.Contracts.AssetLoggingContract.getPastEvents("NewDsoValue", {
+        fromBlock: 0
+      }).then(events => {
+        events.forEach(event => {
+          console.log(event);
+          if (this.dsoAddress === event.returnValues[0]) {
+            this.dsoWallet.unshift({
+              assetName: event.returnValues.assetOwner,
+              asset: event.returnValues.asset,
+              values: event.returnValues.value.toNumber(),
+              time: timeConverter(event.returnValues.time)
+            });
+          }
+        });
+      });
       // removing the background color for ul-selected items
       document.querySelectorAll("ol>li").forEach(list => {
         list.classList.remove("active-dso");
@@ -276,7 +248,9 @@ export default {
       event.target.classList.add("active-dso");
     }
   },
-  created() {
+  async created() {
+    this.Contracts = new Contracts();
+    await this.Contracts.start();
     this.watchNewAdmin();
     this.watchNewAsset();
   }

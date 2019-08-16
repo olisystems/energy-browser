@@ -233,15 +233,14 @@
 <script>
 const $ = require("jquery");
 
-import { productionContract } from "../../assets/js/contracts.js";
-import { consumptionContract } from "../../assets/js/contracts.js";
-import web3 from "../../assets/js/contracts.js";
+import Contracts from "../../assets/js/contracts";
 import { log } from "util";
 import { timeConverter } from "../../assets/js/time-format";
 import L from "leaflet";
 
 export default {
   name: "TransactionHistory",
+  Contracts: null,
   data() {
     return {
       producers: [],
@@ -282,7 +281,7 @@ export default {
       let currentBlock = "";
       web3.eth.getBlockNumber().then(blockNumber => {
         currentBlock = blockNumber;
-        productionContract
+        this.Contracts.ProductionContract
           .getPastEvents("ProTransactionEvent", {
             fromBlock: currentBlock - 50,
             toBlock: "latest"
@@ -315,7 +314,7 @@ export default {
       let currentBlock = "";
       web3.eth.getBlockNumber().then(blockNumber => {
         currentBlock = blockNumber;
-        consumptionContract
+        this.Contracts.ConsumptionContract
           .getPastEvents("ConsTransactionEvent", {
             fromBlock: currentBlock - 50,
             toBlock: "latest"
@@ -344,7 +343,7 @@ export default {
     },
     // producer accounts list
     getProducerList() {
-      productionContract.methods
+      this.Contracts.ProductionContract.methods
         .getProAccntsList()
         .call()
         .then(list => {
@@ -362,7 +361,7 @@ export default {
         maxWidth: "500",
         className: "currentPro-popup" // classname for another popup
       };
-      consumptionContract.methods
+      this.Contracts.ConsumptionContract.methods
         .getConsAccntsList()
         .call()
         .then(list => {
@@ -382,7 +381,7 @@ export default {
         className: "currentPro-popup" // classname for another popup
       };
 
-      productionContract
+      this.Contracts.ProductionContract
         .getPastEvents("ProducerRegs", {
           fromBlock: 0,
           toBlock: "latest"
@@ -458,7 +457,7 @@ export default {
         className: "currentCons-popup" // classname for another popup
       };
 
-      consumptionContract
+      this.Contracts.ConsumptionContract
         .getPastEvents("ConsumerRegs", {
           fromBlock: 0,
           toBlock: "latest"
@@ -541,7 +540,7 @@ export default {
         iconSize: [30, 40]
       });
       // get event data
-      productionContract
+      this.Contracts.ProductionContract
         .getPastEvents("ProducerRegs", {
           fromBlock: 0,
           toBlock: "latest"
@@ -589,7 +588,7 @@ export default {
         iconSize: [30, 40]
       });
       // get event data
-      consumptionContract
+      this.Contracts.ConsumptionContract
         .getPastEvents("ConsumerRegs", {
           fromBlock: 0,
           toBlock: "latest"
@@ -716,7 +715,7 @@ export default {
 
     getProducerBalance() {
       // total amount of energy produced by individual producer
-      productionContract.methods
+      this.Contracts.ProductionContract.methods
         .getProBalance(this.producerAddress)
         .call()
         .then(balance => {
@@ -726,7 +725,7 @@ export default {
 
     getConsumerBalance() {
       // total amount of energy produced by individual producer
-      consumptionContract.methods
+      this.Contracts.ConsumptionContract.methods
         .getConsBalance(this.consumerAddress)
         .call()
         .then(balance => {
@@ -737,7 +736,7 @@ export default {
     getProducerDetails() {
       $(".pro-account").show();
       $(".pro-details-table").show("slow");
-      productionContract.methods
+      this.Contracts.ProductionContract.methods
         .getProAccntDetails(this.producerAddress)
         .call()
         .then(details => {
@@ -757,7 +756,7 @@ export default {
     getConsumerDetails() {
       $(".cons-account").show();
       $(".cons-details-table").show("slow");
-      consumptionContract.methods
+      this.Contracts.ConsumptionContract.methods
         .getConsAccntDetails(this.consumerAddress)
         .call()
         .then(details => {
@@ -787,7 +786,9 @@ export default {
     }
   },
 
-  created() {
+  async created() {
+    this.Contracts = new Contracts();
+    await this.Contracts.start();
     this.getProducerList();
     this.getConsumerList();
     this.addProMarkers();

@@ -88,14 +88,13 @@
 
 <script>
 const $ = require("jquery");
-import { productionContract } from "../../assets/js/contracts.js";
-import { consumptionContract } from "../../assets/js/contracts.js";
-import web3 from "../../assets/js/contracts.js";
+import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
 import Plotly from "plotly.js-dist";
 
 export default {
   name: "RealTimeEnergy",
+  Contracts: null,
   data() {
     return {
       production: [],
@@ -106,7 +105,7 @@ export default {
   },
   methods: {
     watchRealTimeProduction() {
-      productionContract.events
+      this.Contracts.ProductionContract.events
         .ProTransactionEvent({
           fromBlock: "latest"
         })
@@ -121,7 +120,7 @@ export default {
         .on("error", console.error);
     },
     watchRealTimeConsumption() {
-      consumptionContract.events
+      this.Contracts.ConsumptionContract.events
         .ConsTransactionEvent({
           fromBlock: "latest"
         })
@@ -278,7 +277,9 @@ export default {
       this.getRealTimeEnergy();
     }
   },
-  created() {
+  async created() {
+    this.Contracts = new Contracts();
+    await this.Contracts.start();
     this.callFunction();
   }
 };

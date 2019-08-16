@@ -78,11 +78,10 @@
 
 <script>
 const $ = require("jquery");
-import { productionContract } from "../../assets/js/contracts.js";
-import { consumptionContract } from "../../assets/js/contracts.js";
-import web3 from "../../assets/js/contracts.js";
+import Contracts from "../../assets/js/contracts";
 export default {
   name: "Registration",
+  Contracts: null,
   data() {
     return {
       producers: [],
@@ -91,7 +90,7 @@ export default {
   },
   methods: {
     async getProRegistration() {
-      await productionContract.getPastEvents(
+      await this.Contracts.ProductionContract.getPastEvents(
         "ProducerRegs",
         {
           fromBlock: 0,
@@ -109,7 +108,7 @@ export default {
       );
     },
     async getConsRegistration() {
-      await consumptionContract.getPastEvents(
+      await this.Contracts.ConsumptionContract.getPastEvents(
         "ConsumerRegs",
         {
           fromBlock: 0,
@@ -131,7 +130,9 @@ export default {
       this.getConsRegistration();
     }
   },
-  created() {
+  async created() {
+    this.Contracts = new Contracts();
+    await this.Contracts.start();
     this.callFunction();
   }
 };

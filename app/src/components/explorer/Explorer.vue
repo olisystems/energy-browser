@@ -235,7 +235,7 @@
 const $ = require("jquery");
 const moment = require("moment");
 import Plotly from "plotly.js-dist";
-import web3 from "../../assets/js/contracts.js";
+import Contracts from "../../assets/js/contracts";
 // setting up the provider
 // const Web3 = require("web3");
 // //const web3 = new Web3("ws://85.214.224.112:8547");
@@ -249,11 +249,13 @@ import {
 
 export default {
   name: "Explorer",
+  Contracts: null,
   data() {
     return {
       accounts: [],
-      address: "0xb73E0567A514A60E7708aCaA854dad490aE71d2c",
-      //0x5f4525AfEc913b3B4C503B9e4bBa93542d0cC3Df
+      address: "0x6d434C87e4595E61D7F4A4BA18A8b0E6928Ec401",
+      //0x7CA621e2C6407fB5c16FE6FD091516cb5fF604b2
+
       lastAddress: "",
       accountTitle: "",
       hashes: [],
@@ -588,7 +590,9 @@ export default {
     }
   },
   // default search on page load
-  created() {
+  async created() {
+    this.Contracts = new Contracts();
+    await this.Contracts.start();
     this.getAccounts();
   }
 };

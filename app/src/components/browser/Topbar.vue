@@ -3,12 +3,12 @@
     <div class="bar">
       <div>
         <p>Total Producer</p>
-        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="pro-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="pro-loader" />
         <h4>{{producers}}</h4>
       </div>
       <div>
         <p>Total Consumer</p>
-        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="cons-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="cons-loader" />
         <h4>{{consumers}}</h4>
       </div>
       <div>
@@ -17,17 +17,17 @@
       </div>
       <div>
         <p>Latest Block Number</p>
-        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="block-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="block-loader" />
         <h4>{{latestBlock}}</h4>
       </div>
       <div>
         <p>Transactions in Latest Block</p>
-        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="tx-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="tx-loader" />
         <h4>{{transactions}}</h4>
       </div>
       <div>
         <p>Gas Used [mgas]</p>
-        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="gas-loader">
+        <img src="../../assets/img/loader.svg" alt="spinner by loading.io" class="gas-loader" />
         <h4>{{gas}}</h4>
       </div>
     </div>
@@ -36,12 +36,11 @@
 
 <script>
 const $ = require("jquery");
-import { productionContract } from "../../assets/js/contracts.js";
-import { consumptionContract } from "../../assets/js/contracts.js";
-import web3 from "../../assets/js/contracts.js";
+import Contracts from "../../assets/js/contracts";
 import { setInterval } from "timers";
 export default {
   name: "Topbar",
+  Contracts: null,
   data() {
     return {
       producers: "",
@@ -53,13 +52,22 @@ export default {
   },
   methods: {
     async getProducers() {
-      this.producers = await productionContract.methods.countProducers().call();
+      this.Contracts.ProductionContract.methods
+        .countProducers()
+        .call({ from: "0x4df329c10fb40e6d89b2cf9f89f982727b96d26f" })
+        .then(result => {
+          console.log(result);
+          this.producers = result;
+        });
       $(".pro-loader").hide();
     },
     async getConsumers() {
-      this.consumers = await consumptionContract.methods
+      this.Contracts.ConsumptionContract.methods
         .countConsumers()
-        .call();
+        .call({ from: "0x4df329c10fb40e6d89b2cf9f89f982727b96d26f" })
+        .then(result => {
+          this.consumers = result;
+        });
       $(".cons-loader").hide();
     },
     getLatestBlockNumber() {
@@ -94,7 +102,9 @@ export default {
       this.getGasPrice();
     }
   },
-  created() {
+  async created() {
+    this.Contracts = new Contracts();
+    await this.Contracts.start();
     this.callFunc();
   }
 };
