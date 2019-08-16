@@ -1,6 +1,7 @@
 .DS_Store
 app/node_modules
 /dist
+/app/src/assets/js/contracts/
 
 # local env files
 .env.local
