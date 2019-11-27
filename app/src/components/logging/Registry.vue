@@ -47,6 +47,11 @@
                 <th v-tooltip="'Registration Time'">Registration Time</th>
                 <th v-tooltip="'Peak Power [W]'">Peak Power [W]</th>
                 <th v-tooltip="'Voltage Level [V]'">Voltage Level [V]</th>
+                <th>Flexibility Time</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Flex Reduction [%]</th>
+                <th>Price</th>
               </thead>
 
               <transition-group name="list" tag="tbody" slot="body" slot-scope="{displayData}">
@@ -58,6 +63,11 @@
                   <td v-tooltip="row.registrationTime">{{row.registrationTime}}</td>
                   <td>{{row.peakPower}}</td>
                   <td>{{row.voltageLevel}}</td>
+                  <td v-tooltip="row.flexibilityTime">{{row.flexibilityTime}}</td>
+                  <td v-tooltip="row.startTime">{{row.startTime}}</td>
+                  <td v-tooltip="row.endTime">{{row.endTime}}</td>
+                  <td>{{row.redutionLevel}}</td>
+                  <td>{{row.price}}</td>
                 </tr>
               </transition-group>
             </v-table>
@@ -121,6 +131,7 @@
 </template>
 
 <script>
+//import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
@@ -130,6 +141,7 @@ export default {
   Contracts: null,
   data() {
     return {
+      dsoAccount: "0x0000000000000000000000000000000000000000",
       owners: [],
       dsos: [],
       assets: [],
@@ -142,6 +154,16 @@ export default {
     };
   },
   methods: {
+    getMetamaskAccount() {
+      web3.eth.getAccounts((err, res) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        this.dsoAccount = res[0];
+        //console.log(this.dsoAccount);
+      });
+    },
     // new admin registration event
     watchNewAdmin() {
       this.Contracts.AssetLoggingContract.events
@@ -166,11 +188,17 @@ export default {
 
     // new asset registration event
     watchNewAsset() {
+      this.assetList = [];
+      this.assets=[]
       this.Contracts.AssetLoggingContract.events
         .NewAsset({
           fromBlock: 0
         })
-        .on("data", event => {
+        .on("data", async event => {
+          // getting flexibility values
+          const flexibility = await this.getFlexibility(
+            event.returnValues.assetPubkey
+          );
           // get owner and dso name
           let ownerName;
           let dsoName;
@@ -200,6 +228,13 @@ export default {
           );
           assetObject.voltageLevel = event.returnValues.voltageLevel;
           assetObject.peakPower = event.returnValues.peakPower;
+
+          assetObject.flexibilityTime = timeConverter(Number(flexibility[0]));
+          assetObject.startTime = flexibility[1];
+          assetObject.endTime = flexibility[2];
+          assetObject.redutionLevel = flexibility[3];
+          assetObject.price = flexibility[4];
+
           this.assets.unshift(assetObject);
 
           // unshift asset to list
@@ -207,13 +242,31 @@ export default {
         })
         .on("error", console.error);
     },
+    watchFlexibility() {
+      this.Contracts.AssetLoggingContract.events
+        .NewFlexibility({
+          fromBlock: "latest"
+        })
+        .on("data", event => {
+          //console.log(event.returnValues);
+          this.watchNewAsset();
+        })
+        .on("error", console.error);
+    },
+    async getFlexibility(assetAddress) {
+      const result = await this.Contracts.AssetLoggingContract.methods
+        .getFlexibility(assetAddress)
+        .call();
+
+      return result;
+    },
 
     // set dso value method
     async setDsoValue() {
       // Acccounts now exposed
       this.Contracts.AssetLoggingContract.methods
         .setDsoValue(this.assetPubkey, this.dsoInput)
-        .send({ from: this.dsoPubkey, gasPrice: "1" })
+        .send({ from: this.dsoAccount })
         .then(receipt => {
           //console.log(receipt);
         });
@@ -248,10 +301,12 @@ export default {
     }
   },
   async created() {
+    this.getMetamaskAccount();
     this.Contracts = new Contracts();
     await this.Contracts.start();
     this.watchNewAdmin();
     this.watchNewAsset();
+    this.watchFlexibility();
   }
 };
 </script>
