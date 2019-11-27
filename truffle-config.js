@@ -21,9 +21,12 @@
 // const HDWalletProvider = require('truffle-hdwallet-provider');
 // const infuraKey = "fj4jll3k.....";
 //
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const fs = require('fs');
+
+const HDWalletProvider = require('truffle-hdwallet-provider');
 const path = require('path');
+const MNEMONIC = fs.readFileSync(".secret").toString().trim();
+var ENDPOINT = "https://volta-rpc.energyweb.org";
 module.exports = {
   contracts_build_directory: path.join(__dirname, 'app/src/assets/js/contracts'),
   /**
@@ -44,11 +47,17 @@ module.exports = {
     // options below to some value.
     //
     development: {
-      host: "80.158.47.134",     // Localhost (default: none)
-      port: 7546,            // Standard Ethereum port (default: none)
+      host: "127.0.0.1",     // Localhost (default: none)
+      port: 8545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
       websockets: true
     },
+    volta: {
+      provider: function () {
+        return new HDWalletProvider(MNEMONIC, ENDPOINT)
+      },
+      network_id: 73799
+    }
 
     // Another network with more advanced options...
     // advanced: {
@@ -99,3 +108,4 @@ module.exports = {
     }
   }
 }
+// "PV 7", "PV", "0x3D481ee06aFe587dAe5EAFA541c75c3D1F9dCdBc", "0xe2e457aB987BEd9AbdEE9410FC985E46e28a3947", "0x157cb51153D26B3F4491a3e706d005d0ac696376", 400, 800, "Urban", "25-11-2019"
