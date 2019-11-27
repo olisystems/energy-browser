@@ -33,7 +33,18 @@ contract AssetLogging {
         bool isRegistered;
         uint registrationTime;
     }
-
+    
+    /// @notice flexibility data structure
+    struct AssetFlexibility {
+        uint256 timestamp;
+        string startTime;
+        string endTime;
+        uint256 reductionLevel;
+        uint256 price;
+    }
+    
+    /// @notice map flexibility to asset 
+    mapping (address => AssetFlexibility) flexibilities;
     /// @notice map pubkey to assets
     mapping(address => Asset) private assets;
     /// @notice map pubkey to admins
@@ -63,6 +74,8 @@ contract AssetLogging {
     event NewInverterPower(string assetOwner, address inverter, uint256 currentPower, uint256 time);
     /// @notice event fired when inverter set output level is successful
     event NewInverterOutput(string assetOwner, address inverter, uint256 outputLevel, uint256 time);
+    /// @notice event fired when asset sets flexibility 
+    event NewFlexibility(address asset, uint256 timestamp, string startTime, string endTime, uint256 reductionLevel, uint256 price);
 
     /// @notice assign ownership or the contract to sender
     constructor ()public{
@@ -299,6 +312,23 @@ contract AssetLogging {
         string memory assetOwnerName = assets[msg.sender].assetOwner;
         emit NewInverterOutput(assetOwnerName, msg.sender, _outputLevel, now);
 
+    }
+    
+    /// @notice allow asset to set flexibility 
+    /// @dev check asset registration 
+    function setFlexibility(string memory _startTime, string memory _endTime, uint256 _reductionLevel, uint256 _price)public{
+        require(assets[msg.sender].isRegistered, 'Registration of asset is required');
+        //flexibilities[msg.sender] = AssetFlexibility(block.timestamp, _startTime, _endTime, _reductionLevel, _price);
+        flexibilities[msg.sender].timestamp = block.timestamp;
+        flexibilities[msg.sender].startTime = _startTime;
+        flexibilities[msg.sender].endTime = _endTime;
+        flexibilities[msg.sender].reductionLevel = _reductionLevel;
+        flexibilities[msg.sender].price = _price;
+        emit NewFlexibility(msg.sender, block.timestamp, _startTime, _endTime, _reductionLevel, _price);
+    }
+    
+    function getFlexibility(address _asset)public view returns(uint256, string memory, string memory, uint256, uint256){
+        return (flexibilities[_asset].timestamp, flexibilities[_asset].startTime, flexibilities[_asset].endTime, flexibilities[_asset].reductionLevel, flexibilities[_asset].price);
     }
 
 }
