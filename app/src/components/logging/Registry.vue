@@ -47,10 +47,10 @@
                 <th v-tooltip="'Registration Time'">Registration Time</th>
                 <th v-tooltip="'Peak Power [W]'">Peak Power [W]</th>
                 <th v-tooltip="'Voltage Level [V]'">Voltage Level [V]</th>
-                <th>Flexibility Time</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Flex Reduction [%]</th>
+                <th v-tooltip="'Flexibility Time'">Flexibility Time</th>
+                <th v-tooltip="'Start Time'">Start Time</th>
+                <th v-tooltip="'End Time'">End Time</th>
+                <th v-tooltip="'Flex Reduction [%]'">Flex Reduction [%]</th>
                 <th>Price</th>
               </thead>
 
@@ -131,7 +131,7 @@
 </template>
 
 <script>
-//import web3 from "../../assets/js/web3";
+import web3 from "../../assets/js/metamask";
 const $ = require("jquery");
 import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
@@ -150,7 +150,8 @@ export default {
       dsoPubkey: "",
       assetPubkey: "",
       dsoWallet: [],
-      dsoAddress: ""
+      dsoAddress: "",
+      metamaskAccounts: ""
     };
   },
   methods: {
@@ -160,7 +161,7 @@ export default {
           console.log(err);
           return;
         }
-        this.dsoAccount = res[0];
+        this.metamaskAccounts = res[0];
         //console.log(this.dsoAccount);
       });
     },
@@ -189,7 +190,7 @@ export default {
     // new asset registration event
     watchNewAsset() {
       this.assetList = [];
-      this.assets=[]
+      this.assets = [];
       this.Contracts.AssetLoggingContract.events
         .NewAsset({
           fromBlock: 0
@@ -266,7 +267,7 @@ export default {
       // Acccounts now exposed
       this.Contracts.AssetLoggingContract.methods
         .setDsoValue(this.assetPubkey, this.dsoInput)
-        .send({ from: this.dsoAccount })
+        .send({ from: this.metamaskAccounts })
         .then(receipt => {
           //console.log(receipt);
         });
