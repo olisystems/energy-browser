@@ -1,7 +1,10 @@
+node_modules
 .DS_Store
 app/node_modules
 app/dist
-/app/src/assets/js/contracts/
+/app/src/assets/js
+
+.secret
 
 # local env files
 .env.local
