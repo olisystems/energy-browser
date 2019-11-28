@@ -20,7 +20,7 @@
                   <th>Install Date</th>
                 </thead>
                 <tbody slot="body" slot-scope="{displayData}">
-                  <tr v-for="row in displayData" :key="row.returnValues[0]">
+                  <tr v-for="(row, index) in displayData" :key="index">
                     <td v-tooltip="row.returnValues[0]">{{row.returnValues[0]}}</td>
                     <td>{{row.returnValues[1]}}</td>
                     <td>{{row.returnValues[2]}}</td>
@@ -56,7 +56,7 @@
                   <th>Install Date</th>
                 </thead>
                 <tbody slot="body" slot-scope="{displayData}">
-                  <tr v-for="row in displayData" :key="row.returnValues[0]">
+                  <tr v-for="(row, index) in displayData" :key="index">
                     <td v-tooltip="row.returnValues[0]">{{row.returnValues[0]}}</td>
                     <td>{{row.returnValues[1]}}</td>
                     <td>{{row.returnValues[2]}}</td>
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import web3 from '../../assets/js/web3'
+import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 import Contracts from "../../assets/js/contracts";
 export default {
