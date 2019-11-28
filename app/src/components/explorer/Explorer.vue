@@ -232,6 +232,7 @@
 </template>
 
 <script>
+import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 const moment = require("moment");
 import Plotly from "plotly.js-dist";

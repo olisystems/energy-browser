@@ -231,6 +231,7 @@
   </div>
 </template>
 <script>
+import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 
 import Contracts from "../../assets/js/contracts";
@@ -281,25 +282,23 @@ export default {
       let currentBlock = "";
       web3.eth.getBlockNumber().then(blockNumber => {
         currentBlock = blockNumber;
-        this.Contracts.ProductionContract
-          .getPastEvents("ProTransactionEvent", {
-            fromBlock: currentBlock - 50,
-            toBlock: "latest"
-          })
-          .then(events => {
-            events.forEach(event => {
-              if (this.producerAddress === event.returnValues[0]) {
-                this.producer.push({
-                  time: timeConverter(event.returnValues[1]),
-                  power: event.returnValues[2],
-                  blockNumber: event.returnValues[3],
-                  blockHash: event.returnValues[4],
-                  gasPrice: event.returnValues[5]
-                });
-                $(".pro-placeholder").hide();
-              }
-            });
+        this.Contracts.ProductionContract.getPastEvents("ProTransactionEvent", {
+          fromBlock: currentBlock - 50,
+          toBlock: "latest"
+        }).then(events => {
+          events.forEach(event => {
+            if (this.producerAddress === event.returnValues[0]) {
+              this.producer.push({
+                time: timeConverter(event.returnValues[1]),
+                power: event.returnValues[2],
+                blockNumber: event.returnValues[3],
+                blockHash: event.returnValues[4],
+                gasPrice: event.returnValues[5]
+              });
+              $(".pro-placeholder").hide();
+            }
           });
+        });
       });
       // removing the background color for ul-selected items
       document.querySelectorAll(".producer-list > ol>li").forEach(list => {
@@ -314,25 +313,26 @@ export default {
       let currentBlock = "";
       web3.eth.getBlockNumber().then(blockNumber => {
         currentBlock = blockNumber;
-        this.Contracts.ConsumptionContract
-          .getPastEvents("ConsTransactionEvent", {
+        this.Contracts.ConsumptionContract.getPastEvents(
+          "ConsTransactionEvent",
+          {
             fromBlock: currentBlock - 50,
             toBlock: "latest"
-          })
-          .then(events => {
-            events.forEach(event => {
-              if (this.consumerAddress === event.returnValues[0]) {
-                this.consumer.push({
-                  time: timeConverter(event.returnValues[1]),
-                  power: event.returnValues[2],
-                  blockNumber: event.returnValues[3],
-                  blockHash: event.returnValues[4],
-                  gasPrice: event.returnValues[5]
-                });
-                $(".cons-placeholder").hide();
-              }
-            });
+          }
+        ).then(events => {
+          events.forEach(event => {
+            if (this.consumerAddress === event.returnValues[0]) {
+              this.consumer.push({
+                time: timeConverter(event.returnValues[1]),
+                power: event.returnValues[2],
+                blockNumber: event.returnValues[3],
+                blockHash: event.returnValues[4],
+                gasPrice: event.returnValues[5]
+              });
+              $(".cons-placeholder").hide();
+            }
           });
+        });
       });
       // removing the background color for ul-selected items
       document.querySelectorAll(".consumer-list > ol > li").forEach(list => {
@@ -381,74 +381,72 @@ export default {
         className: "currentPro-popup" // classname for another popup
       };
 
-      this.Contracts.ProductionContract
-        .getPastEvents("ProducerRegs", {
-          fromBlock: 0,
-          toBlock: "latest"
-        })
-        .then(results => {
-          results.forEach(result => {
-            this.proLoc.push(
-              result.returnValues.latitude / 10000 +
-                ", " +
-                result.returnValues.longitude / 10000 +
-                ", " +
-                result.returnValues.owner
-            );
+      this.Contracts.ProductionContract.getPastEvents("ProducerRegs", {
+        fromBlock: 0,
+        toBlock: "latest"
+      }).then(results => {
+        results.forEach(result => {
+          this.proLoc.push(
+            result.returnValues.latitude / 10000 +
+              ", " +
+              result.returnValues.longitude / 10000 +
+              ", " +
+              result.returnValues.owner
+          );
 
-            // push addresses
-            this.proEthAddress.push(result.returnValues.pvAddr);
+          // push addresses
+          this.proEthAddress.push(result.returnValues.pvAddr);
 
-            // bind key values
-            this.proEthAddress.forEach(
-              (key, i) => (this.proLocObject[key] = this.proLoc[i])
-            );
-          });
-
-          // storing entries of single object into list of items
-          for (let i = 0; i < Object.keys(this.proLocObject).length; i++) {
-            this.proLocEntries.push(Object.entries(this.proLocObject)[i]);
-          }
-
-          for (let i = 0; i < this.proLocEntries.length; i++) {
-            if (this.currentProAddress === this.proLocEntries[i][0]) {
-              this.currentProCord = this.proLocObject[this.currentProAddress];
-              this.currentProCord = this.currentProCord.split(",");
-              let currentProLat = this.currentProCord[0].trim();
-              let currentProLon = this.currentProCord[1].trim();
-
-              this.currentProPopup =
-                "Eth address: " +
-                this.currentProAddress.slice(0, 7) +
-                "..." +
-                "<br>" +
-                "Producer: " +
-                this.currentProCord[2] +
-                "<br>" +
-                "Location: " +
-                this.currentProCord[0] +
-                ", " +
-                this.currentProCord[1];
-
-              let currentProIcon = L.icon({
-                iconUrl: "../../assets/img/producer.png",
-                iconSize: [30, 40]
-              });
-
-              if (this.currentProMarker != undefined) {
-                this.map.removeLayer(this.currentProMarker);
-              }
-
-              this.currentProMarker = L.marker([
-                currentProLat,
-                currentProLon
-              ]).addTo(this.map);
-              this.currentProMarker
-                .bindPopup(this.currentProPopup, popupOptions)
-                .openPopup();
-            }
-          }
+          // bind key values
+          this.proEthAddress.forEach(
+            (key, i) => (this.proLocObject[key] = this.proLoc[i])
+          );
         });
+
+        // storing entries of single object into list of items
+        for (let i = 0; i < Object.keys(this.proLocObject).length; i++) {
+          this.proLocEntries.push(Object.entries(this.proLocObject)[i]);
+        }
+
+        for (let i = 0; i < this.proLocEntries.length; i++) {
+          if (this.currentProAddress === this.proLocEntries[i][0]) {
+            this.currentProCord = this.proLocObject[this.currentProAddress];
+            this.currentProCord = this.currentProCord.split(",");
+            let currentProLat = this.currentProCord[0].trim();
+            let currentProLon = this.currentProCord[1].trim();
+
+            this.currentProPopup =
+              "Eth address: " +
+              this.currentProAddress.slice(0, 7) +
+              "..." +
+              "<br>" +
+              "Producer: " +
+              this.currentProCord[2] +
+              "<br>" +
+              "Location: " +
+              this.currentProCord[0] +
+              ", " +
+              this.currentProCord[1];
+
+            let currentProIcon = L.icon({
+              iconUrl: "../../assets/img/producer.png",
+              iconSize: [30, 40]
+            });
+
+            if (this.currentProMarker != undefined) {
+              this.map.removeLayer(this.currentProMarker);
+            }
+
+            this.currentProMarker = L.marker([
+              currentProLat,
+              currentProLon
+            ]).addTo(this.map);
+            this.currentProMarker
+              .bindPopup(this.currentProPopup, popupOptions)
+              .openPopup();
+          }
+        }
+      });
     },
     getCurrentConsMarker() {
       this.currentConsAddress = event.target.innerHTML;
@@ -457,76 +455,72 @@ export default {
         className: "currentCons-popup" // classname for another popup
       };
 
-      this.Contracts.ConsumptionContract
-        .getPastEvents("ConsumerRegs", {
-          fromBlock: 0,
-          toBlock: "latest"
-        })
-        .then(results => {
-          results.forEach(result => {
-            this.consLoc.push(
-              result.returnValues.latitude / 10000 +
-                ", " +
-                result.returnValues.longitude / 10000 +
-                ", " +
-                result.returnValues.owner
-            );
+      this.Contracts.ConsumptionContract.getPastEvents("ConsumerRegs", {
+        fromBlock: 0,
+        toBlock: "latest"
+      }).then(results => {
+        results.forEach(result => {
+          this.consLoc.push(
+            result.returnValues.latitude / 10000 +
+              ", " +
+              result.returnValues.longitude / 10000 +
+              ", " +
+              result.returnValues.owner
+          );
 
-            // push addresses
-            this.consEthAddress.push(result.returnValues.pvAddr);
+          // push addresses
+          this.consEthAddress.push(result.returnValues.pvAddr);
 
-            // bind key values
-            this.consEthAddress.forEach(
-              (key, i) => (this.consLocObject[key] = this.consLoc[i])
-            );
-          });
-
-          // storing entries of single object into list of items
-          for (let i = 0; i < Object.keys(this.consLocObject).length; i++) {
-            this.consLocEntries.push(Object.entries(this.consLocObject)[i]);
-          }
-
-          for (let i = 0; i < this.consLocEntries.length; i++) {
-            if (this.currentConsAddress === this.consLocEntries[i][0]) {
-              this.currentConsCord = this.consLocObject[
-                this.currentConsAddress
-              ];
-              this.currentConsCord = this.currentConsCord.split(",");
-              let currentConsLat = this.currentConsCord[0].trim();
-              let currentConsLon = this.currentConsCord[1].trim();
-
-              this.currentConsPopup =
-                "Eth address: " +
-                this.currentConsAddress.slice(0, 7) +
-                "..." +
-                "<br>" +
-                "Producer: " +
-                this.currentConsCord[2] +
-                "<br>" +
-                "Location: " +
-                this.currentConsCord[0] +
-                ", " +
-                this.currentConsCord[1];
-
-              let currentConsIcon = L.icon({
-                iconUrl: "../../assets/img/consumer.png",
-                iconSize: [30, 40]
-              });
-
-              if (this.currentConsMarker != undefined) {
-                this.map.removeLayer(this.currentConsMarker);
-              }
-
-              this.currentConsMarker = L.marker(
-                [currentConsLat, currentConsLon],
-                { icon: currentConsIcon }
-              ).addTo(this.map);
-              this.currentConsMarker
-                .bindPopup(this.currentConsPopup, popupOptions)
-                .openPopup();
-            }
-          }
+          // bind key values
+          this.consEthAddress.forEach(
+            (key, i) => (this.consLocObject[key] = this.consLoc[i])
+          );
         });
+
+        // storing entries of single object into list of items
+        for (let i = 0; i < Object.keys(this.consLocObject).length; i++) {
+          this.consLocEntries.push(Object.entries(this.consLocObject)[i]);
+        }
+
+        for (let i = 0; i < this.consLocEntries.length; i++) {
+          if (this.currentConsAddress === this.consLocEntries[i][0]) {
+            this.currentConsCord = this.consLocObject[this.currentConsAddress];
+            this.currentConsCord = this.currentConsCord.split(",");
+            let currentConsLat = this.currentConsCord[0].trim();
+            let currentConsLon = this.currentConsCord[1].trim();
+
+            this.currentConsPopup =
+              "Eth address: " +
+              this.currentConsAddress.slice(0, 7) +
+              "..." +
+              "<br>" +
+              "Producer: " +
+              this.currentConsCord[2] +
+              "<br>" +
+              "Location: " +
+              this.currentConsCord[0] +
+              ", " +
+              this.currentConsCord[1];
+
+            let currentConsIcon = L.icon({
+              iconUrl: "../../assets/img/consumer.png",
+              iconSize: [30, 40]
+            });
+
+            if (this.currentConsMarker != undefined) {
+              this.map.removeLayer(this.currentConsMarker);
+            }
+
+            this.currentConsMarker = L.marker(
+              [currentConsLat, currentConsLon],
+              { icon: currentConsIcon }
+            ).addTo(this.map);
+            this.currentConsMarker
+              .bindPopup(this.currentConsPopup, popupOptions)
+              .openPopup();
+          }
+        }
+      });
     },
     addProMarkers() {
       // define popup options
@@ -540,41 +534,39 @@ export default {
         iconSize: [30, 40]
       });
       // get event data
-      this.Contracts.ProductionContract
-        .getPastEvents("ProducerRegs", {
-          fromBlock: 0,
-          toBlock: "latest"
-        })
-        .then(results => {
-          results.forEach(result => {
-            const markers = L.marker([
-              result.returnValues.latitude / 10000,
-              result.returnValues.longitude / 10000
-            ]).addTo(this.map);
+      this.Contracts.ProductionContract.getPastEvents("ProducerRegs", {
+        fromBlock: 0,
+        toBlock: "latest"
+      }).then(results => {
+        results.forEach(result => {
+          const markers = L.marker([
+            result.returnValues.latitude / 10000,
+            result.returnValues.longitude / 10000
+          ]).addTo(this.map);
 
-            // define popup contents
-            this.proPopup =
-              "Eth address: " +
-              result.returnValues.pvAddr.slice(0, 7) +
-              "..." +
-              "<br>" +
-              "Producer: " +
-              result.returnValues.owner +
-              "<br>" +
-              "Location: " +
-              result.returnValues.latitude / 10000 +
-              ", " +
-              result.returnValues.longitude / 10000;
-            // bind popup
-            markers.bindPopup(this.proPopup, popupOptions);
-            markers.on("mouseover", function() {
-              this.openPopup();
-            });
-            markers.on("mouseout", function() {
-              this.closePopup();
-            });
+          // define popup contents
+          this.proPopup =
+            "Eth address: " +
+            result.returnValues.pvAddr.slice(0, 7) +
+            "..." +
+            "<br>" +
+            "Producer: " +
+            result.returnValues.owner +
+            "<br>" +
+            "Location: " +
+            result.returnValues.latitude / 10000 +
+            ", " +
+            result.returnValues.longitude / 10000;
+          // bind popup
+          markers.bindPopup(this.proPopup, popupOptions);
+          markers.on("mouseover", function() {
+            this.openPopup();
+          });
+          markers.on("mouseout", function() {
+            this.closePopup();
           });
         });
+      });
     },
     addConsMarkers() {
       // define popup options
@@ -588,41 +580,39 @@ export default {
         iconSize: [30, 40]
       });
       // get event data
-      this.Contracts.ConsumptionContract
-        .getPastEvents("ConsumerRegs", {
-          fromBlock: 0,
-          toBlock: "latest"
-        })
-        .then(results => {
-          results.forEach(result => {
-            const markers = L.marker([
-              result.returnValues.latitude / 10000,
-              result.returnValues.longitude / 10000
-            ]).addTo(this.map);
+      this.Contracts.ConsumptionContract.getPastEvents("ConsumerRegs", {
+        fromBlock: 0,
+        toBlock: "latest"
+      }).then(results => {
+        results.forEach(result => {
+          const markers = L.marker([
+            result.returnValues.latitude / 10000,
+            result.returnValues.longitude / 10000
+          ]).addTo(this.map);
 
-            // define popup contents
-            this.consPopup =
-              "Eth address: " +
-              result.returnValues.pvAddr.slice(0, 7) +
-              "..." +
-              "<br>" +
-              "Producer: " +
-              result.returnValues.owner +
-              "<br>" +
-              "Location: " +
-              result.returnValues.latitude / 10000 +
-              ", " +
-              result.returnValues.longitude / 10000;
-            // bind popup
-            markers.bindPopup(this.consPopup, popupOptions);
-            markers.on("mouseover", function() {
-              this.openPopup();
-            });
-            markers.on("mouseout", function() {
-              this.closePopup();
-            });
+          // define popup contents
+          this.consPopup =
+            "Eth address: " +
+            result.returnValues.pvAddr.slice(0, 7) +
+            "..." +
+            "<br>" +
+            "Producer: " +
+            result.returnValues.owner +
+            "<br>" +
+            "Location: " +
+            result.returnValues.latitude / 10000 +
+            ", " +
+            result.returnValues.longitude / 10000;
+          // bind popup
+          markers.bindPopup(this.consPopup, popupOptions);
+          markers.on("mouseover", function() {
+            this.openPopup();
+          });
+          markers.on("mouseout", function() {
+            this.closePopup();
           });
         });
+      });
     },
 
     initMap() {

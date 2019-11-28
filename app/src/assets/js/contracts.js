@@ -2,6 +2,7 @@ import EnergyProduction from "./contracts/EnergyProduction.json";
 import EnergyConsumption from "./contracts/EnergyConsumption.json";
 import OliCoin from "./contracts/OliCoin.json";
 import AssetLogging from "./contracts/AssetLogging.json";
+import web3 from "./web3";
 
 export default class Contracts {
 

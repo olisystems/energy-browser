@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 import Contracts from "../../assets/js/contracts";
 import { setInterval } from "timers";
