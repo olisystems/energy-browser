@@ -14,7 +14,7 @@
                   <p>{{power.assetOwner}}</p>
                 </div>
                 <div>
-                  <span>Power:</span>
+                  <span>Power [W]:</span>
                   <p>{{power.value}}</p>
                 </div>
                 <div v-tooltip="power.time">
@@ -45,7 +45,7 @@
                   <p>{{output.assetOwner}}</p>
                 </div>
                 <div>
-                  <span>Output:</span>
+                  <span>Output Limit [%]:</span>
                   <p>{{output.value}}</p>
                 </div>
                 <div v-tooltip="output.time">
@@ -79,7 +79,7 @@
                   <p>{{value.assetOwner}}</p>
                 </div>
                 <div>
-                  <span>Power:</span>
+                  <span>Output Limit [%]:</span>
                   <p>{{value.value}}</p>
                 </div>
                 <div v-tooltip="value.time">
@@ -188,6 +188,7 @@
 </template>
 
 <script>
+import web3 from "../../assets/js/metamask";
 const $ = require("jquery");
 import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
@@ -205,6 +206,7 @@ export default {
     };
   },
   methods: {
+    
     watchRejectValue() {
       this.Contracts.AssetLoggingContract.events
         .RejectRegistration({
