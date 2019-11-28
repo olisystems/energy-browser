@@ -9,7 +9,7 @@ contract AssetLogging {
 
     /// @notice this will be assigned at the construction
     address owner;
-    /// @notice this will store latest DSO value for the asset 
+    /// @notice this will store latest DSO value for the asset
     uint256 assetDsoValue;
     /// @notice data structure that stores an admin
     struct Admin {
@@ -43,7 +43,7 @@ contract AssetLogging {
         uint256 price;
     }
     
-    /// @notice map flexibility to asset 
+    /// @notice map flexibility to asset
     mapping (address => AssetFlexibility) flexibilities;
     /// @notice map pubkey to assets
     mapping(address => Asset) private assets;
@@ -51,9 +51,9 @@ contract AssetLogging {
     mapping(address => Admin) private admins;
     /// @notice map asset ownership to admin
     mapping(address => mapping(address => bool)) private ownership;
-    /// @notice map dso latest value to the asset 
+    /// @notice map dso latest value to the asset
     mapping(address => uint256) private dsoValueToAsset;
-    /// @notice map inverter to set power or output level 
+    /// @notice map inverter to set power or output level
     mapping(address => uint256) private inverterSetValue;
 
     /// @notice event fired when registration is not successful
@@ -74,7 +74,7 @@ contract AssetLogging {
     event NewInverterPower(string assetOwner, address inverter, uint256 currentPower, uint256 time);
     /// @notice event fired when inverter set output level is successful
     event NewInverterOutput(string assetOwner, address inverter, uint256 outputLevel, uint256 time);
-    /// @notice event fired when asset sets flexibility 
+    /// @notice event fired when asset sets flexibility
     event NewFlexibility(address asset, uint256 timestamp, string startTime, string endTime, uint256 reductionLevel, uint256 price);
 
     /// @notice assign ownership or the contract to sender
@@ -83,12 +83,12 @@ contract AssetLogging {
     }
     /// @notice apply a check that only passes if the function is called by owner
     modifier onlyOwner{
-        require(msg.sender == owner);
+        require(msg.sender == owner, 'Only owner can call this function');
         _;
     }
     /// @notice allows to register admin
     /// @dev throws error is pubkey is already in use
-    /// @param _adminPubkey unique ID to register admin 
+    /// @param _adminPubkey unique ID to register admin
     /// @param _name name of the admin
     /// @param _type 1 = owner, 2 = DSO
     /// @return emit error response
@@ -160,7 +160,7 @@ contract AssetLogging {
 
         ownership[msg.sender][_assetPubkey] = false;
         ownership[_to][_assetPubkey] = true;
-        emit AssetTransfer(msg.sender, _to, _assetPubkey, now);
+        emit AssetTransfer(msg.sender, _to, _assetPubkey, block.timestamp);
 
     }
 
@@ -190,7 +190,7 @@ contract AssetLogging {
 
         ownership[msg.sender][_assetPubkey] = false;
         ownership[_to][_assetPubkey] = true;
-        emit AssetTransfer(msg.sender, _to, _assetPubkey, now);
+        emit AssetTransfer(msg.sender, _to, _assetPubkey, block.timestamp);
 
     }
 
@@ -314,8 +314,8 @@ contract AssetLogging {
 
     }
     
-    /// @notice allow asset to set flexibility 
-    /// @dev check asset registration 
+    /// @notice allow asset to set flexibility
+    /// @dev check asset registration
     function setFlexibility(string memory _startTime, string memory _endTime, uint256 _reductionLevel, uint256 _price)public{
         require(assets[msg.sender].isRegistered, 'Registration of asset is required');
         //flexibilities[msg.sender] = AssetFlexibility(block.timestamp, _startTime, _endTime, _reductionLevel, _price);
