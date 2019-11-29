@@ -131,7 +131,7 @@
 </template>
 
 <script>
-import web3 from "../../assets/js/metamask";
+
 const $ = require("jquery");
 import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
