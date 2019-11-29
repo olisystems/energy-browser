@@ -1,29 +1,15 @@
 # Decentralized Green Energy Certification on the top of a Web3 Based Energy Geo Browser
 
-## Project setup
-```
-npm install
-```
+## Description
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Getting Started
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Prerequisites
 
-### Run your tests
-```
-npm run test
-```
+### Installing
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Features
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Built With
+
+## Contributing
