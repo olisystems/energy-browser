@@ -1,6 +1,15 @@
-# Asset Logging
+# Asset Logging and Flex Control
 
-The AssetLogging smart contract allows registration of admins, both asset owners and DSO's, event logging and setting up the flexibilites. 
+This application enables a DSO or TSO to transparently control assets in their respective grid area. Some examples for this are the curtailment of PV in case of a local over-supply or the control of a battery that is supplying a local energy community.
+This process is usually being done with uni-directional radio transmissions from the grid operator to the asset, which is highly inaccurate and not suitable for state-of-the-art smart grids. Also, it is rather intransparent. The asset owners have to trust the grid operators to make the right choices - and also to reimburse them correctly for any lost revenues in the case of pv curtailment.
+
+With an increasing amount of assets, participants and control processes in general, there is a demand for a platform that can integrate the following steps into one workflow:
+
+- Onboard Assets, asset owners and grid operators in a quick and simple way with low costs
+- Enable the grid operators to securely control assets
+- Log every control process to enforce transparency for the participants
+
+The backbone of this application is the testnet "Volta" of the Energy Web Foundation. Every device owns their own keypair which are being registered inside the smart contracts. These smart contracts also take care of the access restriction and the logging process. The participants don´t have to trust each other because the blockchain takes care of this, which reduces legal overhead.
 
 ## Key Functions
 
