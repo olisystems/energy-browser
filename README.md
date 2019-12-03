@@ -1,6 +1,7 @@
 
 # OLI DApps Portal
 Decentralized applications built on the top of Volta Ethereum network 
+Live Demo: oli-chain.com
 
 1. [Description](#Description)
 2. [Getting Started](#GettingStarted)
@@ -65,10 +66,10 @@ Navigate to `localhost:8080` in your browser.
 npm run build
 ```
 ##  3. <a name='Features'></a>Features
-* Energy Geo Browser
-* Oli Chain Explorer
-* Oli Tokenization
-* Asset Logging
+* [Energy Geo Browser](./app/src/components/browser/Browser.md)
+* [Oli Chain Explorer](./app/src/components/explorer/Explorer.md)
+* [Oli Tokenization](./app/src/components/tokenization/Tokenization.md)
+* [Asset Logging](./app/src/components/logging/AssetLogging.md)
 ##  4. <a name='DeployedContractVolta'></a>Deployed Contract (Volta)
 The contracts are deployed at following addresses on volta:
 ```
