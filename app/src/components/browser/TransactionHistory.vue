@@ -429,7 +429,7 @@ export default {
               this.currentProCord[1];
 
             let currentProIcon = L.icon({
-              iconUrl: "../../assets/img/producer.png",
+              iconUrl: "producer.png",
               iconSize: [30, 40]
             });
 
@@ -503,7 +503,7 @@ export default {
               this.currentConsCord[1];
 
             let currentConsIcon = L.icon({
-              iconUrl: "../../assets/img/consumer.png",
+              iconUrl: "consumer.png",
               iconSize: [30, 40]
             });
 
@@ -528,10 +528,10 @@ export default {
         maxWidth: "500",
         className: "currentPro-popup"
       };
-      // current producer icon
-      const currentProIcon = L.icon({
-        iconUrl: "../../assets/img/producer.png",
-        iconSize: [30, 40]
+      // producer icon
+      const producerIcon = L.icon({
+        iconUrl: "producer.png",
+        iconSize: [50, 60]
       });
       // get event data
       this.Contracts.ProductionContract.getPastEvents("ProducerRegs", {
@@ -539,10 +539,13 @@ export default {
         toBlock: "latest"
       }).then(results => {
         results.forEach(result => {
-          const markers = L.marker([
-            result.returnValues.latitude / 10000,
-            result.returnValues.longitude / 10000
-          ]).addTo(this.map);
+          const markers = L.marker(
+            [
+              result.returnValues.latitude / 10000,
+              result.returnValues.longitude / 10000
+            ],
+            { icon: producerIcon }
+          ).addTo(this.map);
 
           // define popup contents
           this.proPopup =
@@ -574,10 +577,10 @@ export default {
         maxWidth: "500",
         className: "currentCons-popup"
       };
-      // current producer icon
-      const currentProIcon = L.icon({
-        iconUrl: "../../assets/img/consumer.png",
-        iconSize: [30, 40]
+      // consumer icon
+      const consumerIcon = L.icon({
+        iconUrl: "consumer.png",
+        iconSize: [50, 60]
       });
       // get event data
       this.Contracts.ConsumptionContract.getPastEvents("ConsumerRegs", {
@@ -585,10 +588,13 @@ export default {
         toBlock: "latest"
       }).then(results => {
         results.forEach(result => {
-          const markers = L.marker([
-            result.returnValues.latitude / 10000,
-            result.returnValues.longitude / 10000
-          ]).addTo(this.map);
+          const markers = L.marker(
+            [
+              result.returnValues.latitude / 10000,
+              result.returnValues.longitude / 10000
+            ],
+            { icon: consumerIcon }
+          ).addTo(this.map);
 
           // define popup contents
           this.consPopup =
@@ -618,7 +624,7 @@ export default {
     initMap() {
       // home marker icon
       var home = L.icon({
-        iconUrl: "../../assets/img/home.png",
+        iconUrl: "home.png",
         iconSize: [30, 40]
       });
 
@@ -692,7 +698,9 @@ export default {
       // add layers control
       L.control.layers(baseMaps).addTo(this.map);
       // add home marker
-      const homeMarker = L.marker([48.77538056, 9.16277778]).addTo(this.map);
+      const homeMarker = L.marker([48.77538056, 9.16277778], {
+        icon: home
+      }).addTo(this.map);
       // bind popup to home marker
       homeMarker.bindPopup("OLI Systems GmbH");
       homeMarker.on("mouseover", function() {
