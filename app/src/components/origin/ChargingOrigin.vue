@@ -131,7 +131,7 @@ export default {
   data() {
     return {
       account: "",
-      contract: "",
+      Contracts: null,
       totalTHU: "",
       totalExamesh: "",
       totalProduction: "",
@@ -706,6 +706,8 @@ export default {
   },
 
   async created() {
+    this.Contracts = new Contracts();
+    await this.Contracts.start();
     this.getMetamaskAccount();
     this.callPublicData();
     this.watchRealTimeProduction();
@@ -760,6 +762,13 @@ td {
 .sub-span {
   padding-left: 1rem;
   font-weight: 600;
+}
+
+.header {
+  text-align: left;
+  margin-bottom: 0.5rem;
+  border-bottom: 1.5px solid #e1dfe2;
+  background: white;
 }
 
 .prod-color {
