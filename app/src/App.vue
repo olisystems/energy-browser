@@ -19,6 +19,9 @@
         <li exact tag="li">
           <router-link to="/logging">Asset Logging</router-link>
         </li>
+        <li exact tag="li">
+          <router-link to="/origin">Charging Origin</router-link>
+        </li>
       </ul>
     </div>
     <router-view />
