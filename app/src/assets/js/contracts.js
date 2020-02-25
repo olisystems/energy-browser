@@ -2,6 +2,7 @@ import EnergyProduction from "./contracts/EnergyProduction.json";
 import EnergyConsumption from "./contracts/EnergyConsumption.json";
 import OliCoin from "./contracts/OliCoin.json";
 import AssetLogging from "./contracts/AssetLogging.json";
+import ChargingOrigin from "./contracts/ChargingOrigin.json";
 // import web3 from "./web3";
 
 export default class Contracts {
@@ -10,6 +11,7 @@ export default class Contracts {
     ConsumptionContract = null;
     OliCoinContract = null;
     AssetLoggingContract = null;
+    ChargingOriginContract = null;
 
     async start() {
 
@@ -21,33 +23,36 @@ export default class Contracts {
         const energyConsumptionDeployed = EnergyConsumption.networks[networkId];
         const oliCoinDeployed = OliCoin.networks[networkId];
         const loggingDeployed = AssetLogging.networks[networkId];
+        const originDeployed = ChargingOrigin.networks[networkId];
 
-        // Initializing the contracts
+        // Initializing the energy production contract
         this.ProductionContract = new web3.eth.Contract(
             EnergyProduction.abi,
             energyProductionDeployed.address
         );
 
-
-
-        // Initializing the contracts
+        // Initializing the energy consumption contract
         this.ConsumptionContract = new web3.eth.Contract(
             EnergyConsumption.abi,
             energyConsumptionDeployed.address
         );
 
-        // Initializing the contracts
+        // Initializing the Oli coin contract
         this.OliCoinContract = new web3.eth.Contract(
             OliCoin.abi,
             oliCoinDeployed.address
         );
 
-
-
-        // Initializing the contracts
+        // Initializing the asset logging contract
         this.AssetLoggingContract = new web3.eth.Contract(
             AssetLogging.abi,
             loggingDeployed.address
+        );
+
+        // Initializing the charging origin contract
+        this.ChargingOriginContract = new web3.eth.Contract(
+            ChargingOrigin.abi,
+            originDeployed.address
         );
 
         //console.log(JSON.stringify(AssetLogging.abi));
