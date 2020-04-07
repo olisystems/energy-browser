@@ -131,7 +131,6 @@
 </template>
 
 <script>
-
 const $ = require("jquery");
 import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
@@ -267,7 +266,7 @@ export default {
       // Acccounts now exposed
       this.Contracts.AssetLoggingContract.methods
         .setDsoValue(this.assetPubkey, this.dsoInput)
-        .send({ from: this.metamaskAccounts })
+        .send({ from: this.dsoPubkey })
         .then(receipt => {
           //console.log(receipt);
         });
@@ -275,6 +274,7 @@ export default {
       this.dsoInput = "";
       this.dsoPubkey = "";
       this.assetPubkey = "";
+
     },
     getDsoWallet() {
       this.dsoWallet = [];
