@@ -469,10 +469,10 @@ export default {
       this.hashTitle = "";
       this.graphData = [];
       this.hashes.forEach((hash) => {
-        if (hash.from === event.target.innerHTML) {
+        if (hash.from === event.target.innerHTML.trim()) {
           // push transaction hashes
           this.accountHashes.push(hash);
-          this.accountTitle = event.target.innerHTML;
+          this.accountTitle = event.target.innerHTML.trim();
         }
       });
       // create transaction object for each hash
@@ -518,7 +518,7 @@ export default {
     async getTxObject() {
       this.transactionObjects.forEach((txObj) => {
         //seeg(x.blockNumber);
-        if (txObj.hash === event.target.innerHTML) {
+        if (txObj.hash === event.target.innerHTML.trim()) {
           // this.tx = JSON.stringify(selectedItem, null, 2);
           this.txObject = {
             hash: txObj.hash,
@@ -544,7 +544,7 @@ export default {
             value: txObj.value,
           };
 
-          this.hashTitle = event.target.innerHTML;
+          this.hashTitle = event.target.innerHTML.trim();
         }
       });
 
