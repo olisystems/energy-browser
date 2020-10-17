@@ -395,7 +395,7 @@ export default {
     },
     // spatial distribution map
     getCurrentProMarker() {
-      this.currentProAddress = event.target.innerHTML;
+      this.currentProAddress = event.target.innerHTML.trim();
       let popupOptions = {
         maxWidth: "500",
         className: "currentPro-popup", // classname for another popup
@@ -457,10 +457,9 @@ export default {
               this.map.removeLayer(this.currentProMarker);
             }
 
-            this.currentProMarker = L.marker([
-              currentProLat,
-              currentProLon,
-            ]).addTo(this.map);
+            this.currentProMarker = L.marker([currentProLat, currentProLon], {
+              icon: currentProIcon,
+            }).addTo(this.map);
             this.currentProMarker
               .bindPopup(this.currentProPopup, popupOptions)
               .openPopup();
@@ -469,7 +468,7 @@ export default {
       });
     },
     getCurrentConsMarker() {
-      this.currentConsAddress = event.target.innerHTML;
+      this.currentConsAddress = event.target.innerHTML.trim();
       let popupOptions = {
         maxWidth: "500",
         className: "currentCons-popup", // classname for another popup
