@@ -958,6 +958,10 @@ button:focus {
   outline: none;
 }
 
+.active {
+  background-color: #9be99b;
+}
+
 @media (max-width: 950px) {
   h2 {
     text-align: center;
