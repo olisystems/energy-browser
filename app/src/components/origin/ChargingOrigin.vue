@@ -427,7 +427,7 @@ export default {
       };
 
       this.map = L.map("map", {
-        center: [48.76, 9.4],
+        center: [48.67, 9.4],
         zoom: 9,
         layers: openStreet
       });
@@ -848,5 +848,9 @@ td {
 #production-plot {
   width: 100%;
   height: 360px;
+}
+
+.table{
+  height: 350px !important;
 }
 </style>
