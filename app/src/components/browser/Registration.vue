@@ -95,7 +95,6 @@ export default {
         "ProducerRegs",
         {
           fromBlock: 0,
-          toBlock: "latest"
         },
         (error, result) => {
           if (error) {
@@ -113,7 +112,6 @@ export default {
         "ConsumerRegs",
         {
           fromBlock: 0,
-          toBlock: "latest"
         },
         (error, result) => {
           if (error) {

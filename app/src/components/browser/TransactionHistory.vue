@@ -304,7 +304,6 @@ export default {
         currentBlock = blockNumber;
         this.Contracts.ProductionContract.getPastEvents("ProTransactionEvent", {
           fromBlock: currentBlock - 50,
-          toBlock: "latest",
         }).then((events) => {
           events.forEach((event) => {
             if (this.producerAddress === event.returnValues[0]) {
@@ -337,7 +336,6 @@ export default {
           "ConsTransactionEvent",
           {
             fromBlock: currentBlock - 50,
-            toBlock: "latest",
           }
         ).then((events) => {
           events.forEach((event) => {
@@ -476,7 +474,6 @@ export default {
 
       this.Contracts.ConsumptionContract.getPastEvents("ConsumerRegs", {
         fromBlock: 0,
-        toBlock: "latest",
       }).then((results) => {
         results.forEach((result) => {
           this.consLoc.push(
@@ -555,7 +552,6 @@ export default {
       // get event data
       this.Contracts.ProductionContract.getPastEvents("ProducerRegs", {
         fromBlock: 0,
-        toBlock: "latest",
       }).then((results) => {
         results.forEach((result) => {
           const markers = L.marker(
@@ -604,7 +600,6 @@ export default {
       // get event data
       this.Contracts.ConsumptionContract.getPastEvents("ConsumerRegs", {
         fromBlock: 0,
-        toBlock: "latest",
       }).then((results) => {
         results.forEach((result) => {
           const markers = L.marker(

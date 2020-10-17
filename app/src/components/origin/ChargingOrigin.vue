@@ -219,7 +219,6 @@ export default {
         "ConsumerRegistration",
         {
           fromBlock: 0,
-          toBlock: "latest"
         }
       ).then(results => {
         results.forEach(result => {
@@ -322,7 +321,6 @@ export default {
         "ConsumerRegistration",
         {
           fromBlock: 0,
-          toBlock: "latest"
         }
       ).then(results => {
         results.forEach(result => {
@@ -453,7 +451,6 @@ export default {
       this.Contracts.ChargingOriginContract.events
         .Consumption({
           fromBlock: "latest",
-          toBlock: "latest"
         })
         .on("data", event => {
           $(".loader").hide();
