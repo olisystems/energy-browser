@@ -298,7 +298,7 @@ export default {
   methods: {
     getProducerHistory() {
       this.producer = [];
-      this.producerAddress = event.target.innerHTML;
+      this.producerAddress = event.target.innerHTML.trim();
       let currentBlock = "";
       web3.eth.getBlockNumber().then((blockNumber) => {
         currentBlock = blockNumber;
@@ -329,7 +329,7 @@ export default {
     },
     getConsumerHistory() {
       this.consumer = [];
-      this.consumerAddress = event.target.innerHTML;
+      this.consumerAddress = event.target.innerHTML.trim();
       let currentBlock = "";
       web3.eth.getBlockNumber().then((blockNumber) => {
         currentBlock = blockNumber;
