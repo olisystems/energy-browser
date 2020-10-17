@@ -368,7 +368,7 @@ export default {
         .call()
         .then((list) => {
           // remove first 0x00 account
-          list.shift();
+          // list.shift();
           // push each item to array
           list.forEach((item) => {
             this.producers.push(item);
@@ -386,7 +386,7 @@ export default {
         .call()
         .then((list) => {
           // remove first 0x00 account
-          list.shift();
+          // list.shift();
           // push each item to array
           list.forEach((item) => {
             this.consumers.push(item);
