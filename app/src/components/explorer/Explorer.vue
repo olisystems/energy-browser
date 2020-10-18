@@ -2,14 +2,24 @@
   <div id="explorer">
     <div class="search-container">
       <form class="search-bar" @submit.prevent="getAccounts">
-        <input type="text" placeholder="Search for hashes" required v-model="address" />
+        <input
+          type="text"
+          placeholder="Search for hashes"
+          required
+          v-model="address"
+        />
         <input type="submit" value="Search" class="btn" />
       </form>
 
       <div class="date-picker">
         <div>
           <span>Start Date</span>
-          <input type="date" v-model="startdate" :max="maxDate" v-on:input="checkStartDate" />
+          <input
+            type="date"
+            v-model="startdate"
+            :max="maxDate"
+            v-on:input="checkStartDate"
+          />
         </div>
         <div>
           <span>End Date</span>
@@ -23,7 +33,7 @@
         <div class="accounts">
           <div class="search-results overflow-text">
             Found {{ accounts.length }} results for the contract
-            <em>{{lastAddress}}.</em>
+            <em>{{ lastAddress }}.</em>
           </div>
 
           <div class="main-column">
@@ -38,7 +48,9 @@
                   v-for="(account, index) in accounts"
                   v-bind:key="index"
                   class="overflow-text"
-                >{{ account }}</li>
+                >
+                  {{ account }}
+                </li>
               </ol>
               <!-- <h4 v-on:click="getTxObject(hash)">{{ hash.title }}</h4> -->
             </div>
@@ -52,7 +64,7 @@
                 <h4>Total Transactions</h4>
               </div>
               <div class="top-bar-box stats-box">
-                <h3 class="stats">{{hashes.length}}</h3>
+                <h3 class="stats">{{ hashes.length }}</h3>
               </div>
             </div>
 
@@ -61,7 +73,7 @@
                 <h4>Total Blocks</h4>
               </div>
               <div class="top-bar-box stats-box">
-                <h3 class="stats">{{blocksPerDay}}</h3>
+                <h3 class="stats">{{ blocksPerDay }}</h3>
               </div>
             </div>
 
@@ -70,7 +82,7 @@
                 <h4>Total Day(s)</h4>
               </div>
               <div class="top-bar-box stats-box">
-                <h3 class="stats">{{days}}</h3>
+                <h3 class="stats">{{ days }}</h3>
               </div>
             </div>
             <div class="download-btn">
@@ -78,7 +90,11 @@
             </div>
           </div>
           <div class="graph">
-            <div class="explorer-plot column-body" id="explorer-plot" v-if="accounts.length">
+            <div
+              class="explorer-plot column-body"
+              id="explorer-plot"
+              v-if="accounts.length"
+            >
               <div class="placeholder">
                 <h5>select an account to view the history</h5>
               </div>
@@ -91,7 +107,7 @@
         <div class="tx-hashes" v-if="accounts.length">
           <div class="search-results overflow-text">
             Found {{ accountHashes.length }} results for the account
-            <em>{{accountTitle}}.</em>
+            <em>{{ accountTitle }}.</em>
           </div>
           <div class="main-column">
             <div class="col-2 head-box">
@@ -105,7 +121,9 @@
                   class="overflow-text"
                   v-for="(accountHashe, index) in accountHashes"
                   v-bind:key="index"
-                >{{accountHashe.hash}}</li>
+                >
+                  {{ accountHashe.hash }}
+                </li>
               </ol>
             </div>
             <div class="no-data" v-else>No account selected.</div>
@@ -118,15 +136,15 @@
               <tbody>
                 <tr>
                   <th class="hash-stat-name">Function Hash:</th>
-                  <td class="hash-stat-value">{{functionHash}}</td>
+                  <td class="hash-stat-value">{{ functionHash }}</td>
                 </tr>
                 <tr>
                   <th class="hash-stat-name">Type:</th>
-                  <td class="hash-stat-value">{{functionName}}</td>
+                  <td class="hash-stat-value">{{ functionName }}</td>
                 </tr>
                 <tr>
                   <th class="hash-stat-name">Value:</th>
-                  <td class="hash-stat-value">{{hashValue}}</td>
+                  <td class="hash-stat-value">{{ hashValue }}</td>
                 </tr>
               </tbody>
             </table>
@@ -136,7 +154,7 @@
         <div class="tx-object" v-if="accountHashes.length">
           <div class="search-results overflow-text">
             Showing results for hash
-            <em>{{hashTitle}}.</em>
+            <em>{{ hashTitle }}.</em>
           </div>
           <div class="main-column">
             <div class="col-3 head-box">
@@ -149,81 +167,85 @@
                   <tbody>
                     <tr>
                       <th class="property-name">Time:</th>
-                      <td class="property-value">{{txObject.time}}</td>
+                      <td class="property-value">{{ txObject.time }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Hash:</th>
-                      <td class="property-value">{{txObject.hash}}</td>
+                      <td class="property-value">{{ txObject.hash }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Block Number:</th>
-                      <td class="property-value">{{txObject.blockNumber}}</td>
+                      <td class="property-value">{{ txObject.blockNumber }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Chain Id:</th>
-                      <td class="property-value">{{txObject.chainId}}</td>
+                      <td class="property-value">{{ txObject.chainId }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">From:</th>
-                      <td class="property-value">{{txObject.from}}</td>
+                      <td class="property-value">{{ txObject.from }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Gas:</th>
-                      <td class="property-value">{{txObject.gas}}</td>
+                      <td class="property-value">{{ txObject.gas }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Gas Price:</th>
-                      <td class="property-value">{{txObject.gasPrice}}</td>
+                      <td class="property-value">{{ txObject.gasPrice }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Input:</th>
-                      <td class="property-value">{{txObject.input}}</td>
+                      <td class="property-value">{{ txObject.input }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Nonce:</th>
-                      <td class="property-value">{{txObject.nonce}}</td>
+                      <td class="property-value">{{ txObject.nonce }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Public Key:</th>
-                      <td class="property-value">{{txObject.publicKey}}</td>
+                      <td class="property-value">{{ txObject.publicKey }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">R:</th>
-                      <td class="property-value">{{txObject.r}}</td>
+                      <td class="property-value">{{ txObject.r }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Raw:</th>
-                      <td class="property-value">{{txObject.raw}}</td>
+                      <td class="property-value">{{ txObject.raw }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">S:</th>
-                      <td class="property-value">{{txObject.s}}</td>
+                      <td class="property-value">{{ txObject.s }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">StandardV:</th>
-                      <td class="property-value">{{txObject.standardV}}</td>
+                      <td class="property-value">{{ txObject.standardV }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">To:</th>
-                      <td class="property-value">{{txObject.to}}</td>
+                      <td class="property-value">{{ txObject.to }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Transaction Index:</th>
-                      <td class="property-value">{{txObject.transactionIndex}}</td>
+                      <td class="property-value">
+                        {{ txObject.transactionIndex }}
+                      </td>
                     </tr>
                     <tr>
                       <th class="property-name">V:</th>
-                      <td class="property-value">{{txObject.v}}</td>
+                      <td class="property-value">{{ txObject.v }}</td>
                     </tr>
                     <tr>
                       <th class="property-name">Value:</th>
-                      <td class="property-value">{{txObject.value}}</td>
+                      <td class="property-value">{{ txObject.value }}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <div class="no-data" v-else>select an hash to see the transaction object</div>
+            <div class="no-data" v-else>
+              select an hash to see the transaction object
+            </div>
           </div>
         </div>
       </div>
@@ -245,7 +267,7 @@ import Contracts from "../../assets/js/contracts";
 import {
   timeConverter,
   currentTime,
-  formatTime
+  formatTime,
 } from "../../assets/js/time-format.js";
 
 export default {
@@ -254,7 +276,7 @@ export default {
   data() {
     return {
       accounts: [],
-      address: "0x5b15bDe6E214207D54e85152A0396aF3E1b70E4b",
+      address: "0x963c70bE105c648517490EDd03DF1508820Fa52B",
       //0xB71969921072ddD5cD25928774ec2cEb1270A4d0
 
       lastAddress: "",
@@ -273,7 +295,7 @@ export default {
       downloadData: [],
       maxDate: new Date().toISOString().split("T")[0],
       startdate: new Date().toISOString().split("T")[0],
-      enddate: new Date().toISOString().split("T")[0]
+      enddate: new Date().toISOString().split("T")[0],
     };
   },
   methods: {
@@ -281,7 +303,7 @@ export default {
       this.downloadData = [];
       let functionHashString;
       let functionHash;
-      this.transactionObjects.forEach(hash => {
+      this.transactionObjects.forEach((hash) => {
         functionHash = hash.input.slice(2, 10);
         switch (functionHash) {
           case "f1f1ecb7":
@@ -301,13 +323,13 @@ export default {
           ),
           time: hash.time,
           blockNumber: hash.blockNumber,
-          txHash: hash.hash
+          txHash: hash.hash,
         });
       });
       let csv =
         "From, Function Hash, Value, Time, Block Number, Transaction Hash\n";
       //console.log(csv);
-      this.downloadData.forEach(row => {
+      this.downloadData.forEach((row) => {
         csv += Object.values(row);
         csv += "\n";
       });
@@ -323,13 +345,13 @@ export default {
       }
       let time = [];
       let input = [];
-      this.graphData.sort(function(a, b) {
+      this.graphData.sort(function (a, b) {
         // turn your strings into dates, and then subtract them
         // to get a value that is either negative, positive, or zero.
         return new Date(a.time) - new Date(b.time);
       });
 
-      this.graphData.forEach(data => {
+      this.graphData.forEach((data) => {
         time.push(data.time);
         input.push(data.input);
       });
@@ -340,10 +362,10 @@ export default {
           y: input,
           line: {
             shape: "linear",
-            color: "#009933"
+            color: "#009933",
           },
-          type: "scatter"
-        }
+          type: "scatter",
+        },
       ];
 
       const layout = {
@@ -355,24 +377,24 @@ export default {
           tickformat: "%H:%M:%S",
           hoverformat: "%H:%M:%S",
           linecolor: "lightgray",
-          linewidth: 0.5
+          linewidth: 0.5,
         },
         yaxis: {
           tickformat: ",d",
           linecolor: "lightgray",
           linewidth: 0.5,
           titlefont: {
-            color: "black"
+            color: "black",
           },
-          exponentformat: "e"
+          exponentformat: "e",
         },
         margin: {
           l: 50,
           r: 30,
           b: 50,
           t: 40,
-          pad: 4
-        }
+          pad: 4,
+        },
       };
 
       Plotly.newPlot("explorer-plot", data, layout, { responsive: true });
@@ -389,7 +411,7 @@ export default {
          */
         let block = await web3.eth.getBlock(i, true);
         //console.log(block);
-        block.transactions.forEach(tx => {
+        block.transactions.forEach((tx) => {
           // filter out transactions for a specific smart contract
           if (tx.to === contractAddress) {
             this.hashes.push(tx);
@@ -414,7 +436,7 @@ export default {
               to: tx.to,
               transactionIndex: tx.transactionIndex,
               v: tx.v,
-              value: tx.value
+              value: tx.value,
             });
             // check if address already exists in array
             if (this.accounts.indexOf(tx.from) === -1) {
@@ -446,16 +468,16 @@ export default {
       this.txObject = {};
       this.hashTitle = "";
       this.graphData = [];
-      this.hashes.forEach(hash => {
-        if (hash.from === event.target.innerHTML) {
+      this.hashes.forEach((hash) => {
+        if (hash.from === event.target.innerHTML.trim()) {
           // push transaction hashes
           this.accountHashes.push(hash);
-          this.accountTitle = event.target.innerHTML;
+          this.accountTitle = event.target.innerHTML.trim();
         }
       });
       // create transaction object for each hash
-      this.accountHashes.forEach(accountHash => {
-        this.transactionObjects.forEach(txObj => {
+      this.accountHashes.forEach((accountHash) => {
+        this.transactionObjects.forEach((txObj) => {
           /*
            * from can not be compared because there are two froms
            * for first match it will add both two froms
@@ -470,14 +492,14 @@ export default {
               input: web3.utils.toDecimal(
                 "0x" +
                   txObj.input.slice(txObj.input.length - 6, txObj.input.length)
-              )
+              ),
             });
           }
         });
       });
 
       // removing the background color for ul-selected items
-      document.querySelectorAll(".column-body > ol>li").forEach(account => {
+      document.querySelectorAll(".column-body > ol>li").forEach((account) => {
         account.classList.remove("active");
       });
       // add background to selected account
@@ -494,9 +516,9 @@ export default {
      */
 
     async getTxObject() {
-      this.transactionObjects.forEach(txObj => {
+      this.transactionObjects.forEach((txObj) => {
         //seeg(x.blockNumber);
-        if (txObj.hash === event.target.innerHTML) {
+        if (txObj.hash === event.target.innerHTML.trim()) {
           // this.tx = JSON.stringify(selectedItem, null, 2);
           this.txObject = {
             hash: txObj.hash,
@@ -519,10 +541,10 @@ export default {
             to: txObj.to,
             transactionIndex: txObj.transactionIndex,
             v: txObj.v,
-            value: txObj.value
+            value: txObj.value,
           };
 
-          this.hashTitle = event.target.innerHTML;
+          this.hashTitle = event.target.innerHTML.trim();
         }
       });
 
@@ -555,7 +577,7 @@ export default {
       // });
 
       // removing the background color for ul-selected items
-      document.querySelectorAll(".hash-list-div > ol>li").forEach(account => {
+      document.querySelectorAll(".hash-list-div > ol>li").forEach((account) => {
         account.classList.remove("active");
       });
       // add background to selected account
@@ -588,14 +610,14 @@ export default {
         //console.log(this.days);
         //console.log(this.blocksPerDay);
       }
-    }
+    },
   },
   // default search on page load
   async created() {
     this.Contracts = new Contracts();
     await this.Contracts.start();
     this.getAccounts();
-  }
+  },
 };
 </script>
 
@@ -934,6 +956,10 @@ span {
 
 button:focus {
   outline: none;
+}
+
+.active {
+  background-color: #9be99b;
 }
 
 @media (max-width: 950px) {

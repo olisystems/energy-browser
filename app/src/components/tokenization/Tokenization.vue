@@ -6,7 +6,7 @@
           <h4>Total Producers</h4>
         </div>
         <div class="top-bar-box stats-box">
-          <h3 class="stats">{{totalProducers}}</h3>
+          <h3 class="stats">{{ totalProducers }}</h3>
         </div>
       </div>
 
@@ -15,7 +15,7 @@
           <h4>Total Energy Production</h4>
         </div>
         <div class="top-bar-box stats-box">
-          <h3 class="stats">{{totalEnergy}}</h3>
+          <h3 class="stats">{{ totalEnergy }}</h3>
           <span>Wh</span>
         </div>
       </div>
@@ -25,7 +25,7 @@
           <h4>Total Minted Coins</h4>
         </div>
         <div class="top-bar-box stats-box">
-          <h3 class="stats">{{totalMintedCoins}}</h3>
+          <h3 class="stats">{{ totalMintedCoins }}</h3>
           <span>OLC</span>
         </div>
       </div>
@@ -43,7 +43,9 @@
               v-for="(producer, index) in producers"
               v-bind:key="index"
               @click="getProducerDetails"
-            >{{producer}}</li>
+            >
+              {{ producer }}
+            </li>
           </ol>
         </div>
       </div>
@@ -55,7 +57,7 @@
               <h4>Total Production</h4>
             </div>
             <div class="production-value box">
-              <h3 class="stats">{{producerEnergyBalance}}</h3>
+              <h3 class="stats">{{ producerEnergyBalance }}</h3>
               <span>Wh</span>
             </div>
           </div>
@@ -65,7 +67,7 @@
               <h4>Total Coins</h4>
             </div>
             <div class="coin-value box">
-              <h3 class="stats">{{producerTokenBalance}}</h3>
+              <h3 class="stats">{{ producerTokenBalance }}</h3>
               <span>OLC</span>
             </div>
           </div>
@@ -82,27 +84,27 @@
               <tbody>
                 <tr>
                   <th class="property-name">Name:</th>
-                  <td class="property-value">{{producer[0]}}</td>
+                  <td class="property-value">{{ producer[0] }}</td>
                 </tr>
                 <tr>
                   <th class="property-name">Device Type:</th>
-                  <td class="property-value">{{producer[1]}}</td>
+                  <td class="property-value">{{ producer[1] }}</td>
                 </tr>
                 <tr>
                   <th class="property-name">Peak Power (+) [W]:</th>
-                  <td class="property-value">{{producer[2]}}</td>
+                  <td class="property-value">{{ producer[2] }}</td>
                 </tr>
                 <tr>
                   <th class="property-name">Latitude:</th>
-                  <td class="property-value">{{producer[3]}}</td>
+                  <td class="property-value">{{ producer[3] }}</td>
                 </tr>
                 <tr>
                   <th class="property-name">Longitude:</th>
-                  <td class="property-value">{{producer[4]}}</td>
+                  <td class="property-value">{{ producer[4] }}</td>
                 </tr>
                 <tr>
                   <th class="property-name">Install Date:</th>
-                  <td class="property-value">{{producer[5]}}</td>
+                  <td class="property-value">{{ producer[5] }}</td>
                 </tr>
               </tbody>
             </table>
@@ -136,16 +138,16 @@ export default {
       amount: null,
       tokenTransferTx: [],
       filters: {
-        name: { value: "", keys: ["_from"] }
+        name: { value: "", keys: ["_from"] },
       },
       currentPage: 1,
-      totalPages: 0
+      totalPages: 0,
     };
   },
   methods: {
     getEthAccounts() {
-      web3.eth.getAccounts().then(accounts => {
-        accounts.forEach(account => {
+      web3.eth.getAccounts().then((accounts) => {
+        accounts.forEach((account) => {
           this.ethAccounts.push(account);
         });
       });
@@ -159,8 +161,8 @@ export default {
         .getProducerAccountsList()
         .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
-            result.shift();
-            result.forEach(producer => {
+            //result.shift();
+            result.forEach((producer) => {
               this.producers.push(producer);
             });
             this.totalProducers = result.length;
@@ -175,7 +177,6 @@ export default {
       this.Contracts.OliCoinContract.events.TotalEnergyEvent(
         {
           fromBlock: "latest",
-          toBlock: "latest"
         },
         (error, result) => {
           if (!error) {
@@ -190,7 +191,6 @@ export default {
       this.Contracts.OliCoinContract.events.TotalMintedTokens(
         {
           fromBlock: "latest",
-          toBlock: "latest"
         },
         (error, result) => {
           if (!error) {
@@ -211,7 +211,7 @@ export default {
     getProducerEnergyBalance() {
       this.producerEnergyBalance = "";
       this.Contracts.OliCoinContract.methods
-        .getProducerEnergyBalance(event.target.innerHTML)
+        .getProducerEnergyBalance(event.target.innerHTML.trim())
         .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
             this.producerEnergyBalance = result;
@@ -223,7 +223,7 @@ export default {
     getProducerTokenBalance() {
       this.producerTokenBalance = "";
       this.Contracts.OliCoinContract.methods
-        .balanceOf(event.target.innerHTML)
+        .balanceOf(event.target.innerHTML.trim())
         .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
             this.producerTokenBalance = result / 1000;
@@ -235,7 +235,7 @@ export default {
     getProducerInfo() {
       this.producer = [];
       this.Contracts.OliCoinContract.methods
-        .getProducerAccountDetails(event.target.innerHTML)
+        .getProducerAccountDetails(event.target.innerHTML.trim())
         .call({ from: this.ethAccounts[0] }, (error, result) => {
           if (!error) {
             this.producer = result;
@@ -245,12 +245,12 @@ export default {
         });
 
       // removing the background color for ul-selected items
-      document.querySelectorAll(".producer-list > ol>li").forEach(list => {
+      document.querySelectorAll(".producer-list > ol>li").forEach((list) => {
         list.classList.remove("active");
       });
       // add background to selected account
       event.target.classList.add("active");
-    }
+    },
   },
 
   // set default function on page load
@@ -259,7 +259,7 @@ export default {
     await this.Contracts.start();
     this.getEthAccounts();
     this.getProducers();
-  }
+  },
 };
 </script>
 

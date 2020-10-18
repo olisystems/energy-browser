@@ -219,7 +219,6 @@ export default {
         "ConsumerRegistration",
         {
           fromBlock: 0,
-          toBlock: "latest"
         }
       ).then(results => {
         results.forEach(result => {
@@ -322,7 +321,6 @@ export default {
         "ConsumerRegistration",
         {
           fromBlock: 0,
-          toBlock: "latest"
         }
       ).then(results => {
         results.forEach(result => {
@@ -429,7 +427,7 @@ export default {
       };
 
       this.map = L.map("map", {
-        center: [48.76, 9.4],
+        center: [48.67, 9.4],
         zoom: 9,
         layers: openStreet
       });
@@ -453,7 +451,6 @@ export default {
       this.Contracts.ChargingOriginContract.events
         .Consumption({
           fromBlock: "latest",
-          toBlock: "latest"
         })
         .on("data", event => {
           $(".loader").hide();
@@ -851,5 +848,9 @@ td {
 #production-plot {
   width: 100%;
   height: 360px;
+}
+
+.table{
+  height: 350px !important;
 }
 </style>

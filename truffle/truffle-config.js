@@ -23,12 +23,12 @@
 //
 const fs = require('fs');
 
-const HDWalletProvider = require('truffle-hdwallet-provider');
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 const path = require('path');
 const MNEMONIC = fs.readFileSync(".secret").toString().trim();
 var ENDPOINT = "https://volta-rpc.energyweb.org";
 module.exports = {
-  contracts_build_directory: path.join(__dirname, 'app/src/assets/js/contracts'),
+  contracts_build_directory: path.join(__dirname, '../app/src/assets/js/contracts'),
   /**
    * Networks define how you connect to your ethereum client and let you set the
    * defaults web3 uses to send transactions. If you don't specify one truffle
@@ -52,12 +52,18 @@ module.exports = {
       network_id: "*",       // Any network (default: none)
       websockets: true
     },
-    volta: {
+    voltaRPC: {
       provider: function () {
         return new HDWalletProvider(MNEMONIC, ENDPOINT)
       },
       network_id: 73799
-    }
+    },
+    volta: {
+      host: "80.158.47.134",
+      port: 7546,
+      network_id: 73799,
+      websockets: true,
+    },
 
     // Another network with more advanced options...
     // advanced: {
@@ -90,7 +96,7 @@ module.exports = {
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
-    // timeout: 100000
+    enableTimeouts: false,
   },
 
   // Configure your compilers

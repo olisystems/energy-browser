@@ -9,7 +9,7 @@
           <div class="account-header">
             <h4>
               Account Address:
-              <span class="producer-address">{{producerAddress}}</span>
+              <span class="producer-address">{{ producerAddress }}</span>
             </h4>
           </div>
           <div class="table">
@@ -22,12 +22,12 @@
                   <th>BlockHash</th>
                   <!-- <th>GasPrice [wei]</th> -->
                 </thead>
-                <tbody slot="body" slot-scope="{displayData}">
+                <tbody slot="body" slot-scope="{ displayData }">
                   <tr v-for="(row, index) in displayData" :key="index">
-                    <td v-tooltip="row.time">{{row.time}}</td>
-                    <td>{{row.power}}</td>
-                    <td>{{row.blockNumber}}</td>
-                    <td v-tooltip="row.blockHash">{{row.blockHash}}</td>
+                    <td v-tooltip="row.time">{{ row.time }}</td>
+                    <td>{{ row.power }}</td>
+                    <td>{{ row.blockNumber }}</td>
+                    <td v-tooltip="row.blockHash">{{ row.blockHash }}</td>
                     <!-- <td>{{row.gasPrice}}</td> -->
                   </tr>
                 </tbody>
@@ -48,7 +48,7 @@
           <div class="account-header">
             <h4>
               Account Address:
-              <span class="consumer-address">{{consumerAddress}}</span>
+              <span class="consumer-address">{{ consumerAddress }}</span>
             </h4>
           </div>
           <div class="table">
@@ -61,12 +61,12 @@
                   <th>BlockHash</th>
                   <!-- <th>Gas Price [wei]</th> -->
                 </thead>
-                <tbody slot="body" slot-scope="{displayData}">
+                <tbody slot="body" slot-scope="{ displayData }">
                   <tr v-for="(row, index) in displayData" :key="index">
-                    <td v-tooltip="row.time">{{row.time}}</td>
-                    <td>{{row.power}}</td>
-                    <td>{{row.blockNumber}}</td>
-                    <td v-tooltip="row.blockHash">{{row.blockHash}}</td>
+                    <td v-tooltip="row.time">{{ row.time }}</td>
+                    <td>{{ row.power }}</td>
+                    <td>{{ row.blockNumber }}</td>
+                    <td v-tooltip="row.blockHash">{{ row.blockHash }}</td>
                     <!-- <td>{{row.gasPrice}}</td> -->
                   </tr>
                 </tbody>
@@ -94,7 +94,9 @@
                 v-on:click="getCurrentPro"
                 v-for="(item, index) in producers"
                 v-bind:key="index"
-              >{{item}}</li>
+              >
+                {{ item }}
+              </li>
             </ol>
           </div>
         </div>
@@ -116,7 +118,9 @@
                 v-on:click="getCurrentCons"
                 v-for="(item, index) in consumers"
                 v-bind:key="index"
-              >{{item}}</li>
+              >
+                {{ item }}
+              </li>
             </ol>
           </div>
         </div>
@@ -132,7 +136,7 @@
             <div class="account-header pro-account">
               <h4 class="total-header">
                 Total Production [kWh]:
-                <span class="producer-balance">{{producerBalance}}</span>
+                <span class="producer-balance">{{ producerBalance }}</span>
               </h4>
             </div>
             <div class="details">
@@ -143,31 +147,39 @@
                 <tbody>
                   <tr>
                     <th class="property-name">Owner:</th>
-                    <td class="property-value">{{producerDetails.owner}}</td>
+                    <td class="property-value">{{ producerDetails.owner }}</td>
                   </tr>
                   <tr>
                     <th class="property-name">Device Type:</th>
-                    <td class="property-value">{{producerDetails.device}}</td>
+                    <td class="property-value">{{ producerDetails.device }}</td>
                   </tr>
                   <tr>
                     <th class="property-name">Peak Power (+) [W]:</th>
-                    <td class="property-value">{{producerDetails.peakPower}}</td>
+                    <td class="property-value">
+                      {{ producerDetails.peakPower }}
+                    </td>
                   </tr>
                   <tr>
                     <th class="property-name">Location Type:</th>
-                    <td class="property-value">{{producerDetails.location}}</td>
+                    <td class="property-value">
+                      {{ producerDetails.location }}
+                    </td>
                   </tr>
                   <tr>
                     <th class="property-name">Latitude:</th>
-                    <td class="property-value">{{producerDetails.latitude}}</td>
+                    <td class="property-value">
+                      {{ producerDetails.latitude }}
+                    </td>
                   </tr>
                   <tr>
                     <th class="property-name">Longitude:</th>
-                    <td class="property-value">{{producerDetails.longitude}}</td>
+                    <td class="property-value">
+                      {{ producerDetails.longitude }}
+                    </td>
                   </tr>
                   <tr>
                     <th class="property-name">Install Date:</th>
-                    <td class="property-value">{{producerDetails.date}}</td>
+                    <td class="property-value">{{ producerDetails.date }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -184,7 +196,7 @@
             <div class="account-header cons-account">
               <h4 class="total-header">
                 Total Consumption [kWh]:
-                <span class="consumer-balance">{{consumerBalance}}</span>
+                <span class="consumer-balance">{{ consumerBalance }}</span>
               </h4>
             </div>
             <div class="details">
@@ -195,31 +207,39 @@
                 <tbody>
                   <tr>
                     <th class="property-name">Owner:</th>
-                    <td class="property-value">{{consumerDetails.owner}}</td>
+                    <td class="property-value">{{ consumerDetails.owner }}</td>
                   </tr>
                   <tr>
                     <th class="property-name">Device Type:</th>
-                    <td class="property-value">{{consumerDetails.device}}</td>
+                    <td class="property-value">{{ consumerDetails.device }}</td>
                   </tr>
                   <tr>
                     <th class="property-name">Peak Power (+) [W]:</th>
-                    <td class="property-value">{{consumerDetails.peakPower}}</td>
+                    <td class="property-value">
+                      {{ consumerDetails.peakPower }}
+                    </td>
                   </tr>
                   <tr>
                     <th class="property-name">Location Type:</th>
-                    <td class="property-value">{{consumerDetails.location}}</td>
+                    <td class="property-value">
+                      {{ consumerDetails.location }}
+                    </td>
                   </tr>
                   <tr>
                     <th class="property-name">Latitude:</th>
-                    <td class="property-value">{{consumerDetails.latitude}}</td>
+                    <td class="property-value">
+                      {{ consumerDetails.latitude }}
+                    </td>
                   </tr>
                   <tr>
                     <th class="property-name">Longitude:</th>
-                    <td class="property-value">{{consumerDetails.longitude}}</td>
+                    <td class="property-value">
+                      {{ consumerDetails.longitude }}
+                    </td>
                   </tr>
                   <tr>
                     <th class="property-name">Install Date:</th>
-                    <td class="property-value">{{consumerDetails.date}}</td>
+                    <td class="property-value">{{ consumerDetails.date }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -272,28 +292,27 @@ export default {
       producerBalance: "",
       consumerBalance: "",
       producerDetails: {},
-      consumerDetails: {}
+      consumerDetails: {},
     };
   },
   methods: {
     getProducerHistory() {
       this.producer = [];
-      this.producerAddress = event.target.innerHTML;
+      this.producerAddress = event.target.innerHTML.trim();
       let currentBlock = "";
-      web3.eth.getBlockNumber().then(blockNumber => {
+      web3.eth.getBlockNumber().then((blockNumber) => {
         currentBlock = blockNumber;
         this.Contracts.ProductionContract.getPastEvents("ProTransactionEvent", {
           fromBlock: currentBlock - 50,
-          toBlock: "latest"
-        }).then(events => {
-          events.forEach(event => {
+        }).then((events) => {
+          events.forEach((event) => {
             if (this.producerAddress === event.returnValues[0]) {
               this.producer.push({
                 time: timeConverter(event.returnValues[1]),
                 power: event.returnValues[2],
                 blockNumber: event.returnValues[3],
                 blockHash: event.returnValues[4],
-                gasPrice: event.returnValues[5]
+                gasPrice: event.returnValues[5],
               });
               $(".pro-placeholder").hide();
             }
@@ -301,7 +320,7 @@ export default {
         });
       });
       // removing the background color for ul-selected items
-      document.querySelectorAll(".producer-list > ol>li").forEach(list => {
+      document.querySelectorAll(".producer-list > ol>li").forEach((list) => {
         list.classList.remove("active-producer");
       });
       // add background to selected account
@@ -309,25 +328,24 @@ export default {
     },
     getConsumerHistory() {
       this.consumer = [];
-      this.consumerAddress = event.target.innerHTML;
+      this.consumerAddress = event.target.innerHTML.trim();
       let currentBlock = "";
-      web3.eth.getBlockNumber().then(blockNumber => {
+      web3.eth.getBlockNumber().then((blockNumber) => {
         currentBlock = blockNumber;
         this.Contracts.ConsumptionContract.getPastEvents(
           "ConsTransactionEvent",
           {
             fromBlock: currentBlock - 50,
-            toBlock: "latest"
           }
-        ).then(events => {
-          events.forEach(event => {
+        ).then((events) => {
+          events.forEach((event) => {
             if (this.consumerAddress === event.returnValues[0]) {
               this.consumer.push({
                 time: timeConverter(event.returnValues[1]),
                 power: event.returnValues[2],
                 blockNumber: event.returnValues[3],
                 blockHash: event.returnValues[4],
-                gasPrice: event.returnValues[5]
+                gasPrice: event.returnValues[5],
               });
               $(".cons-placeholder").hide();
             }
@@ -335,7 +353,7 @@ export default {
         });
       });
       // removing the background color for ul-selected items
-      document.querySelectorAll(".consumer-list > ol > li").forEach(list => {
+      document.querySelectorAll(".consumer-list > ol > li").forEach((list) => {
         list.classList.remove("active-consumer");
       });
       // add background to selected account
@@ -346,11 +364,11 @@ export default {
       this.Contracts.ProductionContract.methods
         .getProAccntsList()
         .call()
-        .then(list => {
+        .then((list) => {
           // remove first 0x00 account
-          list.shift();
+          // list.shift();
           // push each item to array
-          list.forEach(item => {
+          list.forEach((item) => {
             this.producers.push(item);
           });
         });
@@ -359,33 +377,33 @@ export default {
     getConsumerList() {
       const popupOptions = {
         maxWidth: "500",
-        className: "currentPro-popup" // classname for another popup
+        className: "currentPro-popup", // classname for another popup
       };
       this.Contracts.ConsumptionContract.methods
         .getConsAccntsList()
         .call()
-        .then(list => {
+        .then((list) => {
           // remove first 0x00 account
-          list.shift();
+          // list.shift();
           // push each item to array
-          list.forEach(item => {
+          list.forEach((item) => {
             this.consumers.push(item);
           });
         });
     },
     // spatial distribution map
     getCurrentProMarker() {
-      this.currentProAddress = event.target.innerHTML;
+      this.currentProAddress = event.target.innerHTML.trim();
       let popupOptions = {
         maxWidth: "500",
-        className: "currentPro-popup" // classname for another popup
+        className: "currentPro-popup", // classname for another popup
       };
 
       this.Contracts.ProductionContract.getPastEvents("ProducerRegs", {
         fromBlock: 0,
-        toBlock: "latest"
-      }).then(results => {
-        results.forEach(result => {
+        toBlock: "latest",
+      }).then((results) => {
+        results.forEach((result) => {
           this.proLoc.push(
             result.returnValues.latitude / 10000 +
               ", " +
@@ -430,17 +448,16 @@ export default {
 
             let currentProIcon = L.icon({
               iconUrl: "producer.png",
-              iconSize: [30, 40]
+              iconSize: [30, 40],
             });
 
             if (this.currentProMarker != undefined) {
               this.map.removeLayer(this.currentProMarker);
             }
 
-            this.currentProMarker = L.marker([
-              currentProLat,
-              currentProLon
-            ]).addTo(this.map);
+            this.currentProMarker = L.marker([currentProLat, currentProLon], {
+              icon: currentProIcon,
+            }).addTo(this.map);
             this.currentProMarker
               .bindPopup(this.currentProPopup, popupOptions)
               .openPopup();
@@ -449,17 +466,16 @@ export default {
       });
     },
     getCurrentConsMarker() {
-      this.currentConsAddress = event.target.innerHTML;
+      this.currentConsAddress = event.target.innerHTML.trim();
       let popupOptions = {
         maxWidth: "500",
-        className: "currentCons-popup" // classname for another popup
+        className: "currentCons-popup", // classname for another popup
       };
 
       this.Contracts.ConsumptionContract.getPastEvents("ConsumerRegs", {
         fromBlock: 0,
-        toBlock: "latest"
-      }).then(results => {
-        results.forEach(result => {
+      }).then((results) => {
+        results.forEach((result) => {
           this.consLoc.push(
             result.returnValues.latitude / 10000 +
               ", " +
@@ -504,7 +520,7 @@ export default {
 
             let currentConsIcon = L.icon({
               iconUrl: "consumer.png",
-              iconSize: [30, 40]
+              iconSize: [30, 40],
             });
 
             if (this.currentConsMarker != undefined) {
@@ -526,23 +542,22 @@ export default {
       // define popup options
       const popupOptions = {
         maxWidth: "500",
-        className: "currentPro-popup"
+        className: "currentPro-popup",
       };
       // producer icon
       const producerIcon = L.icon({
         iconUrl: "producer.png",
-        iconSize: [50, 60]
+        iconSize: [50, 60],
       });
       // get event data
       this.Contracts.ProductionContract.getPastEvents("ProducerRegs", {
         fromBlock: 0,
-        toBlock: "latest"
-      }).then(results => {
-        results.forEach(result => {
+      }).then((results) => {
+        results.forEach((result) => {
           const markers = L.marker(
             [
               result.returnValues.latitude / 10000,
-              result.returnValues.longitude / 10000
+              result.returnValues.longitude / 10000,
             ],
             { icon: producerIcon }
           ).addTo(this.map);
@@ -562,10 +577,10 @@ export default {
             result.returnValues.longitude / 10000;
           // bind popup
           markers.bindPopup(this.proPopup, popupOptions);
-          markers.on("mouseover", function() {
+          markers.on("mouseover", function () {
             this.openPopup();
           });
-          markers.on("mouseout", function() {
+          markers.on("mouseout", function () {
             this.closePopup();
           });
         });
@@ -575,23 +590,22 @@ export default {
       // define popup options
       const popupOptions = {
         maxWidth: "500",
-        className: "currentCons-popup"
+        className: "currentCons-popup",
       };
       // consumer icon
       const consumerIcon = L.icon({
         iconUrl: "consumer.png",
-        iconSize: [50, 60]
+        iconSize: [50, 60],
       });
       // get event data
       this.Contracts.ConsumptionContract.getPastEvents("ConsumerRegs", {
         fromBlock: 0,
-        toBlock: "latest"
-      }).then(results => {
-        results.forEach(result => {
+      }).then((results) => {
+        results.forEach((result) => {
           const markers = L.marker(
             [
               result.returnValues.latitude / 10000,
-              result.returnValues.longitude / 10000
+              result.returnValues.longitude / 10000,
             ],
             { icon: consumerIcon }
           ).addTo(this.map);
@@ -611,10 +625,10 @@ export default {
             result.returnValues.longitude / 10000;
           // bind popup
           markers.bindPopup(this.consPopup, popupOptions);
-          markers.on("mouseover", function() {
+          markers.on("mouseover", function () {
             this.openPopup();
           });
-          markers.on("mouseout", function() {
+          markers.on("mouseout", function () {
             this.closePopup();
           });
         });
@@ -625,7 +639,7 @@ export default {
       // home marker icon
       var home = L.icon({
         iconUrl: "home.png",
-        iconSize: [30, 40]
+        iconSize: [30, 40],
       });
 
       // create tile layers
@@ -636,7 +650,7 @@ export default {
               "&copy; " +
               '<a href="http://openstreetmap.org">OpenStreetMap</a>' +
               " Contributors",
-            maxZoom: 10
+            maxZoom: 10,
           }
         ),
         OpenStreetMap_BlackAndWhite = L.tileLayer(
@@ -644,7 +658,7 @@ export default {
           {
             maxZoom: 18,
             attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
           }
         ),
         OpenStreetMap_DE = L.tileLayer(
@@ -652,7 +666,7 @@ export default {
           {
             maxZoom: 18,
             attribution:
-              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
           }
         ),
         OpenTopoMap = L.tileLayer(
@@ -660,14 +674,14 @@ export default {
           {
             maxZoom: 17,
             attribution:
-              'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+              'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
           }
         ),
         Esri_WorldImagery = L.tileLayer(
           "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
           {
             attribution:
-              "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+              "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
           }
         ),
         CartoDB_DarkMatter = L.tileLayer(
@@ -676,7 +690,7 @@ export default {
             attribution:
               '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
             subdomains: "abcd",
-            maxZoom: 19
+            maxZoom: 19,
           }
         );
 
@@ -687,26 +701,26 @@ export default {
         "Open Street DE": OpenStreetMap_DE,
         "Open Topo": OpenTopoMap,
         "ESRI Imagery": Esri_WorldImagery,
-        "CartoDB Dark": CartoDB_DarkMatter
+        "CartoDB Dark": CartoDB_DarkMatter,
       };
 
       this.map = L.map("map", {
         center: [48.6, 9.9],
         zoom: 9,
-        layers: openStreet
+        layers: openStreet,
       });
       // add layers control
       L.control.layers(baseMaps).addTo(this.map);
       // add home marker
       const homeMarker = L.marker([48.77538056, 9.16277778], {
-        icon: home
+        icon: home,
       }).addTo(this.map);
       // bind popup to home marker
       homeMarker.bindPopup("OLI Systems GmbH");
-      homeMarker.on("mouseover", function() {
+      homeMarker.on("mouseover", function () {
         this.openPopup();
       });
-      homeMarker.on("mouseout", function() {
+      homeMarker.on("mouseout", function () {
         this.closePopup();
       });
     },
@@ -716,7 +730,7 @@ export default {
       this.Contracts.ProductionContract.methods
         .getProBalance(this.producerAddress)
         .call()
-        .then(balance => {
+        .then((balance) => {
           this.producerBalance = balance;
         });
     },
@@ -726,7 +740,7 @@ export default {
       this.Contracts.ConsumptionContract.methods
         .getConsBalance(this.consumerAddress)
         .call()
-        .then(balance => {
+        .then((balance) => {
           this.consumerBalance = balance;
         });
     },
@@ -737,7 +751,7 @@ export default {
       this.Contracts.ProductionContract.methods
         .getProAccntDetails(this.producerAddress)
         .call()
-        .then(details => {
+        .then((details) => {
           this.producerDetails = {
             owner: details[0],
             device: details[1],
@@ -745,7 +759,7 @@ export default {
             location: details[3],
             latitude: details[4] / 1000,
             longitude: details[5] / 1000,
-            date: details[6]
+            date: details[6],
           };
         });
       $(".pro-details-placeholder").hide();
@@ -757,7 +771,7 @@ export default {
       this.Contracts.ConsumptionContract.methods
         .getConsAccntDetails(this.consumerAddress)
         .call()
-        .then(details => {
+        .then((details) => {
           this.consumerDetails = {
             owner: details[0],
             device: details[1],
@@ -765,7 +779,7 @@ export default {
             location: details[3],
             latitude: details[4] / 1000,
             longitude: details[5] / 1000,
-            date: details[6]
+            date: details[6],
           };
         });
       $(".cons-details-placeholder").hide();
@@ -781,7 +795,7 @@ export default {
       this.getConsumerHistory();
       this.getConsumerBalance();
       this.getConsumerDetails();
-    }
+    },
   },
 
   async created() {
@@ -796,7 +810,7 @@ export default {
     this.initMap();
 
     // ************************************
-  }
+  },
 };
 </script>
 <style scoped>
