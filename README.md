@@ -1,90 +1,100 @@
 
 # OLI DApps Portal
 Decentralized applications built on the top of Volta Ethereum network 
-Live Demo: oli-chain.com
 
-1. [Description](#Description)
-2. [Getting Started](#GettingStarted)
-	2.1. [Prerequisites](#Prerequisites)
-	2.2. [Installing](#Installing)
-3. [Features](#Features)
-4. [Deployed Contract (Volta)](#DeployedContractVolta)
-5. [Built With](#BuiltWith)
-6. [Contributing](#Contributing)
+[Demo](oli-chain.com)
 
-##  1. <a name='Description'></a>Description
+**Table of Contents**
+- [OLI DApps Portal](#oli-dapps-portal)
+	- [Getting Started](#getting-started)
+		- [Prerequisites](#prerequisites)
+		- [Installing](#installing)
+	- [Features](#features)
+	- [Deployed Contract (Volta)](#deployed-contract-volta)
+	- [Built With](#built-with)
+	- [Contributing](#contributing)
 
-##  2. <a name='GettingStarted'></a>Getting Started
+## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
-###  2.1. <a name='Prerequisites'></a>Prerequisites
+### Prerequisites
 Please make sure you've already installed Truffle and enabled MetaMask extension in your browser.
 
 ```
 * Truffle v5.0.41 (core: 5.0.41)
 * Solidity v0.5.8 (solc-js)
-* Node v10.16.3
-* Web3.js v1.2.1
+* Node v12
+* Web3.js v1.3.0
 ```
 
-###  2.2. <a name='Installing'></a>Installing
+### Installing
 Follow the steps below to have development environment running:
 1. Clone the repository:
 ```
-git clone https://github.com/olisystems/energy-browser.git
+$ git clone https://github.com/olisystems/energy-browser.git
 ```
 
 2. Change directory to `app` folder and install all requisite npm packages (as listed in `package.json`):
 ```
-cd app
-npm install
+$ cd app
+$ npm install
 ```
 3. Compile the smart contracts:
 ```
-truffle compile
+$ cd truffle
+$ npm install
+$ truffle compile
 ```
 This will create the smart contract artifacts in folder `src\assets\js\contracts`.
 
 4. Migrate smart contracts to `volta` chain:
 ```
-truffle migrate --network volta
+$ npm run migrate
 ```
 
 5. Test smart contracts:
 ```
-truffle test
+$ truffle test
 ```
 
 6. Compiles and hot-reloads for development, run the following command inside `app` directory:
 ```
-npm run serve
+$ npm run serve
 ```
 Navigate to `localhost:8080` in your browser.
 
 7. Compiles and minifies for production:
 ```
-npm run build
+$ npm run build
 ```
-##  3. <a name='Features'></a>Features
+## Features
 * [Energy Geo Browser](./app/src/components/browser/Browser.md)
 * [Oli Chain Explorer](./app/src/components/explorer/Explorer.md)
 * [Oli Tokenization](./app/src/components/tokenization/Tokenization.md)
 * [Asset Logging](./app/src/components/logging/AssetLogging.md)
-##  4. <a name='DeployedContractVolta'></a>Deployed Contract (Volta)
+* [Charging Origin](./app/src/components/logging/ChargingOrigin.md)
+  
+## Deployed Contract (Volta)
 The contracts are deployed at following addresses on volta:
-```
-Asset Logging: 0x3816CB8e5189f180cA2E6C59C9752cE1f42Bf6f0
-Energy Production: 0x6d434C87e4595E61D7F4A4BA18A8b0E6928Ec401
-Energy Consumption: 0x7CA621e2C6407fB5c16FE6FD091516cb5fF604b2
-Oli Coin: 0xa4000880b6eb9Eebad52275a3aaDFD9Ec3F536D5
-```
 
-##  5. <a name='BuiltWith'></a>Built With
+Asset Logging: `0xb7c1b94bD89D2Dafb6E1AdDEd0Cf2EA69EE0A93F`
+
+Energy Production: `0x963c70bE105c648517490EDd03DF1508820Fa52B`
+
+Energy Consumption: `0xB9Aa95c780C520158b1F460CE00408ff66623355`
+
+Oli Coin: `0xA6AC74D3c11fD4F217A15ec46Ac7318831664051`
+
+Charging Origin: `0x15d1CB843dafCa2dB0971B883b734FF839ae9fE6`
+
+
+## Built With
 * [Ethereum](https://www.ethereum.org/) - Ethereum is a decentralized platform that runs smart contracts
-* [IPFS](https://ipfs.io/) - IPFS is the Distributed Web | A peer-to-peer hypermedia protocol
-to make the web faster, safer, and more open.
+* [Web3.js](https://web3js.readthedocs.io/en/v1.2.7/#web3-js-ethereum-javascript-api) - A collection of libraries which allow interacting with a local or remote ethereum node, using an HTTP or IPC connection.
+* [Vue.js](https://vuejs.org/) - The JavaScript framework for the frontend and handling all the view-related stuff
 * [Truffle Framework](http://truffleframework.com/) - Truffle is the most popular development framework for Ethereum with a mission to make your life a whole lot easier.
-##  6. <a name='Contributing'></a>Contributing
+  
+## Contributing
 Pull requests are welcome.
 
 1. Fork the repository.
