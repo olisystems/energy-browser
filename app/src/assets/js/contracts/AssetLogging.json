@@ -28242,12 +28242,12 @@
         }
       },
       "links": {},
-      "address": "0xb7c1b94bD89D2Dafb6E1AdDEd0Cf2EA69EE0A93F",
-      "transactionHash": "0x36cc9f18db1312e20ae05d522b683fe5d98189a3537691477990cdda727f3501"
+      "address": "0xCE23221606F2a2c56Ab9ab647f9d947E316ff2ac",
+      "transactionHash": "0x39cfe69c5f9db8ff28967f0959efd45fd68809cb1f36839553c5069b4c396ef4"
     }
   },
-  "schemaVersion": "3.2.4",
-  "updatedAt": "2020-10-18T11:34:15.565Z",
+  "schemaVersion": "3.3.2",
+  "updatedAt": "2020-11-16T17:10:25.246Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "Oli Systems GmbH",
