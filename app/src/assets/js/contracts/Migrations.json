@@ -1381,12 +1381,12 @@
     "73799": {
       "events": {},
       "links": {},
-      "address": "0xDeE7C5fA89eBB269f29d3B3C01510A430D0280cd",
-      "transactionHash": "0xe5b1becdb94111f5f744d1e357e813ba6e4626286463174638c81d1f4258bc6b"
+      "address": "0xfF6A69dDbA460767ffd8b2F1e6bD3Ba99b549c6c",
+      "transactionHash": "0x80c99e46d8ed8ac163b79a8a6328249fa00debb2a3345481195c91aebdf2e4e9"
     }
   },
-  "schemaVersion": "3.2.4",
-  "updatedAt": "2020-10-18T11:34:25.573Z",
+  "schemaVersion": "3.3.2",
+  "updatedAt": "2020-11-16T17:10:35.458Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
