@@ -1,0 +1,28 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: energy-browser
+  labels:
+    app: energy-browser
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: energy-browser
+  template:
+    metadata:
+      name: energy-browser
+      labels:
+        app: energy-browser       
+    spec:
+      imagePullSecrets:
+        - name: default-secret
+      containers:
+        - name: energy-browser
+          image: 100.125.7.25:20202/ws_migration-dev/ws_migration:energy-browser-latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          # env:
+          #   - name: foo
+          #     value: bar
