@@ -276,7 +276,7 @@ export default {
   data() {
     return {
       accounts: [],
-      address: "0x6fc98f5AECc69eFA53B089A2afa032aD0bdD691f",
+      address: "0xaFe1f2f2867ED4ed7290e1c620969Ad1dE657b9d",
       //0xB71969921072ddD5cD25928774ec2cEb1270A4d0
 
       lastAddress: "",
