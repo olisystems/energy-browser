@@ -6294,12 +6294,12 @@
         }
       },
       "links": {},
-      "address": "0xCf8EC9185d607Bd20470A1452B2DcdA842188212",
-      "transactionHash": "0xeb1975ca19122d7b658fbe43d7543baffde57cf9acdcd45775551ccc2b1f1431"
+      "address": "0xf6B9ceBCD6287e36B4F1786A8d3Ce215EEd34831",
+      "transactionHash": "0x7160c128d44d437b517bcc4e21c1d6c03d73c22d18d98c3a7854e0779ed2a5aa"
     }
   },
   "schemaVersion": "3.3.2",
-  "updatedAt": "2020-11-16T17:10:35.453Z",
+  "updatedAt": "2020-12-11T10:10:36.028Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
