@@ -41,6 +41,7 @@ contract EnergyProduction {
         string location,
         string installDate
     );
+    
     event EnerProductionEvent(
         address oliAddr,
         uint256 eTime,
@@ -273,29 +274,4 @@ contract EnergyProduction {
         return proBalance[_proAccntAddr];
     }
 
-    /* Oli Coin Stuff */
-
-    function getDeviceTypeForCoin(address addr)
-        public
-        view
-        returns (string memory)
-    {
-        return producers[addr].deviceType;
-    }
-
-    function getLocationForCoin(address addr)
-        public
-        view
-        returns (string memory)
-    {
-        return producers[addr].location;
-    }
-
-    function getEnerProductionForCoin(address addr)
-        public
-        view
-        returns (uint32[] memory)
-    {
-        return transactions[addr].txValue;
-    }
 }
