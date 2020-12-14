@@ -73,7 +73,7 @@ contract EnergyConsumption {
          * for the first address in the array
          * So we will always start our check from index 1 (>0)
          */
-        consAccntList.push(0x0);
+        consAccntList.push(address(0));
     }
 
     /*
@@ -123,7 +123,7 @@ contract EnergyConsumption {
 
     // check if an address is already registered or not
     function consAccntsArr(address consumerAddr) public view returns (bool) {
-        if (consumerAddr != 0x0 && accntIndexArr[consumerAddr] > 0) {
+        if (consumerAddr != address(0) && accntIndexArr[consumerAddr] > 0) {
             return true;
         }
         return false;
@@ -192,7 +192,7 @@ contract EnergyConsumption {
 
     // count for consumer accounts
     function countConsumers() public view returns (uint256) {
-        return consAccntList.length;
+        return consAccntList.length - 1;
     }
 
     /*

@@ -58,6 +58,7 @@ contract OliCoin is IERC20 {
     uint256 public totalMintedCoins;
 
     constructor() public{
+        producerAccountsList.push(address(0));
         totalTokenSupply = 1000000000;
     }
 
@@ -125,7 +126,7 @@ contract OliCoin is IERC20 {
 
     // check producer registration
     function checkProducerRegistration(address _producerAddress) public view returns (bool) {
-        if (accountIndexArray[_producerAddress] > 0) {
+        if (_producerAddress != address(0) && accountIndexArray[_producerAddress] > 0) {
             return true;
         }
         return false;

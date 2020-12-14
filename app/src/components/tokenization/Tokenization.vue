@@ -159,18 +159,16 @@ export default {
       this.producers = [];
       this.Contracts.OliCoinContract.methods
         .getProducerAccountsList()
-        .call({ from: this.ethAccounts[0] }, (error, result) => {
-          if (!error) {
-            //result.shift();
-            result.forEach((producer) => {
-              this.producers.push(producer);
-            });
-            this.totalProducers = result.length;
-            this.getTotalEnergy();
-            this.getTotalMintedCoins();
-          } else {
-            console.log(error);
-          }
+        .call()
+        .then((result) => {
+          result.forEach((producer) => {
+            this.producers.push(producer);
+          });
+          // remove first 0x00 account
+          this.producers.shift();
+          this.totalProducers = this.producers.length;
+          this.getTotalEnergy();
+          this.getTotalMintedCoins();
         });
     },
     getTotalEnergy() {

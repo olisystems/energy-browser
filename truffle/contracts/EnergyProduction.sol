@@ -73,7 +73,7 @@ contract EnergyProduction {
          * for the first address in the array
          * So we will always start our check from index 1 (>0)
          */
-        proAccntList.push(0x0);
+        proAccntList.push(address(0));
     }
 
     /*
@@ -123,7 +123,7 @@ contract EnergyProduction {
 
     // check if an address is already registered or not
     function proAccntsArr(address producerAddr) public view returns (bool) {
-        if (producerAddr != 0x0 && accntIndexArr[producerAddr] > 0) {
+        if (producerAddr != address(0) && accntIndexArr[producerAddr] > 0) {
             return true;
         }
         return false;
@@ -192,7 +192,7 @@ contract EnergyProduction {
 
     // count for producer accounts
     function countProducers() public view returns (uint256) {
-        return proAccntList.length;
+        return proAccntList.length - 1;
     }
 
     /*

@@ -365,12 +365,12 @@ export default {
         .getProAccntsList()
         .call()
         .then((list) => {
-          // remove first 0x00 account
-          // list.shift();
           // push each item to array
           list.forEach((item) => {
             this.producers.push(item);
           });
+          // remove first 0x00 account
+          this.producers.shift();
         });
     },
     // producer accounts list
@@ -383,12 +383,12 @@ export default {
         .getConsAccntsList()
         .call()
         .then((list) => {
-          // remove first 0x00 account
-          // list.shift();
           // push each item to array
           list.forEach((item) => {
             this.consumers.push(item);
           });
+          // remove first 0x00 account
+          this.consumers.shift();
         });
     },
     // spatial distribution map
