@@ -281,7 +281,6 @@ export default {
   async created() {
     this.Contracts = new Contracts();
     await this.Contracts.start();
-    this.plotLiveData()
     this.callFunction();
   }
 };
