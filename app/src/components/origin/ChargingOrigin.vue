@@ -184,25 +184,25 @@ export default {
     async getTotalTHUProduction() {
       const production = await this.Contracts.ChargingOriginContract.methods
         .totalThuPvProd()
-        .call({ from: this.account });
+        .call();
       this.totalTHU = ((production / 1000000) * (10 / 3600)).toFixed(3);
     },
     async getTotalExameshProduction() {
       const production = await this.Contracts.ChargingOriginContract.methods
         .totalExameshWppProd()
-        .call({ from: this.account });
+        .call();
       this.totalExamesh = ((production / 1000000) * (10 / 3600)).toFixed(3);
     },
     async getTotalProduction() {
       const production = await this.Contracts.ChargingOriginContract.methods
         .totalProduction()
-        .call({ from: this.account });
+        .call();
       this.totalProduction = ((production / 1000000) * (10 / 3600)).toFixed(3);
     },
     async getTotalConsumption() {
       const consumption = await this.Contracts.ChargingOriginContract.methods
         .totalConsumption()
-        .call({ from: this.account });
+        .call();
       this.totalConsumption = ((consumption / 1000000) * (10 / 3600)).toFixed(
         3
       );
