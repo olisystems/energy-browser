@@ -41,7 +41,7 @@ contract EnergyProduction {
         string location,
         string installDate
     );
-    
+
     event EnerProductionEvent(
         address oliAddr,
         uint256 eTime,
@@ -64,6 +64,17 @@ contract EnergyProduction {
     mapping(address => ProTransaction) transactions;
 
     address[] public proAccntList;
+
+    constructor() public {
+        /**
+         * position 0 flag invalid address
+         * because if the address is not found in the list
+         * it will return 0 and 0 will also be returned
+         * for the first address in the array
+         * So we will always start our check from index 1 (>0)
+         */
+        proAccntList.push(0x0);
+    }
 
     /*
      * Registration
@@ -112,7 +123,7 @@ contract EnergyProduction {
 
     // check if an address is already registered or not
     function proAccntsArr(address producerAddr) public view returns (bool) {
-        if (accntIndexArr[producerAddr] > 0) {
+        if (producerAddr != 0x0 && accntIndexArr[producerAddr] > 0) {
             return true;
         }
         return false;
@@ -273,5 +284,4 @@ contract EnergyProduction {
     {
         return proBalance[_proAccntAddr];
     }
-
 }
