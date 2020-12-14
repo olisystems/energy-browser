@@ -41,19 +41,13 @@ contract EnergyConsumption {
         string location,
         string installDate
     );
+    
     event EnerConsumptionEvent(
         address oliAddr,
         uint256 eTime,
         uint32 enerAmount
     );
-    event TestEvent(
-        address oliAddr,
-        uint256[] txTime,
-        uint32[] txValue,
-        uint256[] blockNumber,
-        bytes32[] blockHash,
-        uint256[] txGasPrice
-    );
+  
     event ConsTransactionEvent(
         address oliAddr,
         uint256 eTime,
