@@ -2,7 +2,6 @@ pragma solidity >=0.4.16 <0.6.0;
 
 import "./SafeMath.sol";
 
-
 contract ChargingOrigin {
     using SafeMath for uint256;
 
