@@ -41,19 +41,13 @@ contract EnergyConsumption {
         string location,
         string installDate
     );
+
     event EnerConsumptionEvent(
         address oliAddr,
         uint256 eTime,
         uint32 enerAmount
     );
-    event TestEvent(
-        address oliAddr,
-        uint256[] txTime,
-        uint32[] txValue,
-        uint256[] blockNumber,
-        bytes32[] blockHash,
-        uint256[] txGasPrice
-    );
+
     event ConsTransactionEvent(
         address oliAddr,
         uint256 eTime,
@@ -70,6 +64,17 @@ contract EnergyConsumption {
     mapping(address => ConsTransaction) transactions;
 
     address[] public consAccntList;
+
+    constructor() public {
+        /**
+         * position 0 flag invalid address
+         * because if the address is not found in the list
+         * it will return 0 and 0 will also be returned
+         * for the first address in the array
+         * So we will always start our check from index 1 (>0)
+         */
+        consAccntList.push(address(0));
+    }
 
     /*
      * Registration
@@ -118,7 +123,7 @@ contract EnergyConsumption {
 
     // check if an address is already registered or not
     function consAccntsArr(address consumerAddr) public view returns (bool) {
-        if (accntIndexArr[consumerAddr] > 0) {
+        if (consumerAddr != address(0) && accntIndexArr[consumerAddr] > 0) {
             return true;
         }
         return false;
@@ -187,7 +192,7 @@ contract EnergyConsumption {
 
     // count for consumer accounts
     function countConsumers() public view returns (uint256) {
-        return consAccntList.length;
+        return consAccntList.length - 1;
     }
 
     /*

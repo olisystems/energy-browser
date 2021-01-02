@@ -26,7 +26,7 @@ const fs = require('fs');
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const path = require('path');
 const MNEMONIC = fs.readFileSync(".secret").toString().trim();
-var ENDPOINT = "https://volta-rpc.energyweb.org";
+var ENDPOINT = "ws://services.my-oli.com/volta-node";
 module.exports = {
   contracts_build_directory: path.join(__dirname, '../app/src/assets/js/contracts'),
   /**
@@ -48,7 +48,7 @@ module.exports = {
     //
     development: {
       host: "127.0.0.1",     // Localhost (default: none)
-      port: 8545,            // Standard Ethereum port (default: none)
+      port: 8546,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
       websockets: true
     },

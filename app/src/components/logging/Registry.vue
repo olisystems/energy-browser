@@ -66,7 +66,7 @@
                   <td v-tooltip="row.flexibilityTime">{{row.flexibilityTime}}</td>
                   <td v-tooltip="row.startTime">{{row.startTime}}</td>
                   <td v-tooltip="row.endTime">{{row.endTime}}</td>
-                  <td>{{row.redutionLevel}}</td>
+                  <td>{{row.reductionLevel}}</td>
                   <td>{{row.price}}</td>
                 </tr>
               </transition-group>
@@ -232,7 +232,7 @@ export default {
           assetObject.flexibilityTime = timeConverter(Number(flexibility[0]));
           assetObject.startTime = flexibility[1];
           assetObject.endTime = flexibility[2];
-          assetObject.redutionLevel = flexibility[3];
+          assetObject.reductionLevel = flexibility[3];
           assetObject.price = flexibility[4];
 
           this.assets.unshift(assetObject);
