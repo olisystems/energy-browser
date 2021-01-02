@@ -5,11 +5,21 @@ export default {
     install(Vue, options) {
 
         (async function () {
+            const getProvider = () => {
+                const provider = new Web3.providers.WebsocketProvider(options.url)
+                provider.on('connect', () => console.log('WS Connected'))
+                provider.on('error', e => {
+                    console.error('WS Error', e)
+                    web3.setProvider(getProvider())
+                })
+                provider.on('end', e => {
+                    console.error('WS End', e)
+                    web3.setProvider(getProvider())
+                })
 
-            window.web3 = new Web3(
-                new Web3(options.url)
-            );
-
+                return provider
+            }
+            window.web3 = new Web3(getProvider())
 
         }())
 
