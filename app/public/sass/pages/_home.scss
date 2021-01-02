@@ -1,0 +1,29 @@
+.section-about {
+  background-color: $color-grey-light;
+  padding: 25rem 0;
+  margin-top: -20vh;
+}
+
+.section-features {
+  padding: 20rem 0;
+
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-blue, 0.9),
+      rgba($color-primary-green, 0.9)
+    ),
+    url(../img/charging-origin.png);
+  background-size: cover;
+  transform: skewY(-7deg);
+  margin-top: -10rem;
+  & > * {
+    transform: skewY(7deg);
+  }
+}
+
+.section-dapps {
+  background-color: $color-grey-light;
+  padding: 25rem 0;
+  padding: 25rem 0 15rem 0;
+  margin-top: -10vh;
+}
