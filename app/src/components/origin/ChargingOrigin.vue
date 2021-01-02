@@ -462,13 +462,15 @@ export default {
               timeConverter(event.returnValues.timestamp)
             );
           }
-          if (
-            event.returnValues.consumer ===
-            "0x3D481ee06aFe587dAe5EAFA541c75c3D1F9dCdBc"
-          ) {
-            // store only consumption values for pie chart
-            this.consumptionPower.push(event.returnValues.consumption);
-          }
+          // if (
+          //   event.returnValues.consumer ===
+          //   "0x3D481ee06aFe587dAe5EAFA541c75c3D1F9dCdBc"
+          // ) {
+          //   // store only consumption values for pie chart
+          //   this.consumptionPower.push(event.returnValues.consumption);
+          // }
+          // store only consumption values for pie chart
+          this.consumptionPower.push(event.returnValues.consumption);
           this.callPublicData();
         })
         .on("error", console.error);
