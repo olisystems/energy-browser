@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "compile:sass": "node-sass public/sass/main.scss public/css/style.css -w"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
@@ -23,6 +24,7 @@
     "jquery": "^3.5.1",
     "leaflet": "^1.7.1",
     "moment": "^2.29.0",
+    "node-sass": "^5.0.0",
     "plotly.js-dist": "^1.55.2",
     "v-tooltip": "^3.0.0-alpha.13",
     "vue-router": "^3.4.3",
