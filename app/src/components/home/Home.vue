@@ -1,7 +1,7 @@
 <template>
   <div class="landing-page">
-    <div class="header">
-      <div class="header__heading-box">
+    <div class="landing">
+      <div class="landing__heading-box">
         <h1 class="heading-primary">
           <span class="heading-primary--main">OLI DAPPs</span>
           <span class="heading-primary--sub">Ethereum Based Dapps</span>
@@ -12,7 +12,6 @@
         >
       </div>
     </div>
-
     <main>
       <section class="section-about" id="section-about">
         <div class="u-center-text u-margin-bottom-big">
@@ -37,25 +36,25 @@
             <div class="paragraph">
               <ul>
                 <li>
-                   <b>Ethereum</b> - Ethereum is a decentralized platform that runs
-                  smart contracts.
+                  <b>Ethereum</b> - Ethereum is a decentralized platform that
+                  runs smart contracts.
                 </li>
 
                 <li>
-                   <b>Web3.js</b> - A collection of libraries which allow interacting
-                  with a local or remote ethereum node, using an HTTP or IPC
-                  connection.
+                  <b>Web3.js</b> - A collection of libraries which allow
+                  interacting with a local or remote ethereum node, using an
+                  HTTP or IPC connection.
                 </li>
 
                 <li>
-                   <b>Vue.js</b> - The JavaScript framework for the frontend and
+                  <b>Vue.js</b> - The JavaScript framework for the frontend and
                   handling all the view-related stuff.
                 </li>
 
                 <li>
-                   <b>Truffle Framework </b> - Truffle is the most popular development
-                  framework for Ethereum with a mission to make your life a
-                  whole lot easier.
+                  <b>Truffle Framework </b> - Truffle is the most popular
+                  development framework for Ethereum with a mission to make your
+                  life a whole lot easier.
                 </li>
               </ul>
             </div>
@@ -319,33 +318,32 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-// @import "../../assets/sass/main.scss";
-
 .landing-page {
   width: 100%;
   margin: 0 auto;
 }
-.header {
-  margin-top: -1px;
-  height: 95vh;
-  background-image: linear-gradient(
+
+.landing {
+  height: 45vh;
+  position: relative;
+  background-color: $color-grey-light;
+
+  &__heading-box {
+    width: 60%;
+    height: 45vh;
+    text-align: center;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: linear-gradient(
       to right bottom,
       rgba($color-primary-blue, 0.9),
       rgba($color-primary-green, 0.9)
-    ),
-    url(../../assets/img/hero.png);
-  background-size: 100% 100%;
-  background-position: top;
-  position: relative;
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-
-  &__heading-box {
-    text-align: center;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    );
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.3);
+    padding: 4rem;
+    z-index: 1;
   }
 }
 </style>
