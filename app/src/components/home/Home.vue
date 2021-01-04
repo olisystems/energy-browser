@@ -342,6 +342,7 @@ export default {
       rgba($color-primary-green, 0.9)
     );
     box-shadow: 0 1.5rem 4rem rgba($color-black, 0.3);
+    border-radius: 2px;
     padding: 4rem;
     z-index: 1;
   }
