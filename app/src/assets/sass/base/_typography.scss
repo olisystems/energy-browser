@@ -11,13 +11,13 @@ body {
   text-transform: uppercase;
 
   backface-visibility: hidden;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
 
   &--main {
     display: block;
-    font-size: 6rem;
+    font-size: 4rem;
     font-weight: 700;
-    letter-spacing: 3.5rem;
+    letter-spacing: 2rem;
     margin-right: -30px;
 
     animation: moveInLeft 2s ease-out;
@@ -27,7 +27,7 @@ body {
     display: block;
     font-size: 2rem;
     font-weight: 700;
-    letter-spacing: 1.5rem;
+    letter-spacing: 1rem;
     margin-right: -1rem;
 
     animation: moveInRight 2s ease-out;
@@ -35,7 +35,7 @@ body {
 }
 
 .heading-secondary {
-  font-size: 3.5rem;
+  font-size: 2rem;
   text-transform: uppercase;
   font-weight: 700;
   display: inline-block;
