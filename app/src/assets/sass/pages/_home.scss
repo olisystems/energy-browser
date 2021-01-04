@@ -1,7 +1,8 @@
 .section-about {
   background-color: $color-grey-light;
   padding: 15rem 0;
-  margin-top: -20vh;
+  margin-top: -8vh;
+  background-color: rgb(241, 237, 237);
 }
 
 .section-features {
@@ -14,6 +15,7 @@
     ),
     url(../../assets/img/charging-origin.png);
   background-size: cover;
+  background-size: 100% 100%;
   transform: skewY(-7deg);
   margin-top: -8.6rem;
   & > * {
