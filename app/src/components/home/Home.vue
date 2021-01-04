@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page">
+  <div class="landing-page">
     <div class="header">
       <div class="header__heading-box">
         <h1 class="heading-primary">
@@ -7,12 +7,14 @@
           <span class="heading-primary--sub">Ethereum Based Dapps</span>
         </h1>
 
-        <a href="#" class="btn btn--white btn--animated">Discover Dapps</a>
+        <a href="#section-dapps" class="btn btn--white btn--animated"
+          >Discover Dapps</a
+        >
       </div>
     </div>
 
     <main>
-      <section class="section-about">
+      <section class="section-about" id="section-about">
         <div class="u-center-text u-margin-bottom-big">
           <h2 class="heading-secondary">
             Decentralized Apps on the top of Ethereum Network
@@ -25,39 +27,56 @@
               A collection of Decentralized applications
             </h3>
             <p class="paragraph">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo
-              saepe magni ipsa, deserunt, iste autem harum neque repellendus,
-              perferendis illo excepturi rem eius delectus laudantium iure
-              recusandae! Tenetur, voluptatibus excepturi?
+              OLI dApps portal is a collection of Decentralized applications
+              built on the top of Volta Ethereum network.
             </p>
 
             <h3 class="heading-tertiary u-margin-bottom-small">
-              A collection of Decentralized applications 2
+              Overview of the stack
             </h3>
-            <p class="paragraph">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Perspiciatis nemo, facere molestiae voluptatum ipsam excepturi
-              exercitationem facilis ea architecto dolorum adipisci ipsum
-              consectetur soluta atque deleniti quidem delectus magni corporis.
-            </p>
+            <div class="paragraph">
+              <ul>
+                <li>
+                   <b>Ethereum</b> - Ethereum is a decentralized platform that runs
+                  smart contracts.
+                </li>
 
-            <a href="#" class="btn-text">Learn more &rarr;</a>
+                <li>
+                   <b>Web3.js</b> - A collection of libraries which allow interacting
+                  with a local or remote ethereum node, using an HTTP or IPC
+                  connection.
+                </li>
+
+                <li>
+                   <b>Vue.js</b> - The JavaScript framework for the frontend and
+                  handling all the view-related stuff.
+                </li>
+
+                <li>
+                   <b>Truffle Framework </b> - Truffle is the most popular development
+                  framework for Ethereum with a mission to make your life a
+                  whole lot easier.
+                </li>
+              </ul>
+            </div>
+
+            <a href="#section-features" class="btn-text">Learn more &rarr;</a>
           </div>
 
           <div class="col-1-of-2">
-            <div class="composition">
+            <div class="composition" id="composition">
               <img
-                src="img/browser.png"
+                src="../../assets/img/browser.png"
                 alt="OLI Energy Browser App"
                 class="composition__photo composition__photo--p1"
               />
               <img
-                src="img/explorer.png"
+                src="../../assets/img/explorer.png"
                 alt="OLI Tokenization App"
                 class="composition__photo composition__photo--p2"
               />
               <img
-                src="img/charging-origin.png"
+                src="../../assets/img/charging-origin.png"
                 alt="OLI Charging Origin App"
                 class="composition__photo composition__photo--p3"
               />
@@ -66,7 +85,7 @@
         </div>
       </section>
 
-      <section class="section-features">
+      <section class="section-features" id="section-features">
         <div class="row">
           <div class="col-1-of-4">
             <div class="feature-box">
@@ -74,10 +93,8 @@
                 Volta Test Network
               </h3>
               <p class="feature-box__text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Suscipit maxime, dignissimos rem soluta enim numquam impedit non
-                labore reprehenderit aut tenetur harum ab distinctio consectetur
-                deleniti, explicabo, ipsum ipsam quasi.
+                Volta is the pre-production test network of the EnergyWeb Chain.
+                It is nearly identical to the production chain, main net.
               </p>
             </div>
           </div>
@@ -88,10 +105,9 @@
                 Smart Contracts
               </h3>
               <p class="feature-box__text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Suscipit maxime, dignissimos rem soluta enim numquam impedit non
-                labore reprehenderit aut tenetur harum ab distinctio consectetur
-                deleniti, explicabo, ipsum ipsam quasi.
+                Smart contracts are applications that run on the Ethereum
+                Virtual Machine and execute automatically when the requirements
+                are met.
               </p>
             </div>
           </div>
@@ -100,10 +116,8 @@
             <div class="feature-box">
               <h3 class="heading-tertiary u-margin-bottom-small">Web3 js</h3>
               <p class="feature-box__text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Suscipit maxime, dignissimos rem soluta enim numquam impedit non
-                labore reprehenderit aut tenetur harum ab distinctio consectetur
-                deleniti, explicabo, ipsum ipsam quasi.
+                A collection of libraries which allow interacting with a local
+                or remote ethereum node, using an HTTP or IPC connection.
               </p>
             </div>
           </div>
@@ -112,17 +126,16 @@
             <div class="feature-box">
               <h3 class="heading-tertiary u-margin-bottom-small">Vue js</h3>
               <p class="feature-box__text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Suscipit maxime, dignissimos rem soluta enim numquam impedit non
-                labore reprehenderit aut tenetur harum ab distinctio consectetur
-                deleniti, explicabo, ipsum ipsam quasi.
+                Vue.js is an open-source model–view–viewmodel front end
+                JavaScript framework for building user interfaces and
+                single-page applications.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section-dapps">
+      <section class="section-dapps" id="section-dapps">
         <div class="u-center-text u-margin-bottom-big">
           <h2 class="heading-secondary">Most Exciting Dapps</h2>
         </div>
@@ -138,13 +151,11 @@
                   >
                 </h4>
                 <div class="card__details">
-                  <ul>
-                    <li>item 1</li>
-                    <li>item 2</li>
-                    <li>item 3</li>
-                    <li>item 4</li>
-                    <li>item 5</li>
-                  </ul>
+                  <p class="paragrah-text">
+                    The app keeps a record of events managing charging point
+                    power consumption and PV power generation data at a specific
+                    period of time.
+                  </p>
                 </div>
               </div>
               <div class="card__side card__side--back card__side--back-1">
@@ -153,7 +164,11 @@
                     <p class="card__app-prefix">OLI</p>
                     <p class="card__app-name">Charging Origin</p>
                   </div>
-                  <a href="#" class="btn btn--white">Open</a>
+                  <a
+                    href="http://oli-chain.com/origin"
+                    class="btn btn--white btn--padding"
+                    >Open</a
+                  >
                 </div>
               </div>
             </div>
@@ -169,13 +184,11 @@
                   >
                 </h4>
                 <div class="card__details">
-                  <ul>
-                    <li>item 1</li>
-                    <li>item 2</li>
-                    <li>item 3</li>
-                    <li>item 4</li>
-                    <li>item 5</li>
-                  </ul>
+                  <p class="paragrah-text">
+                    The app explore the Blockchain data for a given smart
+                    contract. The idea is to present the metadata information in
+                    a human readable way.
+                  </p>
                 </div>
               </div>
               <div class="card__side card__side--back card__side--back-2">
@@ -184,7 +197,11 @@
                     <p class="card__app-prefix">OLI</p>
                     <p class="card__app-name">Chain Explorer</p>
                   </div>
-                  <a href="#" class="btn btn--white">Open</a>
+                  <a
+                    href="http://oli-chain.com/explorer"
+                    class="btn btn--white btn--padding"
+                    >Open</a
+                  >
                 </div>
               </div>
             </div>
@@ -200,13 +217,11 @@
                   >
                 </h4>
                 <div class="card__details">
-                  <ul>
-                    <li>item 1</li>
-                    <li>item 2</li>
-                    <li>item 3</li>
-                    <li>item 4</li>
-                    <li>item 5</li>
-                  </ul>
+                  <p class="paragrah-text">
+                    The browser presents a transparent view of energy production
+                    and consumption. The dashboard shows the infographics from
+                    the Blockchain.
+                  </p>
                 </div>
               </div>
               <div class="card__side card__side--back card__side--back-3">
@@ -215,7 +230,11 @@
                     <p class="card__app-prefix">OLI</p>
                     <p class="card__app-name">Energy Browser</p>
                   </div>
-                  <a href="#" class="btn btn--white">Open</a>
+                  <a
+                    href="http://oli-chain.com/browser"
+                    class="btn btn--white btn--padding"
+                    >Open</a
+                  >
                 </div>
               </div>
             </div>
@@ -231,13 +250,11 @@
                   >
                 </h4>
                 <div class="card__details">
-                  <ul>
-                    <li>item 1</li>
-                    <li>item 2</li>
-                    <li>item 3</li>
-                    <li>item 4</li>
-                    <li>item 5</li>
-                  </ul>
+                  <p class="paragrah-text">
+                    The tokenization app it to incentivize the green energy
+                    producer with the ERC20 OLI utility token. In general, 1 OLC
+                    is awrded for 1kWh production.
+                  </p>
                 </div>
               </div>
               <div class="card__side card__side--back card__side--back-4">
@@ -246,7 +263,11 @@
                     <p class="card__app-prefix">OLI</p>
                     <p class="card__app-name">Tokenization</p>
                   </div>
-                  <a href="#" class="btn btn--white">Open</a>
+                  <a
+                    href="http://oli-chain.com/tokenization"
+                    class="btn btn--white btn--padding"
+                    >Open</a
+                  >
                 </div>
               </div>
             </div>
@@ -262,13 +283,11 @@
                   >
                 </h4>
                 <div class="card__details">
-                  <ul>
-                    <li>item 1</li>
-                    <li>item 2</li>
-                    <li>item 3</li>
-                    <li>item 4</li>
-                    <li>item 5</li>
-                  </ul>
+                  <p class="paragrah-text">
+                    This application enables a DSO or TSO to transparently
+                    control assets in their respective grid area. Such as, the
+                    curtailment of PV in case of a local over-supply.
+                  </p>
                 </div>
               </div>
               <div class="card__side card__side--back card__side--back-5">
@@ -277,7 +296,11 @@
                     <p class="card__app-prefix">OLI</p>
                     <p class="card__app-name">Asset Logging</p>
                   </div>
-                  <a href="#" class="btn btn--white">Open</a>
+                  <a
+                    href="http://oli-chain.com/logging"
+                    class="btn btn--white btn--padding"
+                    >Open</a
+                  >
                 </div>
               </div>
             </div>
@@ -290,10 +313,40 @@
 
 <script>
 export default {
-  name: "Home",
+  name: "Header",
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+// @import "../../assets/sass/main.scss";
+
+.landing-page {
+  width: 100%;
+  margin: 0 auto;
+}
+.header {
+  margin-top: -1px;
+  height: 95vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-blue, 0.9),
+      rgba($color-primary-green, 0.9)
+    ),
+    url(../../assets/img/hero.png);
+  background-size: 100% 100%;
+  background-position: top;
+  position: relative;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+  &__heading-box {
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
 </style>
+
