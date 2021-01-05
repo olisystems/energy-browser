@@ -1,7 +1,7 @@
 .section-about {
   background-color: $color-grey-light;
   padding: 15rem 0;
-  margin-top: -8vh;
+  margin-top: -5vh;
   background-color: rgb(241, 237, 237);
 }
 
@@ -17,7 +17,7 @@
   background-size: cover;
   background-size: 100% 100%;
   transform: skewY(-7deg);
-  margin-top: -8.6rem;
+  margin-top: -12.6rem;
   & > * {
     transform: skewY(7deg);
   }
@@ -26,5 +26,5 @@
 .section-dapps {
   background-color: $color-grey-light;
   padding: 12rem 0 5rem 0;
-  margin-top: -11vh;
+  margin-top: -22.5vh;
 }
