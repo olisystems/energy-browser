@@ -1,6 +1,6 @@
 <template>
   <div class="landing-page">
-    <div class="landing">
+    <div class="landing u-margin-bottom-small">
       <div class="landing__heading-box">
         <h1 class="heading-primary">
           <span class="heading-primary--main">OLI DAPPs</span>
@@ -14,77 +14,123 @@
     </div>
     <main>
       <section class="section-about" id="section-about">
-        <div class="u-center-text u-margin-bottom-big">
-          <h2 class="heading-secondary">
-            Decentralized Apps on the top of Ethereum Network
-          </h2>
+        <div class="u-center-text u-margin-bottom-small">
+          <h2 class="heading-secondary">Overview of the Development Stack</h2>
         </div>
 
-        <div class="row">
-          <div class="col-1-of-2">
-            <h3 class="heading-tertiary u-margin-bottom-small">
-              A collection of Decentralized applications
-            </h3>
-            <p class="paragraph">
-              OLI dApps portal is a collection of Decentralized applications
-              built on the top of Volta Ethereum network.
-            </p>
+        <div class="stack u-margin-bottom-big">
+          <div class="stack__row">
+            <div class="col">
+              <div>
+                <img
+                  src="../../assets/img/ethereum.png"
+                  alt=""
+                  class="col__img"
+                />
+              </div>
 
-            <h3 class="heading-tertiary u-margin-bottom-small">
-              Overview of the stack
-            </h3>
-            <div class="paragraph">
-              <ul>
-                <li>
-                  <b>Ethereum</b> - Ethereum is a decentralized platform that
-                  runs smart contracts.
-                </li>
-
-                <li>
-                  <b>Web3.js</b> - A collection of libraries which allow
-                  interacting with a local or remote ethereum node, using an
-                  HTTP or IPC connection.
-                </li>
-
-                <li>
-                  <b>Vue.js</b> - The JavaScript framework for the frontend and
-                  handling all the view-related stuff.
-                </li>
-
-                <li>
-                  <b>Truffle Framework </b> - Truffle is the most popular
-                  development framework for Ethereum with a mission to make your
-                  life a whole lot easier.
-                </li>
-              </ul>
+              <div class="col__details">
+                <h3 class="heading-tertiary u-margin-bottom-small">Ethereum</h3>
+                <p>
+                  Ethereum is a decentralized platform that runs smart
+                  contracts.
+                </p>
+              </div>
             </div>
 
-            <a href="#section-features" class="btn-text">Learn more &rarr;</a>
+            <div class="col">
+              <div>
+                <img src="../../assets/img/web3.jpeg" alt="" class="col__img" />
+              </div>
+
+              <div class="col__details">
+                <h3 class="heading-tertiary u-margin-bottom-small">Web3.js</h3>
+                <p>
+                  A collection of libraries which allow interacting with a local
+                  or remote ethereum node, using an HTTP or IPC connection.
+                </p>
+              </div>
+            </div>
+
+            <div class="col">
+              <div>
+                <img src="../../assets/img/vue.png" alt="" class="col__img" />
+              </div>
+
+              <div class="col__details">
+                <h3 class="heading-tertiary u-margin-bottom-small">Vue.js</h3>
+                <p>
+                  The JavaScript framework for the frontend and handling all the
+                  view-related stuff.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div class="col-1-of-2">
-            <div class="composition" id="composition">
-              <img
-                src="../../assets/img/browser.png"
-                alt="OLI Energy Browser App"
-                class="composition__photo composition__photo--p1"
-              />
-              <img
-                src="../../assets/img/explorer.png"
-                alt="OLI Tokenization App"
-                class="composition__photo composition__photo--p2"
-              />
-              <img
-                src="../../assets/img/charging-origin.png"
-                alt="OLI Charging Origin App"
-                class="composition__photo composition__photo--p3"
-              />
+          <div class="stack__row">
+            <div class="col">
+              <div>
+                <img
+                  src="../../assets/img/truffle.png"
+                  alt=""
+                  class="col__img"
+                />
+              </div>
+
+              <div class="col__details">
+                <h3 class="heading-tertiary u-margin-bottom-small">
+                  Truffle Framework
+                </h3>
+                <p>
+                  Truffle is the most popular development framework for Ethereum
+                  with a mission to make your life a whole lot easier.
+                </p>
+              </div>
+            </div>
+            <div class="col">
+              <div>
+                <img
+                  src="../../assets/img/solidity.png"
+                  alt=""
+                  class="col__img"
+                />
+              </div>
+
+              <div class="col__details">
+                <h3 class="heading-tertiary u-margin-bottom-small">Solidity</h3>
+                <p>
+                  Solidity is an object-oriented, high-level language for
+                  implementing smart contracts.
+                </p>
+              </div>
+            </div>
+            <div class="col">
+              <div>
+                <img
+                  src="../../assets/img/leaflet.png"
+                  alt=""
+                  class="col__img"
+                />
+              </div>
+
+              <div class="col__details">
+                <h3 class="heading-tertiary u-margin-bottom-small">
+                  Leaflet.js
+                </h3>
+                <p>
+                  Leaflet is an open source JavaScript library used to build web
+                  mapping applications.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section-features" id="section-features">
+      <section
+        class="section-features u-margin-bottom-big"
+        id="section-features"
+      >
         <div class="row">
           <div class="col-1-of-4">
             <div class="feature-box">
@@ -337,14 +383,61 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     background-image: linear-gradient(
-      to right bottom,
-      rgba($color-primary-blue, 0.9),
-      rgba($color-primary-green, 0.9)
-    );
+        to right bottom,
+        rgba($color-primary-blue, 0.8),
+        rgba($color-primary-green, 0.8)
+      ),
+      url(../../assets/img/browser.png);
+    background-size: cover;
+    background-size: 100% 100%;
     box-shadow: 0 1.5rem 4rem rgba($color-black, 0.3);
     border-radius: 2px;
     padding: 4rem;
     z-index: 1;
+  }
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+
+  &__row {
+    padding: 2rem;
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    //color: $color-grey-light-1;
+
+    margin: 0 auto;
+  }
+
+  .col {
+    display: flex;
+    align-items: center;
+    //background: #333;
+    padding: 1rem;
+    width: 30%;
+    //box-shadow: 0 1.5rem 4rem rgba($color-black, 0.3);
+    border-radius: 3px;
+    transition: all 0.3s;
+    &__img {
+      width: 75px;
+      height: 75px;
+      border-radius: 100px;
+    }
+    &__details {
+      text-align: left;
+      margin-left: 1rem;
+      & p {
+        line-height: 1.5;
+      }
+    }
+
+    &:hover {
+      transform: scale(1.05) translateY(-0.5rem);
+      box-shadow: 0 1rem 3rem rgba($color-black, 0.5);
+      z-index: 20;
+    }
   }
 }
 </style>
