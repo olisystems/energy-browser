@@ -28,11 +28,18 @@
       </ul>
     </div>
     <router-view />
+
+    <Footer />
   </div>
 </template>
 
 <script>
-export default {};
+import Footer from "@/components/footer/Footer.vue";
+export default {
+  components: {
+    Footer,
+  },
+};
 </script>
 
 <style>
