@@ -8,10 +8,10 @@ import Web3Plugin from './plugins/vue-web3-plugin'
 
 import './assets/css/main.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faTwitter, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faFacebook, faTwitter, faGithub)
+library.add(faFacebook, faTwitter, faGithub, faLinkedin)
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(SmartTable)
