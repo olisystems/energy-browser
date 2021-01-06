@@ -23,19 +23,3 @@
 .btn--padding {
   padding: 0.8rem 1.5rem !important;
 }
-
-ul {
-  list-style: none;
-  width: 80%;
-  margin: 0 auto;
-
-  li {
-    text-align: left;
-    font-size: 1rem;
-    padding: 0.5rem;
-
-    &:not(:last-child) {
-      border-bottom: 1px solid rgb(214, 214, 214);
-    }
-  }
-}
