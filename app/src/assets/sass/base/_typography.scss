@@ -6,7 +6,7 @@ body {
   color: $color-grey-dark;
 }
 
-.heading-primary {
+.hero__heading {
   color: $color-white;
   text-transform: uppercase;
 
@@ -18,8 +18,7 @@ body {
     font-size: 4rem;
     font-weight: 700;
     letter-spacing: 2rem;
-    margin-right: -30px;
-
+    margin-bottom: 1rem;
     animation: moveInLeft 2s ease-out;
   }
 
@@ -28,8 +27,7 @@ body {
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: 1rem;
-    margin-right: -1rem;
-
+    margin-bottom: 3.5rem;
     animation: moveInRight 2s ease-out;
   }
 }
