@@ -1,30 +1,104 @@
-.section-about {
-  background-color: $color-grey-light;
-  padding: 15rem 0;
-  margin-top: -5vh;
-  background-color: rgb(241, 237, 237);
-}
-
-.section-features {
-  padding: 12rem 0;
+.hero__heading {
+  padding: 4rem;
 
   background-image: linear-gradient(
       to right bottom,
-      rgba($color-primary-blue, 0.9),
-      rgba($color-primary-green, 0.9)
+      rgba($color-primary-blue, 0.8),
+      rgba($color-primary-green, 0.8)
     ),
-    url(../../assets/img/charging-origin.png);
+    url(../../assets/img/browser.png);
   background-size: cover;
   background-size: 100% 100%;
-  transform: skewY(-7deg);
-  margin-top: -12.6rem;
-  & > * {
-    transform: skewY(7deg);
-  }
+  box-shadow: 0 1.5rem 4rem rgba($color-black, 0.3);
+
+  border-radius: 2px;
+
+  z-index: 1;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.section-dapps {
-  background-color: $color-grey-light;
-  padding: 12rem 0 5rem 0;
-  margin-top: -22.5vh;
+.heading-primary {
+  border: 1px solid rgb(133, 54, 54);
 }
+
+.stack {
+  display: flex;
+  flex-direction: column;
+
+  &__row {
+    padding: 2rem;
+    width: 85%;
+    display: flex;
+    flex-wrap: wrap;
+
+    //color: $color-grey-light-1;
+    margin: 0 auto;
+  }
+
+  .col {
+    display: flex;
+    align-items: center;
+
+    padding: 1rem;
+    margin: 1rem;
+    flex: 1;
+
+    border-radius: 3px;
+    transition: all 0.3s;
+
+    //background: #333;
+    //box-shadow: 0 1.5rem 4rem rgba($color-black, 0.3);
+
+    &__img {
+      width: 75px;
+      height: 75px;
+      border-radius: 100px;
+    }
+    &__details {
+      text-align: left;
+      margin-left: 1rem;
+      & p {
+        line-height: 1.5;
+      }
+    }
+
+    &:hover {
+      transform: scale(1.05) translateY(-0.5rem);
+      box-shadow: 0 1rem 3rem rgba($color-black, 0.5);
+      z-index: 20;
+    }
+  }
+}
+// .section-about {
+//   background-color: $color-grey-light;
+//   padding: 15rem 0;
+//   margin-top: -5vh;
+//   background-color: rgb(241, 237, 237);
+// }
+
+// .section-features {
+//   padding: 12rem 0;
+
+//   background-image: linear-gradient(
+//       to right bottom,
+//       rgba($color-primary-blue, 0.9),
+//       rgba($color-primary-green, 0.9)
+//     ),
+//     url(../../assets/img/charging-origin.png);
+//   background-size: cover;
+//   background-size: 100% 100%;
+//   transform: skewY(-7deg);
+//   margin-top: -12.6rem;
+//   & > * {
+//     transform: skewY(7deg);
+//   }
+// }
+
+// .section-dapps {
+//   background-color: $color-grey-light;
+//   padding: 12rem 0 5rem 0;
+//   margin-top: -22.5vh;
+// }
