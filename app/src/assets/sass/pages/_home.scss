@@ -72,6 +72,34 @@
     }
   }
 }
+
+.home__features {
+  .features__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    &--card {
+      width: 340px;
+      margin: 1.5rem;
+      padding: 1.5rem;
+      border-radius: 3px;
+
+      transition: all 0.3s ease-out;
+
+      background-color: $color-grey-light-1;
+      box-shadow: 2px 20px 50px 0 rgba(0, 0, 0, 0.07);
+
+      &:hover {
+        transform: translateY(-0.5rem);
+      }
+
+      .details {
+        margin-top: 2rem;
+      }
+    }
+  }
+}
 // .section-about {
 //   background-color: $color-grey-light;
 //   padding: 15rem 0;

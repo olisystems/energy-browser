@@ -114,7 +114,53 @@
       </div>
     </section>
 
-    <section class="home__features">This is the feature section.</section>
+    <section class="home__features">
+      <!-- <div class="home__features--heading">
+        <h1 class="u-margin-bottom-small">Salient Features</h1>
+      </div> -->
+
+      <div class="features__row">
+        <div class="features__row--card">
+          <div class="details">
+            <h3>Volta Testnet</h3>
+            <p>
+              Volta is the pre-production test network of the EnergyWeb Chain.
+              It is nearly identical to the production chain, main net.
+            </p>
+          </div>
+        </div>
+
+        <div class="features__row--card">
+          <div class="details">
+            <h3>Volta Testnet</h3>
+            <p>
+              Volta is the pre-production test network of the EnergyWeb Chain.
+              It is nearly identical to the production chain, main net.
+            </p>
+          </div>
+        </div>
+
+        <div class="features__row--card">
+          <div class="details">
+            <h3>Volta Testnet</h3>
+            <p>
+              Volta is the pre-production test network of the EnergyWeb Chain.
+              It is nearly identical to the production chain, main net.
+            </p>
+          </div>
+        </div>
+
+        <div class="features__row--card">
+          <div class="details">
+            <h3>Volta Testnet</h3>
+            <p>
+              Volta is the pre-production test network of the EnergyWeb Chain.
+              It is nearly identical to the production chain, main net.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="home__dapps">This is the dapps section.</section>
   </div>
@@ -145,11 +191,31 @@ export default {
 
   &__stack {
     width: 100%;
-    padding: 10rem 0 0 0;
+    padding: 10rem 0 13rem 0;
 
     margin-top: -25vh;
     background-color: #f1eded;
     margin-bottom: 0;
+  }
+
+  &__features {
+    background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-blue, 0.9),
+        rgba($color-primary-green, 0.9)
+      ),
+      url(../../assets/img/charging-origin.png);
+    background-size: cover;
+    background-size: 100% 100%;
+    padding: 7rem 0;
+    margin: 4rem 0;
+    margin-top: -6.4rem;
+
+    transform: skewY(-7deg);
+
+    & > * {
+      transform: skewY(7deg);
+    }
   }
 }
 </style>
