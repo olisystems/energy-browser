@@ -1,15 +1,14 @@
-@import "abstracts/mixins";
+
 @import "abstracts/variables";
 
 @import "base/animations";
 @import "base/typography";
-@import "base/utilities";
 
 @import "components/button";
-@import "components/composition";
-@import "components/feature-box";
-@import "components/card";
 
-@import "layouts/grid";
+
+@import "layouts/flex";
 
 @import "pages/home";
+
+@import "base/queries";
