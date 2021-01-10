@@ -126,9 +126,11 @@ footer {
   a {
     color: #eee;
     text-decoration: none;
+    transition: all 0.3s ease-out;
 
     &:hover {
-      text-decoration: underline;
+      color: orange;
+      transform: scale(1.02) translateY(-0.3rem);
     }
   }
 }
@@ -174,6 +176,14 @@ footer {
     li {
       margin: 1rem;
       font-size: 1.5rem;
+
+      a {
+        transition: all 0.3s ease-out;
+        &:hover {
+          color: orange;
+          transform: scale(1.02) translateY(-0.5rem);
+        }
+      }
     }
   }
 }
