@@ -1,3 +1,5 @@
+
+/* eslint-disable */
 import web3 from './web3.js';
 
 // unix time conversion

@@ -158,8 +158,8 @@
 </template>
 
 <script>
+/* eslint-disable */
 import web3 from "../../assets/js/web3";
-const $ = require("jquery");
 import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
 
@@ -295,9 +295,9 @@ export default {
       this.Contracts.AssetLoggingContract.methods
         .setDsoValue(this.assetPubkey, this.dsoInput)
         .send({ from: this.dsoPubkey })
-        .then((receipt) => {
+        //.then((receipt) => {
           //console.log(receipt);
-        });
+      //  });
 
       this.dsoInput = "";
       this.dsoPubkey = "";

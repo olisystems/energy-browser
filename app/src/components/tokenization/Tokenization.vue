@@ -116,6 +116,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import web3 from "../../assets/js/web3";
 import Contracts from "../../assets/js/contracts";
 const $ = require("jquery");
