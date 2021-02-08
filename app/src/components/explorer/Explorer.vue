@@ -254,6 +254,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 const moment = require("moment");
@@ -262,8 +263,6 @@ import Contracts from "../../assets/js/contracts";
 
 import {
   timeConverter,
-  currentTime,
-  formatTime,
 } from "../../assets/js/time-format.js";
 
 export default {

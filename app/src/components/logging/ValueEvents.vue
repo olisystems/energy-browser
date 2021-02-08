@@ -188,8 +188,7 @@
 </template>
 
 <script>
-
-const $ = require("jquery");
+/* eslint-disable */
 import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
 export default {
