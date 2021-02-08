@@ -254,15 +254,11 @@
 </template>
 
 <script>
-// import web3 from "../../assets/js/web3";
+import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 const moment = require("moment");
 import Plotly from "plotly.js-dist";
 import Contracts from "../../assets/js/contracts";
-// setting up the provider
-// const Web3 = require("web3");
-// //const web3 = new Web3("ws://85.214.224.112:8547");
-// const web3 = new Web3("ws://80.158.47.134:7546");
 
 import {
   timeConverter,

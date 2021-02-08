@@ -116,10 +116,9 @@
 </template>
 
 <script>
-// import web3 from "../../assets/js/web3";
+import web3 from "../../assets/js/web3";
 import Contracts from "../../assets/js/contracts";
 const $ = require("jquery");
-import { log } from "util";
 export default {
   name: "Tokenization",
   Contracts: null,

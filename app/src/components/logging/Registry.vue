@@ -6,20 +6,31 @@
           <fieldset>
             <legend>Set Output Limit</legend>
             <label for="dsos-value">Output Limit [%]:</label>
-            <input type="number" min="1" max="100" required id="dsos-value" v-model="dsoInput" />
+            <input
+              type="number"
+              min="1"
+              max="100"
+              required
+              id="dsos-value"
+              v-model="dsoInput"
+            />
 
             <br />
 
             <label for="owner-id">DSO ID:</label>
             <select v-model="dsoPubkey" id="owner-id">
               <option disabled value>Please select one</option>
-              <option v-for="(dso, index) in dsos" :key="index">{{dso.pubKey}}</option>
+              <option v-for="(dso, index) in dsos" :key="index">
+                {{ dso.pubKey }}
+              </option>
             </select>
 
             <label for="asset-id">Asset ID:</label>
             <select v-model="assetPubkey" id="asset-id">
               <option disabled value>Please select one</option>
-              <option v-for="(asset, index) in assetList" :key="index">{{asset}}</option>
+              <option v-for="(asset, index) in assetList" :key="index">
+                {{ asset }}
+              </option>
             </select>
 
             <br />
@@ -54,20 +65,29 @@
                 <th>Price</th>
               </thead>
 
-              <transition-group name="list" tag="tbody" slot="body" slot-scope="{displayData}">
+              <transition-group
+                name="list"
+                tag="tbody"
+                slot="body"
+                slot-scope="{ displayData }"
+              >
                 <tr v-for="(row, index) in displayData" :key="index">
-                  <td v-tooltip="row.assetPubkey">{{row.assetOwner}}</td>
-                  <td v-tooltip="row.ownerPubkey">{{row.ownerName}}</td>
-                  <td v-tooltip="row.dsoPubkey">{{row.dsoName}}</td>
-                  <td>{{row.assetType}}</td>
-                  <td v-tooltip="row.registrationTime">{{row.registrationTime}}</td>
-                  <td>{{row.peakPower}}</td>
-                  <td>{{row.voltageLevel}}</td>
-                  <td v-tooltip="row.flexibilityTime">{{row.flexibilityTime}}</td>
-                  <td v-tooltip="row.startTime">{{row.startTime}}</td>
-                  <td v-tooltip="row.endTime">{{row.endTime}}</td>
-                  <td>{{row.reductionLevel}}</td>
-                  <td>{{row.price}}</td>
+                  <td v-tooltip="row.assetPubkey">{{ row.assetOwner }}</td>
+                  <td v-tooltip="row.ownerPubkey">{{ row.ownerName }}</td>
+                  <td v-tooltip="row.dsoPubkey">{{ row.dsoName }}</td>
+                  <td>{{ row.assetType }}</td>
+                  <td v-tooltip="row.registrationTime">
+                    {{ row.registrationTime }}
+                  </td>
+                  <td>{{ row.peakPower }}</td>
+                  <td>{{ row.voltageLevel }}</td>
+                  <td v-tooltip="row.flexibilityTime">
+                    {{ row.flexibilityTime }}
+                  </td>
+                  <td v-tooltip="row.startTime">{{ row.startTime }}</td>
+                  <td v-tooltip="row.endTime">{{ row.endTime }}</td>
+                  <td>{{ row.reductionLevel }}</td>
+                  <td>{{ row.price }}</td>
                 </tr>
               </transition-group>
             </v-table>
@@ -79,7 +99,7 @@
       </div>
 
       <div class="dso-wallet">
-        <div class="dso-list" v-if="dsos.length>0">
+        <div class="dso-list" v-if="dsos.length > 0">
           <div class="header">
             <h4>List of Registered DSO</h4>
           </div>
@@ -90,7 +110,9 @@
                 v-for="(dso, index) in dsos"
                 v-bind:key="index"
                 v-on:click="getDsoWallet"
-              >{{dso.dsoName}}</li>
+              >
+                {{ dso.dsoName }}
+              </li>
             </ol>
           </div>
         </div>
@@ -111,11 +133,16 @@
                   <th>Time</th>
                 </thead>
 
-                <transition-group name="list" tag="tbody" slot="body" slot-scope="{displayData}">
+                <transition-group
+                  name="list"
+                  tag="tbody"
+                  slot="body"
+                  slot-scope="{ displayData }"
+                >
                   <tr v-for="(row, index) in displayData" :key="index">
-                    <td v-tooltip="row.asset">{{row.assetName}}</td>
-                    <td v-tooltip="row.values">{{row.values}}</td>
-                    <td v-tooltip="row.time">{{row.time}}</td>
+                    <td v-tooltip="row.asset">{{ row.assetName }}</td>
+                    <td v-tooltip="row.values">{{ row.values }}</td>
+                    <td v-tooltip="row.time">{{ row.time }}</td>
                   </tr>
                 </transition-group>
               </v-table>
@@ -131,10 +158,11 @@
 </template>
 
 <script>
+import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 import Contracts from "../../assets/js/contracts";
 import { timeConverter } from "../../assets/js/time-format.js";
-import { log } from "util";
+
 export default {
   name: "Registry",
   Contracts: null,
@@ -150,7 +178,7 @@ export default {
       assetPubkey: "",
       dsoWallet: [],
       dsoAddress: "",
-      metamaskAccounts: ""
+      metamaskAccounts: "",
     };
   },
   methods: {
@@ -168,18 +196,18 @@ export default {
     watchNewAdmin() {
       this.Contracts.AssetLoggingContract.events
         .NewAdmin({
-          fromBlock: 0
+          fromBlock: 0,
         })
-        .on("data", event => {
+        .on("data", (event) => {
           if (event.returnValues.adminType == 2) {
             this.dsos.unshift({
               dsoName: event.returnValues.name,
-              pubKey: event.returnValues.pubkey
+              pubKey: event.returnValues.pubkey,
             });
           } else {
             this.owners.unshift({
               ownerName: event.returnValues.name,
-              pubKey: event.returnValues.pubkey
+              pubKey: event.returnValues.pubkey,
             });
           }
         })
@@ -192,9 +220,9 @@ export default {
       this.assets = [];
       this.Contracts.AssetLoggingContract.events
         .NewAsset({
-          fromBlock: 0
+          fromBlock: 0,
         })
-        .on("data", async event => {
+        .on("data", async (event) => {
           // getting flexibility values
           const flexibility = await this.getFlexibility(
             event.returnValues.assetPubkey
@@ -203,13 +231,13 @@ export default {
           let ownerName;
           let dsoName;
 
-          this.owners.forEach(owner => {
+          this.owners.forEach((owner) => {
             if (owner.pubKey === event.returnValues.ownerPubkey) {
               ownerName = owner.ownerName;
             }
           });
 
-          this.dsos.forEach(dso => {
+          this.dsos.forEach((dso) => {
             if (dso.pubKey === event.returnValues.dsoPubkey) {
               dsoName = dso.dsoName;
             }
@@ -245,9 +273,9 @@ export default {
     watchFlexibility() {
       this.Contracts.AssetLoggingContract.events
         .NewFlexibility({
-          fromBlock: "latest"
+          fromBlock: "latest",
         })
-        .on("data", event => {
+        .on("data", (event) => {
           //console.log(event.returnValues);
           this.watchNewAsset();
         })
@@ -267,39 +295,38 @@ export default {
       this.Contracts.AssetLoggingContract.methods
         .setDsoValue(this.assetPubkey, this.dsoInput)
         .send({ from: this.dsoPubkey })
-        .then(receipt => {
+        .then((receipt) => {
           //console.log(receipt);
         });
 
       this.dsoInput = "";
       this.dsoPubkey = "";
       this.assetPubkey = "";
-
     },
     getDsoWallet() {
       this.dsoWallet = [];
       this.dsoAddress = event.target.innerHTML;
       this.Contracts.AssetLoggingContract.getPastEvents("NewDsoValue", {
-        fromBlock: 0
-      }).then(events => {
-        events.forEach(event => {
+        fromBlock: 0,
+      }).then((events) => {
+        events.forEach((event) => {
           if (this.dsoAddress === event.returnValues[0]) {
             this.dsoWallet.unshift({
               assetName: event.returnValues.assetOwner,
               asset: event.returnValues.asset,
               values: Number(event.returnValues.value),
-              time: timeConverter(event.returnValues.time)
+              time: timeConverter(event.returnValues.time),
             });
           }
         });
       });
       // removing the background color for ul-selected items
-      document.querySelectorAll("ol>li").forEach(list => {
+      document.querySelectorAll("ol>li").forEach((list) => {
         list.classList.remove("active-dso");
       });
       // add background to selected account
       event.target.classList.add("active-dso");
-    }
+    },
   },
   async created() {
     this.getMetamaskAccount();
@@ -308,7 +335,7 @@ export default {
     this.watchNewAdmin();
     this.watchNewAsset();
     this.watchFlexibility();
-  }
+  },
 };
 </script>
 

@@ -1,4 +1,4 @@
-import web3 from './contracts.js';
+import web3 from './web3.js';
 
 // unix time conversion
 function timeConverter(UNIX_timestamp) {

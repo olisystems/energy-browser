@@ -251,11 +251,10 @@
   </div>
 </template>
 <script>
-// import web3 from "../../assets/js/web3";
+import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 
 import Contracts from "../../assets/js/contracts";
-import { log } from "util";
 import { timeConverter } from "../../assets/js/time-format";
 import L from "leaflet";
 
@@ -375,10 +374,6 @@ export default {
     },
     // producer accounts list
     getConsumerList() {
-      const popupOptions = {
-        maxWidth: "500",
-        className: "currentPro-popup", // classname for another popup
-      };
       this.Contracts.ConsumptionContract.methods
         .getConsAccntsList()
         .call()
