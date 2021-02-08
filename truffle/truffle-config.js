@@ -19,7 +19,7 @@ module.exports = {
       websockets: true,
     },
 
-    voltaRPC: {
+    voltaK8S: {
       provider: function () {
         return new HDWalletProvider(MNEMONIC, ENDPOINT);
       },
