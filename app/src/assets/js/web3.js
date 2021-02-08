@@ -9,8 +9,8 @@ var web3 = new Web3(provider);
 provider.on("connect", () => console.log("WS Connected"));
 
 // on error
-provider.on("error", (e) => {
-  console.log("WS Error", e);
+provider.on("error", () => {
+  console.log("WS Error");
   console.log("Attempting to reconnect...");
   provider = new Web3.providers.WebsocketProvider(VOLTA_NODE);
 
@@ -20,7 +20,7 @@ provider.on("error", (e) => {
 });
 
 // on connection close
-provider.on("end", (e) => {
+provider.on("end", () => {
   console.log("WS closed");
   console.log("Attempting to reconnect...");
   provider = new Web3.providers.WebsocketProvider(VOLTA_NODE);
