@@ -17,7 +17,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(SmartTable)
 Vue.use(VTooltip)
 Vue.use(VueRouter)
-Vue.use(Web3Plugin, { url: "wss://volta-blockchain.my-oli.com" })
+Vue.use(Web3Plugin, { url: "wss://services.my-oli.com/volta-node" })
 
 
 import 'v-tooltip/dist/v-tooltip.css'
