@@ -5,6 +5,13 @@ const ENDPOINT = "ws://services.my-oli.com/volta-node";
 const MNEMONIC = fs.readFileSync(".secret").toString().trim();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
+/**
+ * run the following command in the terminal
+ * then run the migrate command with the
+ * network development
+ * kubectl -n ws-migration port-forward volta-node-0 8546
+ */
+
 module.exports = {
   contracts_build_directory: path.join(
     __dirname,
