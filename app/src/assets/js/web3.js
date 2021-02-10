@@ -17,6 +17,7 @@ provider.on("error", () => {
   provider.on("connect", () => console.log("WS Re-connected"));
 
   web3.setProvider(provider);
+  location.reload();
 });
 
 // on connection close
@@ -28,6 +29,7 @@ provider.on("end", () => {
   provider.on("connect", () => console.log("WS Re-connected"));
 
   web3.setProvider(provider);
+  location.reload();
 });
 
 export default web3;
