@@ -163,7 +163,7 @@
               Blockchain.
             </p>
           </div>
-          <a href="http://oli-chain.com/browser" class="btn btn--blue">Open</a>
+          <a href="https://energy-browser.my-oli.com/browser" class="btn btn--blue">Open</a>
         </div>
 
         <div class="wrapper__flex--item">
@@ -183,7 +183,7 @@
               Blockchain.
             </p>
           </div>
-          <a href="http://oli-chain.com/explorer" class="btn btn--blue">Open</a>
+          <a href="https://energy-browser.my-oli.com/explorer" class="btn btn--blue">Open</a>
         </div>
 
         <div class="wrapper__flex--item">
@@ -203,7 +203,7 @@
               1kWh production.
             </p>
           </div>
-          <a href="http://oli-chain.com/tokenization" class="btn btn--blue"
+          <a href="https://energy-browser.my-oli.com/tokenization" class="btn btn--blue"
             >Open</a
           >
         </div>
@@ -225,7 +225,7 @@
               PV in case of a local over-supply.
             </p>
           </div>
-          <a href="http://oli-chain.com/logging" class="btn btn--blue">Open</a>
+          <a href="https://energy-browser.my-oli.com/logging" class="btn btn--blue">Open</a>
         </div>
 
         <div class="wrapper__flex--item">
@@ -245,7 +245,7 @@
               period of time.
             </p>
           </div>
-          <a href="http://oli-chain.com/origin" class="btn btn--blue">Open</a>
+          <a href="https://energy-browser.my-oli.com/origin" class="btn btn--blue">Open</a>
         </div>
       </div>
     </section>
