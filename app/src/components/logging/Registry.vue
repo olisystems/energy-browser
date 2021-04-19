@@ -294,9 +294,9 @@ export default {
       // Acccounts now exposed
       this.Contracts.AssetLoggingContract.methods
         .setDsoValue(this.assetPubkey, this.dsoInput)
-        .send({ from: this.dsoPubkey })
-        //.then((receipt) => {
-          //console.log(receipt);
+        .send({ from: this.dsoPubkey });
+      //.then((receipt) => {
+      //console.log(receipt);
       //  });
 
       this.dsoInput = "";
@@ -310,7 +310,7 @@ export default {
         fromBlock: 0,
       }).then((events) => {
         events.forEach((event) => {
-          if (this.dsoAddress === event.returnValues[0]) {
+          if (this.dsoAddress.trim() === event.returnValues[0]) {
             this.dsoWallet.unshift({
               assetName: event.returnValues.assetOwner,
               asset: event.returnValues.asset,
