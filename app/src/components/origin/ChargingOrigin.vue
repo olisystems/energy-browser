@@ -130,7 +130,8 @@
 </template>
 
 <script>
-// import web3 from "../assets/js/web3";
+/* eslint-disable */
+import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 import { timeConverter } from "../../assets/js/time-format.js";
 import Plotly from "plotly.js-dist";
@@ -278,7 +279,7 @@ export default {
               ", " +
               this.currentConsumerCordinates[1];
             let currentConsIcon = L.icon({
-              iconUrl: "consumer.png",
+              iconUrl: "img/consumer.png",
               iconSize: [30, 40],
             });
             if (this.currentConsumerMarker != undefined) {
@@ -309,7 +310,7 @@ export default {
       };
       // current producer icon
       const consumerIcon = L.icon({
-        iconUrl: "consumer.png",
+        iconUrl: "img/consumer.png",
         iconSize: [50, 60],
       });
       // get event data
@@ -354,7 +355,7 @@ export default {
     initMap() {
       // home marker icon
       var homeIcon = L.icon({
-        iconUrl: "home.png",
+        iconUrl: "img/home.png",
         iconSize: [30, 40],
       });
       // create tile layers

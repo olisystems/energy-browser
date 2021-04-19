@@ -1,5 +1,5 @@
 # build stage
-FROM node:lts-alpine as build-stage
+FROM node:alpine as build-stage
 
 # create working directory inside docker image
 WORKDIR /app
@@ -13,7 +13,7 @@ COPY ./app .
 RUN npm run build
 
 # build stage
-FROM nginx:latest
+FROM nginx
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 

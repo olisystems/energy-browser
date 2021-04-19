@@ -171,7 +171,7 @@ contract OliCoin is IERC20 {
                 _location,
                 _installDate
             );
-            producerAccountsList.push(msg.sender);
+            producerAccountsList.push(msg.sender) - 1;
             emit ProducerRegistrationEvent(
                 msg.sender,
                 _owner,
@@ -230,6 +230,11 @@ contract OliCoin is IERC20 {
     // get producer accounts list
     function getProducerAccountsList() public view returns (address[] memory) {
         return producerAccountsList;
+    }
+
+    // count for producer accounts
+    function countProducers() public view returns (uint256) {
+        return producerAccountsList.length - 1;
     }
 
     /*

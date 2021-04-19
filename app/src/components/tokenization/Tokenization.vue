@@ -116,10 +116,10 @@
 </template>
 
 <script>
-// import web3 from "../../assets/js/web3";
+/* eslint-disable */
+import web3 from "../../assets/js/web3";
 import Contracts from "../../assets/js/contracts";
 const $ = require("jquery");
-import { log } from "util";
 export default {
   name: "Tokenization",
   Contracts: null,
@@ -165,7 +165,7 @@ export default {
             this.producers.push(producer);
           });
           // remove first 0x00 account
-          this.producers.shift();
+         this.producers.shift();
           this.totalProducers = this.producers.length;
           this.getTotalEnergy();
           this.getTotalMintedCoins();

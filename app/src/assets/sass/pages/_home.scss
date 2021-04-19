@@ -1,0 +1,183 @@
+.home {
+  // HERO SECTION
+  &__hero {
+    height: 40vh;
+    background-color: #fff;
+
+    display: flex;
+    justify-content: center;
+    transition: all 0.3s ease-out;
+
+    &--box {
+      height: 40vh;
+      width: 50vw;
+      margin-top: 5rem;
+
+      color: white;
+
+      padding: 2rem 0 4rem 0;
+
+      background-image: linear-gradient(
+          to right bottom,
+          rgba($color-primary-blue, 0.8),
+          rgba($color-primary-green, 0.8)
+        ),
+        url(../../assets/img/browser.png);
+      background-size: cover;
+      background-size: 100% 100%;
+
+      box-shadow: 0 1.5rem 4rem rgba($color-black, 0.3);
+
+      text-align: center;
+      border-radius: 2px;
+    }
+  }
+
+  // STACK SECTION
+  &__stack {
+    padding: 10rem 0 13.5rem 0;
+
+    .wrapper__flex--item {
+      display: flex;
+
+      align-items: center;
+      transition: all 0.3s ease-out;
+
+      background-color: #f1eded;
+      box-shadow: none;
+
+      .item__img {
+        width: 75px;
+        height: 75px;
+        border-radius: 100px;
+      }
+      .item__description {
+        text-align: left;
+        margin-left: 1rem;
+      }
+
+      &:hover {
+        transform: scale(1.05) translateY(-0.5rem);
+        box-shadow: 0 1rem 3rem rgba($color-black, 0.5);
+        z-index: 20;
+      }
+    }
+  }
+
+  // FEATURES SECTION
+  &__features {
+    background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-blue, 0.9),
+        rgba($color-primary-green, 0.9)
+      ),
+      url(../../assets/img/charging-origin.png);
+    background-size: cover;
+    background-size: 100% 100%;
+
+    padding: 7rem 0;
+    margin: 4rem 0;
+    margin-top: -6.4rem;
+
+    transform: skewY(-7deg);
+
+    & > * {
+      transform: skewY(7deg);
+    }
+
+    .wrapper__flex--item {
+      flex: 0 1 20rem;
+
+      transition: all 0.3s ease-out;
+      box-shadow: 2px 20px 50px 0 rgba(0, 0, 0, 0.07);
+
+      &:hover {
+        transform: translateY(-0.5rem);
+      }
+    }
+  }
+
+  // DAPPS SECTION
+  &__dapps {
+    margin-top: 8rem;
+
+    .wrapper__flex--item {
+      margin-top: 3rem;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+
+      .item__bg {
+        position: absolute;
+
+        background-blend-mode: color;
+
+        height: 18rem;
+        width: 100%;
+        background-size: 100% 100%;
+
+        filter: contrast(80%);
+        transition: filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91);
+
+        &:hover {
+          filter: contrast(100%);
+        }
+      }
+
+      .img-1 {
+        background-image: linear-gradient(
+            to right bottom,
+            $color-quaternary-light,
+            $color-quaternary-dark
+          ),
+          url(../../assets/img/browser.png);
+      }
+
+      .img-2 {
+        background-image: linear-gradient(
+            to right bottom,
+            $color-primary-light,
+            $color-primary-dark
+          ),
+          url(../../assets/img/explorer.png);
+      }
+
+      .img-3 {
+        background-image: linear-gradient(
+            to right bottom,
+            $color-tertiary-light,
+            $color-tertiary-dark
+          ),
+          url(../../assets/img/tokenization.png);
+      }
+
+      .img-4 {
+        background-image: linear-gradient(
+            to right bottom,
+            $color-secondary-light,
+            $color-secondary-dark
+          ),
+          url(../../assets/img/asset-logging.png);
+      }
+
+      .img-5 {
+        background-image: linear-gradient(
+            to right bottom,
+            $color-quintic-light,
+            $color-quintic-dark
+          ),
+          url(../../assets/img/charging-origin.png);
+      }
+
+      .item__profile-img {
+        width: 6rem;
+        clip-path: circle(4rem at center);
+        margin-top: 14.7rem;
+      }
+
+      .item__description {
+        padding: 0 1.5rem 1.5rem;
+      }
+    }
+  }
+}

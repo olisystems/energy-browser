@@ -8,13 +8,16 @@
       </label>
       <ul class="menu">
         <li exact tag="li">
-          <router-link to="/">OLI Energy Browser</router-link>
+          <router-link to="/">Home</router-link>
         </li>
         <li exact tag="li">
-          <router-link to="/explorer">OLI Chain Explorer</router-link>
+          <router-link to="/browser">Energy Browser</router-link>
         </li>
         <li exact tag="li">
-          <router-link to="/tokenization">OLI Tokenization</router-link>
+          <router-link to="/explorer">Chain Explorer</router-link>
+        </li>
+        <li exact tag="li">
+          <router-link to="/tokenization">Tokenization</router-link>
         </li>
         <li exact tag="li">
           <router-link to="/logging">Asset Logging</router-link>
@@ -25,14 +28,27 @@
       </ul>
     </div>
     <router-view />
+
+    <Footer />
   </div>
 </template>
 
 <script>
-export default {};
+import Footer from "@/components/footer/Footer.vue";
+export default {
+  components: {
+    Footer,
+  },
+};
 </script>
 
 <style>
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -47,15 +63,17 @@ body {
   font-family: "Open Sans", sans-serif;
   color: #333;
   background-color: #f3f3f3;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   margin: 0;
 }
 
 .header {
-  background-color: #154360;
+  background-image: linear-gradient(to right, #134e5e, #267871);
   width: 100%;
   padding: 0.2rem 0;
+  margin-bottom: 0;
 }
 
 .header ul {

@@ -251,11 +251,10 @@
   </div>
 </template>
 <script>
-// import web3 from "../../assets/js/web3";
+import web3 from "../../assets/js/web3";
 const $ = require("jquery");
 
 import Contracts from "../../assets/js/contracts";
-import { log } from "util";
 import { timeConverter } from "../../assets/js/time-format";
 import L from "leaflet";
 
@@ -375,10 +374,6 @@ export default {
     },
     // producer accounts list
     getConsumerList() {
-      const popupOptions = {
-        maxWidth: "500",
-        className: "currentPro-popup", // classname for another popup
-      };
       this.Contracts.ConsumptionContract.methods
         .getConsAccntsList()
         .call()
@@ -447,7 +442,7 @@ export default {
               this.currentProCord[1];
 
             let currentProIcon = L.icon({
-              iconUrl: "producer.png",
+              iconUrl: "img/producer.png",
               iconSize: [30, 40],
             });
 
@@ -519,7 +514,7 @@ export default {
               this.currentConsCord[1];
 
             let currentConsIcon = L.icon({
-              iconUrl: "consumer.png",
+              iconUrl: "img/consumer.png",
               iconSize: [30, 40],
             });
 
@@ -546,7 +541,7 @@ export default {
       };
       // producer icon
       const producerIcon = L.icon({
-        iconUrl: "producer.png",
+        iconUrl: "img/producer.png",
         iconSize: [50, 60],
       });
       // get event data
@@ -594,7 +589,7 @@ export default {
       };
       // consumer icon
       const consumerIcon = L.icon({
-        iconUrl: "consumer.png",
+        iconUrl: "img/consumer.png",
         iconSize: [50, 60],
       });
       // get event data
@@ -638,7 +633,7 @@ export default {
     initMap() {
       // home marker icon
       var home = L.icon({
-        iconUrl: "home.png",
+        iconUrl: "img/home.png",
         iconSize: [30, 40],
       });
 
