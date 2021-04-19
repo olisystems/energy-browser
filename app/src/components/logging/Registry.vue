@@ -270,6 +270,8 @@ export default {
         })
         .on("error", console.error);
     },
+
+    // watch for flexibility events
     watchFlexibility() {
       this.Contracts.AssetLoggingContract.events
         .NewFlexibility({
@@ -281,6 +283,8 @@ export default {
         })
         .on("error", console.error);
     },
+
+    // get flexibility
     async getFlexibility(assetAddress) {
       const result = await this.Contracts.AssetLoggingContract.methods
         .getFlexibility(assetAddress)
@@ -303,6 +307,7 @@ export default {
       this.dsoPubkey = "";
       this.assetPubkey = "";
     },
+
     getDsoWallet() {
       this.dsoWallet = [];
       this.dsoAddress = event.target.innerHTML;
@@ -328,6 +333,7 @@ export default {
       event.target.classList.add("active-dso");
     },
   },
+
   async created() {
     this.getMetamaskAccount();
     this.Contracts = new Contracts();
