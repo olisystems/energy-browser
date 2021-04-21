@@ -11,19 +11,19 @@
           <router-link to="/">Home</router-link>
         </li>
         <li exact tag="li">
-          <router-link to="/browser">Energy Browser</router-link>
+          <router-link to="/browser" target="_blank">Energy Browser</router-link>
         </li>
         <li exact tag="li">
-          <router-link to="/explorer">Chain Explorer</router-link>
+          <router-link to="/explorer" target="_blank">Chain Explorer</router-link>
         </li>
         <li exact tag="li">
-          <router-link to="/tokenization">Tokenization</router-link>
+          <router-link to="/tokenization" target="_blank">Tokenization</router-link>
         </li>
         <li exact tag="li">
-          <router-link to="/logging">Asset Logging</router-link>
+          <router-link to="/logging" target="_blank">Asset Logging</router-link>
         </li>
         <li exact tag="li">
-          <router-link to="/origin">Charging Origin</router-link>
+          <router-link to="/origin" target="_blank">Charging Origin</router-link>
         </li>
       </ul>
     </div>

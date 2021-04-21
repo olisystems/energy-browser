@@ -270,6 +270,8 @@ export default {
         })
         .on("error", console.error);
     },
+
+    // watch for flexibility events
     watchFlexibility() {
       this.Contracts.AssetLoggingContract.events
         .NewFlexibility({
@@ -281,6 +283,8 @@ export default {
         })
         .on("error", console.error);
     },
+
+    // get flexibility
     async getFlexibility(assetAddress) {
       const result = await this.Contracts.AssetLoggingContract.methods
         .getFlexibility(assetAddress)
@@ -294,15 +298,16 @@ export default {
       // Acccounts now exposed
       this.Contracts.AssetLoggingContract.methods
         .setDsoValue(this.assetPubkey, this.dsoInput)
-        .send({ from: this.dsoPubkey })
-        //.then((receipt) => {
-          //console.log(receipt);
+        .send({ from: this.dsoPubkey });
+      //.then((receipt) => {
+      //console.log(receipt);
       //  });
 
       this.dsoInput = "";
       this.dsoPubkey = "";
       this.assetPubkey = "";
     },
+
     getDsoWallet() {
       this.dsoWallet = [];
       this.dsoAddress = event.target.innerHTML;
@@ -310,7 +315,7 @@ export default {
         fromBlock: 0,
       }).then((events) => {
         events.forEach((event) => {
-          if (this.dsoAddress === event.returnValues[0]) {
+          if (this.dsoAddress.trim() === event.returnValues[0]) {
             this.dsoWallet.unshift({
               assetName: event.returnValues.assetOwner,
               asset: event.returnValues.asset,
@@ -328,6 +333,7 @@ export default {
       event.target.classList.add("active-dso");
     },
   },
+
   async created() {
     this.getMetamaskAccount();
     this.Contracts = new Contracts();
