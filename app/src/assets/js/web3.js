@@ -2,34 +2,36 @@
 import Web3 from "web3";
 
 const VOLTA_NODE = "wss://volta-blockchain.my-oli.com";
-var provider = new Web3.providers.WebsocketProvider(VOLTA_NODE);
-var web3 = new Web3(provider);
+//var provider = new Web3.providers.WebsocketProvider(VOLTA_NODE);
+// var web3 = new Web3("ws://80.158.47.134:7546");
 
-// on connect
-provider.on("connect", () => console.log("WS Connected"));
+ var web3 = new Web3(VOLTA_NODE);
 
-// on error
-provider.on("error", () => {
-  console.log("WS Error");
-  console.log("Attempting to reconnect...");
-  provider = new Web3.providers.WebsocketProvider(VOLTA_NODE);
+// // on connect
+// provider.on("connect", () => console.log("WS Connected"));
 
-  provider.on("connect", () => console.log("WS Re-connected"));
+// // on error
+// provider.on("error", () => {
+//   console.log("WS Error");
+//   console.log("Attempting to reconnect...");
+//   provider = new Web3.providers.WebsocketProvider(VOLTA_NODE);
 
-  web3.setProvider(provider);
-  location.reload();
-});
+//   provider.on("connect", () => console.log("WS Re-connected"));
 
-// on connection close
-provider.on("end", () => {
-  console.log("WS closed");
-  console.log("Attempting to reconnect...");
-  provider = new Web3.providers.WebsocketProvider(VOLTA_NODE);
+//   web3.setProvider(provider);
+//   location.reload();
+// });
 
-  provider.on("connect", () => console.log("WS Re-connected"));
+// // on connection close
+// provider.on("end", () => {
+//   console.log("WS closed");
+//   console.log("Attempting to reconnect...");
+//   provider = new Web3.providers.WebsocketProvider(VOLTA_NODE);
 
-  web3.setProvider(provider);
-  location.reload();
-});
+//   provider.on("connect", () => console.log("WS Re-connected"));
+
+//   web3.setProvider(provider);
+//   location.reload();
+//});
 
 export default web3;
