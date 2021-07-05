@@ -13,7 +13,7 @@ service:
   name: energy-browser-service
 
 ingress:
-  host: energy-browser.my-oli.com
+  host: energy-browser.oli-system.com
   secret: oli-tls
 
 secrets:
