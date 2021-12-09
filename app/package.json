@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "compile:sass": "node-sass public/sass/main.scss public/css/style.css -w"
+    "compile:sass": "node-sass public/sass/main.scss public/css/style.css -w",
+    "sonar": "sonar-scanner"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
@@ -56,6 +57,7 @@
   ],
   "dependencies": {
     "vue": "^2.6.12",
-    "web3": "^1.3.4"
+    "web3": "^1.3.4",
+    "sonar-scanner": "^3.1.0"
   }
 }

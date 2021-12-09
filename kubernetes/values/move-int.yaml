@@ -1,0 +1,27 @@
+app:
+  name: energy-browser
+
+deployment:
+  name: energy-browser-deployment
+  replicas: 1
+
+service:
+  protocol: TCP
+  port: 80
+  targetPort: 80
+  type: ClusterIP
+  name: energy-browser-service
+
+ingress:
+  host: energy-browser.oli-system.com
+  secret: oli-tls
+
+secrets:
+  default: default-secret
+
+docker:
+  img:
+    repo: 100.125.7.25:20202/ws_migration-dev/ws_migration
+    port: 80
+    name: energy-browser
+    tag: 3
