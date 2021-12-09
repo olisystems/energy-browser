@@ -49,30 +49,31 @@ pipeline {
                     yaml """
                     kind: Pod
                     spec:
-                        containers:
-                        -name: kaniko
-                    image: gcr.io / kaniko - project / executor: debug
-                    imagePullPolicy: Always
-                    command:
-                        -sleep
-                    args:
-                        -9999999
-                    tty: true
-                    volumeMounts:
-                        -name: jenkins - docker - cfg
-                    mountPath: /kaniko/.docker
-                    volumes:
-                        -name: jenkins - docker - cfg
-                    projected:
-                        sources:
-                        -secret:
-                        name: default -secret
-                    items:
-                        -key: .dockerconfigjson
-                    path: config.json 
+                      containers:
+                      - name: kaniko
+                        image: gcr.io/kaniko-project/executor:debug
+                        imagePullPolicy: Always
+                        command:
+                        - sleep
+                        args:
+                        - 9999999
+                        tty: true
+                        volumeMounts:
+                          - name: jenkins-docker-cfg
+                            mountPath: /kaniko/.docker
+                      volumes:
+                      - name: jenkins-docker-cfg
+                        projected:
+                          sources:
+                          - secret:
+                              name: default-secret
+                              items:
+                                - key: .dockerconfigjson
+                                  path: config.json
                     """
                 }
             }
+
 
             steps {
                 container(name: 'kaniko', shell: '/busybox/sh') {
