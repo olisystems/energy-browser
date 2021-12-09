@@ -20,8 +20,8 @@ secrets:
   default: default-secret
 
 docker:
-  img:
-    repo: 100.125.7.25:20202/ws_migration-dev/ws_migration
+  img: 
+    repo: 100.125.7.25:20202/oli_move/k8s_move-int
     port: 80
     name: energy-browser
-    tag: 3
+    tag: latest
