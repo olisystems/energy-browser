@@ -46,8 +46,7 @@ pipeline {
 
             agent {
                 kubernetes {
-                    yaml ""
-                    "
+                    yaml """
                     kind: Pod
                     spec:
                         containers:
@@ -70,8 +69,8 @@ pipeline {
                         name: default -secret
                     items:
                         -key: .dockerconfigjson
-                    path: config.json ""
-                    "
+                    path: config.json 
+                    """
                 }
             }
 
@@ -80,20 +79,10 @@ pipeline {
                     unstash 'build'
                     withCredentials(bindings: [usernamePassword(credentialsId: DOCKER_REGISTRY_CRED_ID,
                         usernameVariable: 'DOCKER_REGISTRY_USERNAME', passwordVariable: 'DOCKER_REGISTRY_PASSWORD')]) {
-                        sh ''
-                        '#!/busybox/sh -
-                        echo "{\"auths\":{\"swr.eu-de.otc.t-systems.com\":{\"auth\":\"$(printf " % s: % s " "
-                        $ {
-                            DOCKER_REGISTRY_USERNAME
-                        }
-                        " "
-                        $ {
-                            DOCKER_REGISTRY_PASSWORD
-                        }
-                        " | base64 | tr -d '\n')\"}}}" > /kaniko/.docker / config.json /
-                            kaniko / executor--context `pwd`--dockerfile. / docker / Dockerfile--destination "${docker_tag}"
-                        ''
-                        '
+                            sh '''#!/busybox/sh
+                            - echo "{\"auths\":{\"swr.eu-de.otc.t-systems.com\":{\"auth\":\"$(printf "%s:%s" "${DOCKER_REGISTRY_USERNAME}" "${DOCKER_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+                            /kaniko/executor --context `pwd` --dockerfile ./docker/Dockerfile  --destination "${docker_tag}"
+                            '''
                     }
                 }
             }
@@ -154,7 +143,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             sh "cd app && rm -rf node_modules"
